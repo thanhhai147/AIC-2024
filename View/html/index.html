@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primary AI - MVRS</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <div id="container">
+        <div id="tool-bar">
+            <div id="logo-container"></div>
+            <div class="label-container">
+                <p class="h1-text">Query</p>
+                <img id="query-visibility-icon" class="visibility-icon" src="../assets/icon/down.png" />
+            </div>
+            <div id="query-container">
+                <div id="text-query-container">
+                    <input id="text-query" class="normal-text" name="text-query" type="text" placeholder="Textual KIS Search" />
+                </div>
+                <div id="limit-query-container">
+                    <input id="limit-query" class="normal-text" name="limit-query" type="number" min=0 placeholder="Top K" />
+                </div>
+            </div>
+            <div class="label-container">
+                <p class="h1-text">Filter</p>
+                <img id="filter-visibility-icon" class="visibility-icon" src="../assets/icon/down.png" />
+            </div>
+            <div id="filter-container">
+                <div id="ocr-filter-container">
+                    <input id="ocr-filter" class="normal-text" name="ocr-filter" type="text" placeholder="Optical Character Recognition" />
+                    <div id="ocr-filter-list" class="normal-text"></div>
+                </div>
+                <div id="obj-filter-container">
+                    <input id="obj-filter" class="normal-text" name="obj-filter" type="text" placeholder="Object Detection" />
+                    <div id="obj-filter-list" class="normal-text"></div>
+                </div>
+                <div id="space-filter-container">
+                    <input id="space-filter" class="normal-text" name="space-filter" type="text" placeholder="Visual Space Recognition" />
+                    <div id="space-filter-list" class="normal-text"></div>
+                </div>
+            </div>
+            <div id="submit-container">
+                <button id="submit-btn" class="normal-text">Submit</button>
+            </div>
+        </div>
+        <div id="multiple-results">
+
+        </div>
+        <div id="single-result">
+
+        </div>
+    </div>
+</body>
+<script src="../js/index.js"></script>
+</html>
