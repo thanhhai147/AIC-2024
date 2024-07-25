@@ -125,6 +125,15 @@
     width: 24%;
 }
 
+.scroll-box {
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+}
+
+.scroll-box::-webkit-scrollbar {
+    display: none;
+}
+
 #ocr-filter {
     width: 100%;
     padding: var(--padding-normal);
@@ -137,11 +146,27 @@
 #ocr-filter-list {
     width: 100%;
     min-height: 100px;
+    max-height: 100px;
     margin-top: 8px;
     padding: var(--padding-normal);
     border: 1px solid var(--primary-color-1);
     border-radius: var(--normal-border-radius);
     background-color: var(--background-color-2);
+    display: flex;
+    flex-direction: column;
+}
+
+.ocr-filter-item {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    word-break: break-all;
+}
+
+.ocr-filter-item-cancel {
+    width: calc(var(--normal-font-size) - 2px);
+    margin-left: 4px;
 }
 
 #obj-filter {
@@ -156,6 +181,7 @@
 #obj-filter-list {
     width: 100%;
     min-height: 100px;
+    max-height: 100px;
     margin-top: 8px;
     padding: var(--padding-normal);
     border: 1px solid var(--primary-color-1);
@@ -175,6 +201,7 @@
 #color-filter-list {
     width: 100%;
     min-height: 100px;
+    max-height: 100px;
     margin-top: 8px;
     padding: var(--padding-normal);
     border: 1px solid var(--primary-color-1);
@@ -194,6 +221,7 @@
 #space-filter-list {
     width: 100%;
     min-height: 100px;
+    max-height: 100px;
     margin-top: 8px;
     padding: var(--padding-normal);
     border: 1px solid var(--primary-color-1);
