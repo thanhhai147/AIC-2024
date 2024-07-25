@@ -31,11 +31,18 @@
             </div>
             <div id="filter-container">
                 <div id="ocr-filter-container">
-                    <input id="ocr-filter" class="normal-text" name="ocr-filter" type="text" placeholder="Optical Character Recognition" />
+                    <div id="ocr-search-bar-container">
+                        <input id="ocr-filter" class="normal-text" name="ocr-filter" type="text" placeholder="Optical Character Recognition" />
+                        <img id="ocr-filter-clear" src="../assets/icon/clear.png" />
+                    </div>
                     <div id="ocr-filter-list" class="normal-text scroll-box"></div>
                 </div>
                 <div id="obj-filter-container">
-                    <input id="obj-filter" class="normal-text" name="obj-filter" type="text" placeholder="Object Detection" />
+                    <div id="obj-search-bar-container">
+                        <input id="obj-filter" class="normal-text" name="obj-filter" type="text" placeholder="Object Detection" />
+                        <img id="obj-filter-only" src="../assets/icon/click.png" />
+                        <img id="obj-filter-clear" src="../assets/icon/clear.png" />
+                    </div>
                     <div id="obj-filter-list" class="normal-text scroll-box"></div>
                 </div>
                 <div id="color-filter-container">
@@ -57,4 +64,6 @@
     </div>
 </body>
 <script src="../js/index.js"></script>
+<script src="../js/handleOCR.js"></script>
+<script src="../js/handleObjectDetection.js"></script>
 </html>
