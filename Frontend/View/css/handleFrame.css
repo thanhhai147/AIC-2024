@@ -1,0 +1,36 @@
+#multiple-results {
+    margin-top: var(--margin-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#frame-list-container {
+    display: grid;
+    column-gap: 12px;
+    row-gap: 12px;
+    grid-template-columns: auto auto auto auto auto auto;
+}
+.frame-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+.frame {
+    width: 15vw;
+    border: 2px solid var(--primary-color-2);
+    border-radius: var(--light-border-radius);
+}
+.frame-info {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    background-color: var(--background-color-2);
+    padding: 4px;
+    border-radius: var(--light-border-radius);
+    opacity: 50%;
+}
+.frame-container:hover .frame-info {
+    opacity: 100%;
+}
