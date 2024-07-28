@@ -178,6 +178,7 @@
 #ocr-filter-clear {
     width: 24px;
     margin-left: 4px;
+    cursor: pointer;
 }
 
 #obj-filter {
@@ -198,11 +199,13 @@
 #obj-filter-only {
     width: 24px;
     margin-left: 4px;
+    cursor: pointer;
 }
 
 #obj-filter-clear {
     width: 24px;
     margin-left: 4px;
+    cursor: pointer;
 }
 
 #obj-filter-list {
