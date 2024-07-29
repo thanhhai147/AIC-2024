@@ -19,6 +19,15 @@
                 <div id="text-query-container">
                     <input id="text-query" class="normal-text" name="text-query" type="text" placeholder="Textual KIS Search" />
                 </div>
+                <div id="folder-query-container">
+                    <input id="folder-query" class="normal-text" name="folder-query" type="text" placeholder="Folder ID" />
+                </div>
+                <div id="video-query-container">
+                    <input id="video-query" class="normal-text" name="video-query" type="text" placeholder="Video ID" />
+                </div>
+                <div id="keyframe-query-container">
+                    <input id="keyframe-query" class="normal-text" name="keyframe-query" type="text" placeholder="Keyframe ID" />
+                </div>
                 <div id="limit-query-container">
                     <input id="limit-query" class="normal-text" name="limit-query" type="number" min=0 placeholder="Top K" />
                 </div>
@@ -65,9 +74,10 @@
         </div>
     </div>
 </body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="../js/index.js"></script>
 <script src="../js/handleOCR.js"></script>
 <script src="../js/handleObjectDetection.js"></script>
 <script src="../js/handleFrame.js"></script>
-<script src="../../Src/handleQuery.js"></script>
+<script src="../../Src/handleQuery.js" type="module"></script>
 </html>
