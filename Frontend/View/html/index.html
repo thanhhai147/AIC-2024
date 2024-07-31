@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
     <title>Primary AI - MVRS</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/handleFrame.css">
+    <link rel="stylesheet" href="../css/handleSingleFrameResult.css">
 </head>
 <body>
     <div id="container">
@@ -18,15 +22,6 @@
             <div id="query-container">
                 <div id="text-query-container">
                     <input id="text-query" class="normal-text" name="text-query" type="text" placeholder="Textual KIS Search" />
-                </div>
-                <div id="folder-query-container">
-                    <input id="folder-query" class="normal-text" name="folder-query" type="text" placeholder="Folder ID" />
-                </div>
-                <div id="video-query-container">
-                    <input id="video-query" class="normal-text" name="video-query" type="text" placeholder="Video ID" />
-                </div>
-                <div id="keyframe-query-container">
-                    <input id="keyframe-query" class="normal-text" name="keyframe-query" type="text" placeholder="Keyframe ID" />
                 </div>
                 <div id="limit-query-container">
                     <input id="limit-query" class="normal-text" name="limit-query" type="number" min=0 placeholder="Top K" />
@@ -69,15 +64,57 @@
             <div id="frame-list-container">
             </div>
         </div>
-        <div id="single-result">
-
+        <div id="single-result" style="display: none;">
+            <div id="single-result-icon-container">
+                <img id="single-result-cancel" src="../assets/icon/cancel.png" />
+            </div>
+            <div id="single-frame-container"></div>
+            <div id="single-frame-info-container">
+                <div class="single-frame-info-sub-container">
+                    <div class="label-container">
+                        <p class="h1-text">Id</p>
+                    </div>
+                    <div id="single-frame-id" class="h3-text"></div>
+                </div>
+                <div class="single-frame-info-sub-container">
+                    <div class="label-container">
+                        <p class="h1-text">Score</p>
+                    </div>
+                    <div id="single-frame-score" class="h3-text"></div>
+                </div>
+                <div class="single-frame-info-sub-container">
+                    <div class="label-container">
+                        <p class="h1-text">OCR</p>
+                    </div>
+                    <div id="single-frame-ocr" class="h3-text"></div>
+                </div>
+                <div class="single-frame-info-sub-container">
+                    <div class="label-container">
+                        <p class="h1-text">Object Detection</p>
+                    </div>
+                    <div id="single-frame-object" class="h3-text"></div>
+                </div>
+                <div class="single-frame-info-sub-container">
+                    <div class="label-container">
+                        <p class="h1-text">Color Feature</p>
+                    </div>
+                    <div id="single-frame-color" class="h3-text"></div>
+                </div>
+                <div class="single-frame-info-sub-container">
+                    <div class="label-container">
+                        <p class="h1-text">Visual Space Recognition</p>
+                    </div>
+                    <div id="single-frame-space" class="h3-text"></div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script async src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script async src="../js/index.js"></script>
+    <script async src="../js/handleOCR.js"></script>
+    <script async src="../js/handleObjectDetection.js"></script>
+    <script async src="../js/handleFrame.js" type="module"></script>
+    <script async src="../../Src/handleQuery.js" type="module"></script>
 </body>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="../js/index.js"></script>
-<script src="../js/handleOCR.js"></script>
-<script src="../js/handleObjectDetection.js"></script>
-<script src="../js/handleFrame.js"></script>
-<script src="../../Src/handleQuery.js" type="module"></script>
 </html>
