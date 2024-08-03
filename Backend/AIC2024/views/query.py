@@ -25,6 +25,7 @@ class QueryAPIView(GenericAPIView):
         query_search_text = params['text']
         limit = params['limit']
 
+        print(translate(query_search_text))
         idx_image, scores = search_textual_query(translate(query_search_text), limit)
 
         with open('D:/AIC 2024/AIC-2024/Dataset/2024/output.json') as json_file:

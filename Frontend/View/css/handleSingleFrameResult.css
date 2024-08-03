@@ -33,3 +33,10 @@
     margin-left: auto;
     cursor: pointer;
 }
+#single-frame-obj {
+    display: flex;
+    flex-direction: column;
+}
+.single-frame-obj-item {
+    margin-bottom: 4px;
+}
