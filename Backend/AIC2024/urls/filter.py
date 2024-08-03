@@ -1,3 +1,7 @@
 from django.urls import path
 
-urlpatterns = []
+from ..views.filter import FilterByObjectDetectionAPIView
+
+urlpatterns = [
+    path('filter-by-object-detection', FilterByObjectDetectionAPIView.as_view(), name='filter'),
+]
