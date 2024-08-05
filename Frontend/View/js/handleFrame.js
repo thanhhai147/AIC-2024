@@ -18,7 +18,6 @@ class HandleFrame {
         frameContainer.appendChild(frame)
 
         idContainer.innerHTML = `${folderId}-${videoId}-${frameId}`
-        console.log(objectDetection)
         objectDetection.forEach(obj => {
             let objectDisplay = document.createElement("span")
             objectDisplay.setAttribute('class', 'single-frame-obj-item')

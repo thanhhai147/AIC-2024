@@ -41,12 +41,13 @@ class QueryAPIView(GenericAPIView):
             synthetic_id_list.append(f'{folder_id}_{video_id}_{frame_id}')
         
         records = FD.filterFrameBySyntheticId(synthetic_id_list)
-        image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition =  DB_utils.handleRecords(records)
+        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition =  DB_utils.handleRecords(records)
         
         cache.clear()
         return Response(
             {
                 "success": True,
+                "syntheticId": synthetic_id,
                 "imagePath": image_path,
                 "frameInfo": record_frame_info,
                 "ocr": record_ocr,

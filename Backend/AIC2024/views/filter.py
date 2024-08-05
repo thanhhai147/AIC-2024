@@ -19,15 +19,96 @@ class FilterByObjectDetectionAPIView(GenericAPIView):
         synthetic_id_list = body['syntheticId']
         object_detection = body['objectDetection']
 
+        if(len(synthetic_id_list) == 0 or len(object_detection) == 0):
+            return Response(
+                {
+                    "success": False
+                },
+                status=status.HTTP_200_OK,
+                content_type="application/json"
+            )
+
         records = FD.filterFrameByObjectDetection(synthetic_id_list, object_detection)
 
         cache.clear()
         
-        image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition =  DB_utils.handleRecords(records)
+        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition =  DB_utils.handleRecords(records)
         
         return Response(
             {
                 "success": True,
+                "syntheticId": synthetic_id,
+                "imagePath": image_path,
+                "frameInfo": record_frame_info,
+                "ocr": record_ocr,
+                "objectDetection": record_object_detection,
+                "colorFeature": record_color_feature,
+                "spaceRecognition": record_space_recognition
+            }, 
+            status=status.HTTP_200_OK,
+            content_type="application/json"
+        )
+    
+class FilterByOCRAPIView(GenericAPIView):
+    def post(self, request):
+        body = request.data
+        synthetic_id_list = body['syntheticId']
+        ocr = body['ocr']
+
+        if(len(synthetic_id_list) == 0 or len(ocr) == 0):
+            return Response(
+                {
+                    "success": False
+                },
+                status=status.HTTP_200_OK,
+                content_type="application/json"
+            )
+
+        records = FD.filterFrameByOCR(synthetic_id_list, ocr)
+
+        cache.clear()
+        
+        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition =  DB_utils.handleRecords(records)
+        
+        return Response(
+            {
+                "success": True,
+                "syntheticId": synthetic_id,
+                "imagePath": image_path,
+                "frameInfo": record_frame_info,
+                "ocr": record_ocr,
+                "objectDetection": record_object_detection,
+                "colorFeature": record_color_feature,
+                "spaceRecognition": record_space_recognition
+            }, 
+            status=status.HTTP_200_OK,
+            content_type="application/json"
+        )
+
+class FilterByIdAPIView(GenericAPIView):
+    def post(self, request):
+        body = request.data
+        synthetic_id_list = body['syntheticId']
+
+        if(len(synthetic_id_list) == 0):
+            return Response(
+                {
+                    "success": False
+                },
+                status=status.HTTP_200_OK,
+                content_type="application/json"
+            )
+
+        records = FD.filterFrameBySyntheticId(synthetic_id_list)
+
+        cache.clear()
+        
+        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition =  DB_utils.handleRecords(records)
+        
+        return Response(
+            {
+                "success": True,
+                "syntheticId": synthetic_id,
                 "imagePath": image_path,
                 "frameInfo": record_frame_info,
                 "ocr": record_ocr,

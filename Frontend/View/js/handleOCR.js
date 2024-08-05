@@ -5,13 +5,15 @@ let objIdx = 0
 
 let OCRList = document.getElementById("ocr-filter-list")
 
-let OCRCancelHandle = (e, cancelIdx, OCRChild) => {
-    delete OCRObject[cancelIdx]
+let OCRCancelHandle = (e, OCRChild) => {
+    delete OCRObject[OCRChild.id.split("-")[2]]
     OCRList.removeChild(OCRChild)
+    console.log(OCRObject)
 }
 
 OCRInput.addEventListener("keypress", e => {
     if(e.key === "Enter") {
+        if (OCRInput.value === "" || OCRInput.value === undefined || OCRInput.value === null || OCRInput.value.trim() === "") return
         OCRObject[objIdx] = OCRInput.value
 
         let newOCRChild = document.createElement('span')
@@ -24,7 +26,7 @@ OCRInput.addEventListener("keypress", e => {
         newOCRCancel.setAttribute('class', 'ocr-filter-item-cancel')
         newOCRCancel.setAttribute('src', '../assets/icon/cancel.png')
 
-        newOCRCancel.addEventListener('click', e => OCRCancelHandle(e, objIdx, newOCRChild))
+        newOCRCancel.addEventListener('click', e => OCRCancelHandle(e, newOCRChild))
 
         newOCRChild.appendChild(newOCRCancel)
         OCRList.appendChild(newOCRChild)
@@ -41,3 +43,5 @@ OCRClear.addEventListener('click', e => {
         OCRList.removeChild(OCRList.lastChild)
     }
 })
+
+export default OCRObject

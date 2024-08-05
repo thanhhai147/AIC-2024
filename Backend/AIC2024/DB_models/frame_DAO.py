@@ -13,34 +13,8 @@ class FrameDAO:
         self.db = db
         self.collection = collection
 
-    def process_frame(self, frame_info, ocr=[], object_detection=[], color_feature=[], space_recognition=[]):
-        processed_obj_detection = []
-
-        for label, statistics in object_detection.items():
-            processed_obj_detection.append({
-                "Label": label,
-                "Quantity": statistics[0],
-                "Proportion": statistics[1]
-            })
-
-        insert_frame = {
-            "SyntheticId": frame_info['FolderId'] + "_" + frame_info['VideoId'] + "_" + frame_info['FrameId'], 
-            "FrameInfo": {
-                "FolderId": frame_info['FolderId'],
-                "VideoId": frame_info['VideoId'],
-                "FrameId": frame_info['FrameId']
-            },
-            "OCR": ocr,
-            "ObjectDetection": processed_obj_detection,
-            "ColorFeature": color_feature,
-            "SpaceRecognition": space_recognition
-        }
-        return insert_frame
-
-    def insertSingleFrame(self, frame_info, ocr=[], object_detection=[], color_feature=[], space_recognition=[]):
-        insert_frame = self.process_frame(frame_info, ocr, object_detection, color_feature, space_recognition)
-    
-        inserted_id = self.collection.insert_one(insert_frame)
+    def insertSingleFrame(self, frame):
+        inserted_id = self.collection.insert_one(frame)
         return inserted_id
     
     def insertMultipleFrame(self, frame_info_list, ocr_list=[], object_detection_list=[], color_feature_list=[], space_recognition_list=[]):
@@ -51,9 +25,7 @@ class FrameDAO:
         return inserted_id
     
     def filterFrameByObjectDetection(self, synthetic_id_list, object_detection):
-
         object_detection_query = []
-
         for object in object_detection:
 
             object_query = {
@@ -74,8 +46,8 @@ class FrameDAO:
             if not object_query["ObjectDetection"]["$elemMatch"]["Quantity"]: object_query["ObjectDetection"]["$elemMatch"].pop("Quantity")
             if not object_query["ObjectDetection"]["$elemMatch"]["Proportion"]: object_query["ObjectDetection"]["$elemMatch"].pop("Proportion")
             
-            object_detection_query.append(object_query)
-        
+            object_detection_query.append(object_query) 
+
         query = {
             "$and": [
                 {
@@ -88,7 +60,6 @@ class FrameDAO:
                 }
             ]
         }
-  
         return self.collection.find(query)
     
     def filterFrameBySyntheticId(self, synthetic_id_list):
@@ -98,3 +69,20 @@ class FrameDAO:
             }
         }
         return self.collection.find(query)
+    
+    def filterFrameByOCR(self, synthetic_id_list, ocr):
+        query = {
+            "$and": [
+                {
+                    "SyntheticId": {
+                        "$in": synthetic_id_list
+                    }
+                },
+                {
+                    "$text": {
+                        "$search": ocr
+                    }
+                }
+            ]
+        }
+        return self.collection.find(query).sort( { "score": { "$meta": "textScore" } } )
