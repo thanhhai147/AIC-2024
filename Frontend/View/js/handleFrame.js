@@ -1,3 +1,5 @@
+import { addRelevanceFrame } from "./handleRelevance.js"
+
 class HandleFrame {
     static loadDetailFrame(folderId, videoId, frameId, objectDetection, ocr) {
         let singleResultContainer = document.getElementById("single-result")
@@ -74,7 +76,7 @@ class HandleFrame {
             let videoId = paramPath[paramPathLength - 2]
             let folderId = paramPath[paramPathLength - 3]
 
-            frameContainer.addEventListener("click", e => {
+            frame.addEventListener("click", e => {
                 this.loadDetailFrame(folderId, videoId, frameId, objectDetection[idx], ocr[idx])
             })
 
@@ -82,8 +84,93 @@ class HandleFrame {
             info.setAttribute("class", "frame-info normal-text")
             info.innerHTML = `${folderId}-${videoId}-${frameId}`
 
+            let relevanceAdd = document.createElement("span")
+            relevanceAdd.setAttribute("class", "frame-relevance-add")
+            relevanceAdd.innerHTML = "+"
+            relevanceAdd.addEventListener("click", e => {
+                addRelevanceFrame(e, `${folderId}-${videoId}-${frameId}`)
+            })
+
             frameContainer.appendChild(frame)
             frameContainer.appendChild(info)
+            frameContainer.appendChild(relevanceAdd)
+            frameList.appendChild(frameContainer)
+        })
+    }
+
+    static loadRelevanceDetailFrame(folderId, videoId, frameId, objectDetection, ocr) {
+        let frameContainer = document.getElementById("relevance-single-frame-container")
+        let idContainer = document.getElementById("relevance-single-frame-id")
+        let ocrContainer = document.getElementById("relevance-single-frame-ocr")
+        let objContainer = document.getElementById("relevance-single-frame-obj")
+        let colorContainer = document.getElementById("relevance-single-frame-color")
+        let spaceContainer = document.getElementById("relevance-single-frame-space")
+
+        let frame = document.createElement("img")
+        frame.setAttribute("class", "single-frame")
+        frame.setAttribute("src", `/Dataset/2024/KeyFrame/${folderId}/${videoId}/${frameId}.jpg`)
+        if(frameContainer.firstChild) {
+            frameContainer.removeChild(frameContainer.firstChild)
+        }
+        frameContainer.appendChild(frame)
+
+        idContainer.innerHTML = `${folderId}-${videoId}-${frameId}`
+
+        while(objContainer.lastChild) objContainer.removeChild(objContainer.lastChild)
+        objectDetection.forEach(obj => {
+            let objectDisplay = document.createElement("span")
+            objectDisplay.setAttribute('class', 'single-frame-obj-item')
+            objectDisplay.innerHTML = `${obj['Label']} - ${obj['Quantity']} - ${Number(obj['Proportion'].toFixed(2))}`
+            objContainer.appendChild(objectDisplay)
+        })
+
+        while(ocrContainer.lastChild) ocrContainer.removeChild(ocrContainer.lastChild)
+        let ocrDisplay = document.createElement("span")
+        ocrDisplay.setAttribute('class', 'single-frame-ocr-item')
+        ocrDisplay.innerHTML = ocr
+        ocrContainer.appendChild(ocrDisplay)
+    }
+
+    static loadRelevanceFrame(imgPath, objectDetection, ocr) {
+        let multipleResultContainer = document.getElementById("relevance-multiple-results-container")
+        let frameList = document.getElementById("relevance-frame-list-container")
+        
+        frameList.remove()
+        frameList = document.createElement("div")
+        frameList.setAttribute("id", "relevance-frame-list-container")
+        multipleResultContainer.appendChild(frameList)
+
+        imgPath.forEach((path, idx) => {
+            let frameContainer = document.createElement("div")
+
+            frameContainer.setAttribute("class", "frame-container")
+
+            let frame = document.createElement("img")
+            frame.setAttribute("class", "frame")
+            // frame.setAttribute("loading", "lazy")
+            // frame.setAttribute("decoding", "asynchronous")
+            frame.setAttribute("src", path)
+            let paramPath = path.split("\\")
+            let paramPathLength = paramPath.length
+            let frameId = paramPath[paramPathLength - 1].split(".")[0]
+            let videoId = paramPath[paramPathLength - 2]
+            let folderId = paramPath[paramPathLength - 3]
+
+            frame.addEventListener("click", e => {
+                this.loadRelevanceDetailFrame(folderId, videoId, frameId, objectDetection[idx], ocr[idx])
+            })
+
+            let info = document.createElement("span")
+            info.setAttribute("class", "frame-info normal-text")
+            info.innerHTML = `${folderId}-${videoId}-${frameId}`
+
+            let relevanceAdd = document.createElement("span")
+            relevanceAdd.setAttribute("class", "frame-relevance-add")
+            relevanceAdd.innerHTML = "+"
+
+            frameContainer.appendChild(frame)
+            frameContainer.appendChild(info)
+            frameContainer.appendChild(relevanceAdd)
             frameList.appendChild(frameContainer)
         })
     }

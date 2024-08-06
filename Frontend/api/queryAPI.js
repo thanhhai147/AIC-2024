@@ -8,6 +8,23 @@ class QueryAPI {
             }
         )
     }
+
+    static queryRelevance(relevanceQuery, limitQuery) {
+        return fetch(
+            `http://localhost:8000/query-relevance`, 
+            {
+                method: "POST",
+                mode: "cors",
+                headers: { 
+                    "Content-type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify({
+                    relevanceQuery: relevanceQuery,
+                    limit: limitQuery
+                })
+            }
+        )
+    }
 }
 
 export default QueryAPI

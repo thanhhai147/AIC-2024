@@ -1,0 +1,31 @@
+.relevance-image-info {
+    background-color: var(--primary-color-1);
+    color: var(--primary-color-2);
+    padding: 4px;
+    border-radius: var(--light-border-radius);
+    margin-left: 4px;
+    display: inline;
+    cursor: pointer;
+}
+
+#image-relevance {
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+#image-relevance::-webkit-scrollbar {
+    display: none;
+}
+
+#relevance-result-container {
+    position: absolute;
+    background-color: var(--background-color-1);
+    width: 50vw;
+    height: 100vh;
+    border-radius: var(--normal-border-radius);
+    padding: 34px;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}

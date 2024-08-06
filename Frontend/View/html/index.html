@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/handleFrame.css">
     <link rel="stylesheet" href="../css/handleSingleFrameResult.css">
+    <link rel="stylesheet" href="../css/handleRelevanceFeedback.css">
 </head>
 <body>
     <div id="container">
@@ -27,7 +28,30 @@
                     <input id="limit-query" class="normal-text" name="limit-query" type="number" min=0 placeholder="Top K" />
                 </div>
                 <div id="submit-container">
-                    <button id="submit-btn" class="normal-text">Submit</button>
+                    <button id="submit-btn" class="submit-btn normal-text">Submit</button>
+                </div>
+            </div>
+            <div id="relevance-container">
+                <div id="text-relevance-container">
+                    <input id="text-relevance" class="normal-text" name="text-relevance" type="text" placeholder="Textual Relevance Feedback" />
+                </div>
+                <div id="image-relevance-container">
+                    <div id="image-relevance" class="normal-text">
+                        <span id="image-relevance-placeholder">Image Relevance Feedback</span>
+                    </div>
+                </div>
+                <div id="proportion-relevance-container">
+                    <span class="normal-text">Text</span>
+                    <span id="text-relevance-proportion" class="show-relevance-proportion normal-text">50</span>
+                    <input id="proportion-relevance" class="normal-text" name="proportion-relevance" type="range" />
+                    <span id="image-relevance-proportion" class="show-relevance-proportion normal-text">50</span>
+                    <span class="normal-text">Image</span>
+                </div>
+                <div id="limit-relevance-container">
+                    <input id="limit-relevance" class="normal-text" name="limit-relevance" type="number" min=0 placeholder="Top K" />
+                </div>
+                <div id="submit-container">
+                    <button id="relevance-submit-btn" class="submit-btn normal-text">Submit</button>
                 </div>
             </div>
             <div class="label-container" id="filter-label-container">
@@ -106,6 +130,12 @@
         </div>
     </div>
 
+    <div id="relevance-result-container" style="display: block;">
+        <div id="relevance-multiple-results-container">
+            <div id="relevance-frame-list-container"></div>
+        </div>
+    </div>
+
     <script async src="../js/index.js"></script>
     <script async src="../js/handleOCR.js" type="module"></script>
     <script async src="../js/handleObjectDetection.js" type="module"></script>
@@ -113,5 +143,7 @@
     <script async src="../../Src/handleQuery.js" type="module"></script>
     <script async src="../../Src/handleObjectDetectionFilter.js" type="module"></script>
     <script async src="../../Src/handleOCRFilter.js" type="module"></script>
+    <script async src="../js/handleRelevance.js" type="module"></script>
+    <script async src="../../Src/handleRelevanceFeedback.js" type="module"></script>
 </body>
 </html>
