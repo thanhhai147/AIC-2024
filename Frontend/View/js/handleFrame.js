@@ -1,5 +1,5 @@
 class HandleFrame {
-    static loadDetailFrame(folderId, videoId, frameId, objectDetection) {
+    static loadDetailFrame(folderId, videoId, frameId, objectDetection, ocr) {
         let singleResultContainer = document.getElementById("single-result")
         
         let frameContainer = document.getElementById("single-frame-container")
@@ -18,12 +18,21 @@ class HandleFrame {
         frameContainer.appendChild(frame)
 
         idContainer.innerHTML = `${folderId}-${videoId}-${frameId}`
+
+        while(objContainer.lastChild) objContainer.removeChild(objContainer.lastChild)
         objectDetection.forEach(obj => {
             let objectDisplay = document.createElement("span")
             objectDisplay.setAttribute('class', 'single-frame-obj-item')
             objectDisplay.innerHTML = `${obj['Label']} - ${obj['Quantity']} - ${Number(obj['Proportion'].toFixed(2))}`
             objContainer.appendChild(objectDisplay)
         })
+
+        while(ocrContainer.lastChild) ocrContainer.removeChild(ocrContainer.lastChild)
+        let ocrDisplay = document.createElement("span")
+        ocrDisplay.setAttribute('class', 'single-frame-ocr-item')
+        ocrDisplay.innerHTML = ocr
+        ocrContainer.appendChild(ocrDisplay)
+        
 
         let multipleResultContainer = document.getElementById("multiple-results")
         let toolbar = document.getElementById('tool-bar')
@@ -40,7 +49,7 @@ class HandleFrame {
         singleResultContainer.style.display = 'block'
     }
 
-    static loadFrame(imgPath, objectDetection) {
+    static loadFrame(imgPath, objectDetection, ocr) {
         let multipleResultContainer = document.getElementById("multiple-results")
         let frameList = document.getElementById("frame-list-container")
         
@@ -66,7 +75,7 @@ class HandleFrame {
             let folderId = paramPath[paramPathLength - 3]
 
             frameContainer.addEventListener("click", e => {
-                this.loadDetailFrame(folderId, videoId, frameId, objectDetection[idx])
+                this.loadDetailFrame(folderId, videoId, frameId, objectDetection[idx], ocr[idx])
             })
 
             let info = document.createElement("span")

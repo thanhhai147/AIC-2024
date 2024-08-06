@@ -1,7 +1,7 @@
 #single-result {
     position: fixed;
     background-color: var(--background-color-1);
-    width: 1200px;
+    width: 1400px;
     border-radius: var(--normal-border-radius);
     padding: 34px;
     top: 50%;
@@ -16,6 +16,9 @@
     align-items: flex-start;
     justify-content: space-between;
     margin-top: var(--margin-normal);
+}
+.single-frame-info-sub-container {
+    width: 18%;
 }
 #single-frame-container {
     text-align: center;

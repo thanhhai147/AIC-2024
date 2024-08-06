@@ -1,84 +1,84 @@
 let objectLabels = [
-    'person_person',
-    'traffic_bicycle',
-    'traffic_car',
-    'traffic_motorcycle',
-    'traffic_airplane',
-    'traffic_bus',
-    'traffic_train',
-    'traffic_truck',
-    'traffic_boat',
-    'traffic_traffic light',
-    'traffic_fire hydrant',
-    'traffic_stop sign',
-    'traffic_parking meter',
-    'animal_bird',
-    'animal_cat',
-    'animal_dog',
-    'animal_horse',
-    'animal_sheep',
-    'animal_cow',
-    'animal_elephant',
-    'animal_bear',
-    'animal_zebra',
-    'animal_giraffe',
-    'accessories_backpack',
-    'accessories_umbrella',
-    'accessories_handbag',
-    'accessories_tie',
-    'accessories_suitcase',
-    'sport tools_frisbee',
-    'sport tools_skis',
-    'sport tools_snowboard',
-    'sport tools_sports ball',
-    'sport tools_kite',
-    'sport tools_baseball bat',
-    'sport tools_baseball glove',
-    'sport tools_skateboard',
-    'sport tools_surfboard',
-    'sport tools_tennis racket',
-    'utensils_bottle',
-    'utensils_wine glass',
-    'utensils_cup',
-    'utensils_fork',
-    'utensils_knife',
-    'utensils_spoon',
-    'utensils_bowl',
-    'food_banana',
-    'food_apple',
-    'food_sandwich',
-    'food_orange',
-    'food_broccoli',
-    'food_carrot',
-    'food_hotdog',
-    'food_pizza',
-    'food_donut',
-    'food_cake',
-    'furniture_bench',
-    'furniture_chair',
-    'furniture_couch',
-    'furniture_potted plant',
-    'furniture_bed',
-    'furniture_dining table',
-    'furniture_toilet',
-    'furniture_book',
-    'furniture_clock',
-    'furniture_vase',
-    'furniture_teddy bear',
-    'tech_tv',
-    'tech_laptop',
-    'tech_mouse',
-    'tech_remote',
-    'tech_keyboard',
-    'tech_cell phone',
-    'kitchen_microwave',
-    'kitchen_oven',
-    'kitchen_toaster',
-    'kitchen_sink',
-    'kitchen_refrigerator',
-    'kitchen_scissors',
-    'personal care_hair drier',
-    'personal care_toothbrush'
+    'person_person_0',
+    'traffic_bicycle_1',
+    'traffic_car_2',
+    'traffic_motorcycle_3',
+    'traffic_airplane_4',
+    'traffic_bus_5',
+    'traffic_train_6',
+    'traffic_truck_7',
+    'traffic_boat_8',
+    'traffic_traffic light_9',
+    'traffic_fire hydrant_10',
+    'traffic_stop sign_11',
+    'traffic_parking meter_12',
+    'animal_bird_13',
+    'animal_cat_14',
+    'animal_dog_15',
+    'animal_horse_16',
+    'animal_sheep_17',
+    'animal_cow_18',
+    'animal_elephant_19',
+    'animal_bear_20',
+    'animal_zebra_21',
+    'animal_giraffe_22',
+    'accessories_backpack_23',
+    'accessories_umbrella_24',
+    'accessories_handbag_25',
+    'accessories_tie_26',
+    'accessories_suitcase_27',
+    'sport tools_frisbee_28',
+    'sport tools_skis_29',
+    'sport tools_snowboard_30',
+    'sport tools_sports ball_31',
+    'sport tools_kite_32',
+    'sport tools_baseball bat_33',
+    'sport tools_baseball glove_34',
+    'sport tools_skateboard_35',
+    'sport tools_surfboard_36',
+    'sport tools_tennis racket_37',
+    'utensils_bottle_38',
+    'utensils_wine glass_39',
+    'utensils_cup_40',
+    'utensils_fork_41',
+    'utensils_knife_42',
+    'utensils_spoon_43',
+    'utensils_bowl_44',
+    'food_banana_45',
+    'food_apple_46',
+    'food_sandwich_47',
+    'food_orange_48',
+    'food_broccoli_49',
+    'food_carrot_50',
+    'food_hotdog_51',
+    'food_pizza_52',
+    'food_donut_53',
+    'food_cake_54',
+    'furniture_bench_55',
+    'furniture_chair_56',
+    'furniture_couch_57',
+    'furniture_potted plant_58',
+    'furniture_bed_59',
+    'furniture_dining table_60',
+    'furniture_toilet_61',
+    'furniture_book_62',
+    'furniture_clock_63',
+    'furniture_vase_64',
+    'furniture_teddy bear_65',
+    'tech_tv_66',
+    'tech_laptop_67',
+    'tech_mouse_68',
+    'tech_remote_69',
+    'tech_keyboard_70',
+    'tech_cell phone_71',
+    'kitchen_microwave_72',
+    'kitchen_oven_73',
+    'kitchen_toaster_74',
+    'kitchen_sink_75',
+    'kitchen_refrigerator_76',
+    'kitchen_scissors_77',
+    'personal care_hair drier_78',
+    'personal care_toothbrush_79'
 ]
 
 let filterObjectLabels = objectLabels
@@ -107,19 +107,10 @@ const handleInputChange = (e, type, idx) => {
     }
 }
 
-const handleCheck = (e, parentDocument, iconDocument, idx, label) => {
-    if(iconDocument.getAttribute("src") === checkIconPath[1]) {
-        delete chosenLabels[idx]
-        
-        parentDocument.removeChild(document.getElementById(`obj-filter-LQ-${idx}`))
-        parentDocument.removeChild(document.getElementById(`obj-filter-UQ-${idx}`))
-        parentDocument.removeChild(document.getElementById(`obj-filter-LP-${idx}`))
-        parentDocument.removeChild(document.getElementById(`obj-filter-UP-${idx}`))
+const showInput = (parentDocument, iconDocument, idx, label) => {
+    parentDocument.removeChild(iconDocument)
 
-        iconDocument.setAttribute("src", checkIconPath[0])
-    } else {
-        parentDocument.removeChild(iconDocument)
-
+    if (!(idx.toString() in chosenLabels)) {
         chosenLabels[idx] = {
             "label": label,
             "quantity": {
@@ -131,51 +122,71 @@ const handleCheck = (e, parentDocument, iconDocument, idx, label) => {
                 "upper": null
             }
         }
-        let lowerQuantity = document.createElement("input")
-        lowerQuantity.setAttribute("type", "number")
-        lowerQuantity.setAttribute("id", `obj-filter-LQ-${idx}`)
-        lowerQuantity.setAttribute("class", "filter-item-input")
-        lowerQuantity.setAttribute("min", 0)
-        lowerQuantity.setAttribute("placeholder", "[LQ")
-        lowerQuantity.addEventListener('change', e => handleInputChange(e, 'LQ', idx))
+    }
+    
+    let lowerQuantity = document.createElement("input")
+    lowerQuantity.setAttribute("type", "number")
+    lowerQuantity.setAttribute("id", `obj-filter-LQ-${idx}`)
+    lowerQuantity.setAttribute("class", "filter-item-input")
+    lowerQuantity.setAttribute("min", 0)
+    lowerQuantity.setAttribute("placeholder", "[LQ")
+    lowerQuantity.value = chosenLabels[idx]['quantity']['lower']
+    lowerQuantity.addEventListener('change', e => handleInputChange(e, 'LQ', idx))
 
-        let upperQuantity = document.createElement("input")
-        upperQuantity.setAttribute("type", "number")
-        upperQuantity.setAttribute("id", `obj-filter-UQ-${idx}`)
-        upperQuantity.setAttribute("class", "filter-item-input")
-        upperQuantity.setAttribute("min", 0)
-        upperQuantity.setAttribute("placeholder", "UQ]")
-        upperQuantity.addEventListener('change', e => handleInputChange(e, 'UQ', idx))
+    let upperQuantity = document.createElement("input")
+    upperQuantity.setAttribute("type", "number")
+    upperQuantity.setAttribute("id", `obj-filter-UQ-${idx}`)
+    upperQuantity.setAttribute("class", "filter-item-input")
+    upperQuantity.setAttribute("min", 0)
+    upperQuantity.setAttribute("placeholder", "UQ]")
+    upperQuantity.value = chosenLabels[idx]['quantity']['upper']
+    upperQuantity.addEventListener('change', e => handleInputChange(e, 'UQ', idx))
 
-        let lowerProportion = document.createElement("input")
-        lowerProportion.setAttribute("type", "number")
-        lowerProportion.setAttribute("id", `obj-filter-LP-${idx}`)
-        lowerProportion.setAttribute("class", "filter-item-input")
-        lowerProportion.setAttribute("min", 0)
-        lowerProportion.setAttribute("max", 100)
-        lowerProportion.setAttribute("placeholder", "[LP")
-        lowerProportion.addEventListener('change', e => handleInputChange(e, 'LP', idx))
+    let lowerProportion = document.createElement("input")
+    lowerProportion.setAttribute("type", "number")
+    lowerProportion.setAttribute("id", `obj-filter-LP-${idx}`)
+    lowerProportion.setAttribute("class", "filter-item-input")
+    lowerProportion.setAttribute("min", 0)
+    lowerProportion.setAttribute("max", 100)
+    lowerProportion.setAttribute("placeholder", "[LP")
+    lowerProportion.value = chosenLabels[idx]['proportion']['lower']
+    lowerProportion.addEventListener('change', e => handleInputChange(e, 'LP', idx))
 
-        let upperProportion = document.createElement("input")
-        upperProportion.setAttribute("type", "number")
-        upperProportion.setAttribute("id", `obj-filter-UP-${idx}`)
-        upperProportion.setAttribute("class", "filter-item-input")
-        upperProportion.setAttribute("min", 0)
-        upperProportion.setAttribute("max", 100)
-        upperProportion.setAttribute("placeholder", "UP]")
-        upperProportion.addEventListener('change', e => handleInputChange(e, 'UP', idx))
+    let upperProportion = document.createElement("input")
+    upperProportion.setAttribute("type", "number")
+    upperProportion.setAttribute("id", `obj-filter-UP-${idx}`)
+    upperProportion.setAttribute("class", "filter-item-input")
+    upperProportion.setAttribute("min", 0)
+    upperProportion.setAttribute("max", 100)
+    upperProportion.setAttribute("placeholder", "UP]")
+    upperProportion.value = chosenLabels[idx]['proportion']['upper']
+    upperProportion.addEventListener('change', e => handleInputChange(e, 'UP', idx))
 
-        parentDocument.appendChild(lowerQuantity)
-        parentDocument.appendChild(upperQuantity)
-        parentDocument.appendChild(lowerProportion)
-        parentDocument.appendChild(upperProportion)
+    parentDocument.appendChild(lowerQuantity)
+    parentDocument.appendChild(upperQuantity)
+    parentDocument.appendChild(lowerProportion)
+    parentDocument.appendChild(upperProportion)
 
-        let checkIcon = document.createElement("img")
-        checkIcon.setAttribute("class", "object-filter-check-icon")
-        checkIcon.setAttribute("src", checkIconPath[1])
-        checkIcon.addEventListener('click', e => handleCheck(e, parentDocument, checkIcon, idx, label))
+    let checkIcon = document.createElement("img")
+    checkIcon.setAttribute("class", "object-filter-check-icon")
+    checkIcon.setAttribute("src", checkIconPath[1])
+    checkIcon.addEventListener('click', e => handleCheck(e, parentDocument, checkIcon, idx, label))
 
-        parentDocument.appendChild(checkIcon)
+    parentDocument.appendChild(checkIcon)
+}
+
+const handleCheck = (e, parentDocument, iconDocument, idx, label) => {
+    if(iconDocument.getAttribute("src") === checkIconPath[1]) {
+        delete chosenLabels[idx]
+        
+        parentDocument.removeChild(document.getElementById(`obj-filter-LQ-${idx}`))
+        parentDocument.removeChild(document.getElementById(`obj-filter-UQ-${idx}`))
+        parentDocument.removeChild(document.getElementById(`obj-filter-LP-${idx}`))
+        parentDocument.removeChild(document.getElementById(`obj-filter-UP-${idx}`))
+
+        iconDocument.setAttribute("src", checkIconPath[0])
+    } else {
+        showInput(parentDocument, iconDocument, idx, label)
     }
 }
 
@@ -187,8 +198,8 @@ const showFilterItem = (labelList) => {
 
     let categoryTemp = []
 
-    labelList.forEach((categoryLabel, objIdx) => {
-        let [category, label] = categoryLabel.split("_")
+    labelList.forEach(categoryLabel => {
+        let [category, label, objIdx] = categoryLabel.split("_")
      
         if(!categoryTemp.includes(category)) {
             let categoryItem = document.createElement("span")
@@ -204,11 +215,13 @@ const showFilterItem = (labelList) => {
 
         let checkIcon = document.createElement("img")
         checkIcon.setAttribute("class", "object-filter-check-icon")
-        checkIcon.setAttribute("src", checkIconPath[0])
+        checkIcon.setAttribute("src", objIdx.toString() in chosenLabels ? checkIconPath[1] : checkIconPath[0])
         checkIcon.addEventListener('click', e => handleCheck(e, objItem, checkIcon, objIdx, label))
 
         objItem.appendChild(checkIcon)
         objFilterList.appendChild(objItem)
+
+        if(objIdx.toString() in  chosenLabels) showInput(objItem, checkIcon, objIdx, label)
     })
 }
 
@@ -228,7 +241,7 @@ objFilter.addEventListener('input', e => {
 let ObjFilterOnly = document.getElementById("obj-filter-only")
 let checkOnly = false
 ObjFilterOnly.addEventListener("click", e => {
-    if (!checkOnly) showFilterItem(Object.values(chosenLabels))
+    if (!checkOnly) showFilterItem(Object.keys(chosenLabels).map(idx => objectLabels[idx]))
     else showFilterItem(filterObjectLabels)
     checkOnly = !checkOnly
 })
