@@ -167,6 +167,9 @@ class HandleFrame {
             let relevanceAdd = document.createElement("span")
             relevanceAdd.setAttribute("class", "frame-relevance-add")
             relevanceAdd.innerHTML = "+"
+            relevanceAdd.addEventListener("click", e => {
+                addRelevanceFrame(e, `${folderId}-${videoId}-${frameId}`)
+            })
 
             frameContainer.appendChild(frame)
             frameContainer.appendChild(info)

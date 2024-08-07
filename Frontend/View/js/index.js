@@ -3,6 +3,7 @@ let queryVisibilityIcon = document.getElementById("query-visibility-icon")
 let queryVisibility = 'open'
 let queryVisibilityIconPath = ['../assets/icon/down.png', '../assets/icon/up.png']
 let queryContainer = document.getElementById("query-container")
+let relevanceContainer = document.getElementById("relevance-container")
 
 document.getElementsByTagName("body")[0].addEventListener("load", e => {
     queryVisibility = 'open'
@@ -15,14 +16,16 @@ queryVisibilityIcon.addEventListener("click", e => {
         queryVisibility = 'closed'
         queryVisibilityIcon.setAttribute("src", queryVisibilityIconPath[1])
         queryContainer.style.display = 'none'
+        relevanceContainer.style.display = 'none'
     } else {
         queryVisibility = 'open'
         queryVisibilityIcon.setAttribute("src", queryVisibilityIconPath[0])
         queryContainer.style.display = 'flex'
+        relevanceContainer.style.display = 'flex'
     }
 })
 
-// Filte Visibility
+// Filter Visibility
 let filterVisibilityIcon = document.getElementById("filter-visibility-icon")
 let filterLabel = document.getElementById("filter-label-container")
 let filterVisibility = 'open'

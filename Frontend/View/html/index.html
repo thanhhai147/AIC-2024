@@ -24,6 +24,9 @@
                 <div id="text-query-container">
                     <input id="text-query" class="normal-text" name="text-query" type="text" placeholder="Textual KIS Search" />
                 </div>
+                <div id="text-ranking-query-container">
+                    <input id="text-ranking-query" class="normal-text" name="text-ranking-query" type="text" placeholder="Textual Re-Ranking" />
+                </div>
                 <div id="limit-query-container">
                     <input id="limit-query" class="normal-text" name="limit-query" type="number" min=0 placeholder="Top K" />
                 </div>
@@ -130,7 +133,10 @@
         </div>
     </div>
 
-    <div id="relevance-result-container" style="display: block;">
+    <div id="relevance-result-container">
+        <div id="relevance-icon-container">
+            <img id="relevance-icon" src="../assets/icon/right arrow.png" />
+        </div>
         <div id="relevance-multiple-results-container">
             <div id="relevance-frame-list-container"></div>
         </div>

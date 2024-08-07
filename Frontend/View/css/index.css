@@ -72,6 +72,8 @@ html, body {
 
 #tool-bar {
     padding: 12px;
+    position: sticky;
+    z-index: 1;
 }
 
 #query-container {
@@ -83,7 +85,12 @@ html, body {
 }
 
 #text-query-container {
-    width: 90%;
+    width: 45%;
+}
+
+#text-ranking-query-container {
+    width: 45%;
+    margin-left: 8px; 
 }
 
 #limit-query-container {
@@ -92,6 +99,15 @@ html, body {
 }
 
 #text-query {
+    width: 100%;
+    padding: var(--padding-normal);
+    border: none;
+    border: 1px solid var(--primary-color-1);
+    border-radius: var(--normal-border-radius);
+    background-color: var(--background-color-2);
+}
+
+#text-ranking-query {
     width: 100%;
     padding: var(--padding-normal);
     border: none;
@@ -424,7 +440,7 @@ input::-webkit-inner-spin-button {
     transition: background-color 0.3s;
 }
 
-#submit-btn:hover {
+.submit-btn:hover {
     background-color: var(--background-color-2);
 }
 

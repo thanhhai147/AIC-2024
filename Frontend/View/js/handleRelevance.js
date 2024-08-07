@@ -1,4 +1,3 @@
-import HandleFrame from "./handleFrame.js"
 let relevanceFeedbackData = {
     textual: null,
     image: {},
@@ -21,7 +20,7 @@ proportionInput.addEventListener("input", e => {
 const addRelevanceFrame = (e, frameInfo) => {
     let frameSyntheticId = frameInfo.split("-").join("_") 
     if(frameSyntheticId in relevanceFeedbackData.image) return
-    relevanceFeedbackData.image[frameSyntheticId] = frameSyntheticId
+    relevanceFeedbackData['image'][frameSyntheticId] = frameSyntheticId
 
     let imageRelevance = document.getElementById("image-relevance")
 
@@ -40,7 +39,7 @@ const addRelevanceFrame = (e, frameInfo) => {
 
 const removeRelevanceFrame = (e) => {
     let frameSyntheticId = e.target.id.split("-").slice(3).join("_")
-    delete relevanceFeedbackData.image[frameSyntheticId]
+    delete relevanceFeedbackData['image'][frameSyntheticId]
 
     let imageRelevance = document.getElementById("image-relevance")
     imageRelevance.removeChild(e.target) 
@@ -55,12 +54,19 @@ proportionInput.addEventListener("input", e => {
     relevanceFeedbackData.proportion.image = imageProportion.innerHTML
 })
 
+let icon_path = ['../assets/icon/right arrow.png', '../assets/icon/left arrow.png']
+let relevanceIcon = document.getElementById('relevance-icon')
+let relevanceContainer = document.getElementById('relevance-result-container')
 
-document.body.addEventListener("click", e => {
-    let imgPath = []
-    for (let i=0; i<20; i ++) imgPath.push("../assets/test frame.jpg")
-    HandleFrame.loadRelevanceFrame(imgPath, [], [])
-
+relevanceIcon.addEventListener('click', e => {
+    if (relevanceIcon.getAttribute('src') === icon_path[0]) {
+        relevanceIcon.setAttribute('src', icon_path[1])
+        relevanceContainer.style.transform = 'translateX(calc(50vw - 30px))'
+    }
+    else {
+        relevanceIcon.setAttribute('src', icon_path[0])
+        relevanceContainer.style.transform = 'translateX(0)'
+    }
 })
 
 export {

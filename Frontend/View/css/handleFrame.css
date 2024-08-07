@@ -56,9 +56,6 @@
 
 #relevance-multiple-results-container {
     margin-top: var(--margin-normal);
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 #relevance-frame-list-container {
     display: grid;

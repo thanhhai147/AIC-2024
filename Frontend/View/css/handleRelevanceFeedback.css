@@ -21,11 +21,36 @@
     position: absolute;
     background-color: var(--background-color-1);
     width: 50vw;
-    height: 100vh;
+    height: 100%;
     border-radius: var(--normal-border-radius);
-    padding: 34px;
     top: 0;
     right: 0;
     z-index: 99;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    flex-direction: row;
+}
+
+#relevance-result-container {
+    overflow-y: scroll;
+}
+
+#relevance-result-container::-webkit-scrollbar {
+    display: none;
+}
+
+#relevance-icon-container {
+    padding-left: 4px;
+    padding-right: 4px;
+    display: flex;
+    align-items: center;
+}
+
+#relevance-icon {
+    width: calc(var(--head1-font-size) + 12px);
+    cursor: pointer;
+}
+
+#relevance-frame-list-container {
+    padding-right: 4px;
 }
