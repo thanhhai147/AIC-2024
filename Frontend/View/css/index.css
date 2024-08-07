@@ -393,6 +393,7 @@ input::-webkit-inner-spin-button {
 .object-filter-check-icon {
     width: calc(var(--normal-font-size) + 6px);
     margin-left: 4px;
+    cursor: pointer;
 }
 
 #color-filter {
@@ -413,6 +414,24 @@ input::-webkit-inner-spin-button {
     border: 1px solid var(--primary-color-1);
     border-radius: var(--normal-border-radius);
     background-color: var(--background-color-2);
+}
+
+#color-filter-clear {
+    width: 24px;
+    margin-left: 4px;
+    cursor: pointer;
+}
+
+#color-filter-submit {
+    width: 24px;
+    margin-left: 4px;
+    cursor: pointer;
+}
+
+#color-search-bar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 #space-filter {

@@ -33,6 +33,23 @@ class FilterAPI {
         )
     }
 
+    static filterByColorFeature(syntheticId, colorFeature) {
+        return fetch(
+            `http://localhost:8000/filter-by-color-feature`, 
+            {
+                method: "POST",
+                mode: "cors",
+                headers: { 
+                    "Content-type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify({
+                    syntheticId: syntheticId,
+                    colorFeature: colorFeature
+                })
+            }
+        )
+    }
+
     static filterBySyntheticId(syntheticId) {
         return fetch(
             `http://localhost:8000/filter-by-synthetic-id`, 

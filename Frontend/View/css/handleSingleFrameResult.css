@@ -37,9 +37,17 @@
     cursor: pointer;
 }
 #single-frame-obj {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: auto auto;
 }
 .single-frame-obj-item {
+    margin-bottom: 4px;
+}
+
+#single-frame-color {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.single-frame-color-item {
     margin-bottom: 4px;
 }

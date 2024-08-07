@@ -119,3 +119,39 @@ class FilterByIdAPIView(GenericAPIView):
             status=status.HTTP_200_OK,
             content_type="application/json"
         )
+    
+class FilterByColorFeatureAPIView(GenericAPIView):
+    def post(self, request):
+        body = request.data
+        synthetic_id_list = body['syntheticId']
+        color_feature = body['colorFeature']
+
+        if(len(synthetic_id_list) == 0 or len(color_feature) == 0):
+            return Response(
+                {
+                    "success": False
+                },
+                status=status.HTTP_200_OK,
+                content_type="application/json"
+            )
+
+        records = FD.filterFrameByColorFeature(synthetic_id_list, color_feature)
+
+        cache.clear()
+        
+        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition =  DB_utils.handleRecords(records)
+        
+        return Response(
+            {
+                "success": True,
+                "syntheticId": synthetic_id,
+                "imagePath": image_path,
+                "frameInfo": record_frame_info,
+                "ocr": record_ocr,
+                "objectDetection": record_object_detection,
+                "colorFeature": record_color_feature,
+                "spaceRecognition": record_space_recognition
+            }, 
+            status=status.HTTP_200_OK,
+            content_type="application/json"
+        )

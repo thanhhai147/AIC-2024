@@ -15,7 +15,7 @@ submit.addEventListener("click", e => {
     .then(res => res.json())
     .then(data => { 
         localStorage.setItem("relevanceSyntheticId", data.syntheticId)
-        HandleFrame.loadRelevanceFrame(data.imagePath, data.objectDetection, data.ocr)
+        HandleFrame.loadRelevanceFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature)
         relevanceContainer.style.display = 'flex'
     })  
     .catch(err => { 

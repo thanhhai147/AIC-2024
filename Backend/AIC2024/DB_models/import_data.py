@@ -4,7 +4,7 @@ import json
 from frame_DAO import FrameDAO
 
 OBJECT_DETECTION_PATH = 'D:/AIC 2024/AIC-2024/Dataset/2024/Object Detection'
-OCR_FILE_PATH = 'D:/AIC 2024/AIC-2024/Dataset/2024/OCR/output_ocr.json'
+OCR_PATH = 'D:/AIC 2024/AIC-2024/Dataset/2024/OCR'
 COLOR_PATH = 'D:/AIC 2024/AIC-2024/Dataset/2024/Color Features'
 
 FD = FrameDAO()
@@ -49,31 +49,30 @@ for json_file in os.listdir(COLOR_PATH):
             for frame in frames:
                 synthetic_id = f'{folder}_{video}_{frame}'
 
-                color_feature_list = []
-                for label, statistics in data[folder][video][frame].items():
-                    object_detection_list.append({
-                        "Label": label,
-                        "Quantity": statistics[0],
-                        "Proportion": statistics[1]
-                    })
-                import_data[synthetic_id] = {
-                    'FrameInfo': frame_info,
-                    'ObjectDetection': object_detection_list
-                }
+                color_feature_list = set()
+                for cell, color_list in data[folder][video][frame].items():
+                    for color in color_list:
+                        color_feature_list.add(color)
+                import_data[synthetic_id]['ColorFeature'] = list(color_feature_list)
     f.close()
 
-with open(OCR_FILE_PATH) as f:
+for json_file in os.listdir(OCR_PATH):
+    f = open(os.path.join(OCR_PATH, json_file), encoding='utf-8')
     data = json.load(f)
     for folder in data:
-        for folder_key, video in folder.items():
-            for video_key, frame in video.items():
-                for frame_id, ocr_paragraphs in frame.items():
-                    synthetic_id = f'{folder_key}_{video_key}_{frame_id}'
-                    import_data[synthetic_id]['OCR'] = ' '.join(ocr_paragraphs['paragraphs'])
+        videos = data[folder].keys()
+        for video in videos:
+            frames = data[folder][video].keys()
+            for frame in frames:
+                synthetic_id = f'{folder}_{video}_{frame}'
+
+                color_feature_list = set()
+                for key, paragraphs in data[folder][video][frame].items():
+                    import_data[synthetic_id]['OCR'] = " ".join(paragraphs)
+    f.close()
 
 for synthetic_id, data in import_data.items():
     data['SyntheticId'] = synthetic_id
-    data['ColorFeature'] = []
     data['SpaceRecognition'] = []
     print(synthetic_id)
     FD.insertSingleFrame(data)

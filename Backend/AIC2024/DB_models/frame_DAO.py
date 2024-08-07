@@ -86,3 +86,20 @@ class FrameDAO:
             ]
         }
         return self.collection.find(query).sort( { "score": { "$meta": "textScore" } } )
+    
+    def filterFrameByColorFeature(self, synthetic_id_list, color_feature):
+        query = {
+            "$and": [
+                {
+                    "SyntheticId": {
+                        "$in": synthetic_id_list
+                    }
+                },
+                {
+                    "ColorFeature": {
+                        "$in": color_feature
+                    }
+                }
+            ]
+        }
+        return self.collection.find(query)

@@ -1,20 +1,19 @@
 // OCR 
 let OCRInput = document.getElementById("ocr-filter")
-let OCRObject = {}
+let chosenOCR = new Set()
 let objIdx = 0
 
 let OCRList = document.getElementById("ocr-filter-list")
 
 let OCRCancelHandle = (e, OCRChild) => {
-    delete OCRObject[OCRChild.id.split("-")[2]]
+    chosenOCR.delete(OCRChild.innerText)
     OCRList.removeChild(OCRChild)
-    console.log(OCRObject)
 }
 
 OCRInput.addEventListener("keypress", e => {
     if(e.key === "Enter") {
         if (OCRInput.value === "" || OCRInput.value === undefined || OCRInput.value === null || OCRInput.value.trim() === "") return
-        OCRObject[objIdx] = OCRInput.value
+        chosenOCR.add(OCRInput.value)
 
         let newOCRChild = document.createElement('span')
         newOCRChild.setAttribute('id', `ocr-item-${objIdx}`)
@@ -38,10 +37,10 @@ OCRInput.addEventListener("keypress", e => {
 
 let OCRClear = document.getElementById("ocr-filter-clear")
 OCRClear.addEventListener('click', e => {
-    OCRObject = {}
+    chosenOCR.clear()
     while (OCRList.lastChild) {
         OCRList.removeChild(OCRList.lastChild)
     }
 })
 
-export default OCRObject
+export default chosenOCR

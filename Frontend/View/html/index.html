@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../css/handleFrame.css">
     <link rel="stylesheet" href="../css/handleSingleFrameResult.css">
     <link rel="stylesheet" href="../css/handleRelevanceFeedback.css">
+    <link rel="stylesheet" href="../css/handleColorFeature.css">
 </head>
 <body>
     <div id="container">
@@ -86,8 +87,13 @@
                     <div id="obj-filter-list" class="normal-text scroll-box"></div>
                 </div>
                 <div id="color-filter-container">
-                    <input id="color-filter" class="normal-text" name="color-filter" type="text" placeholder="Color Feature" />
-                    <div id="color-filter-list" class="normal-text scroll-box"></div>
+                    <div id="color-search-bar-container">
+                        <input id="color-filter" class="normal-text" name="color-filter" type="text" placeholder="Color Feature" />
+                        <img id="color-filter-clear" src="../assets/icon/clear.png" />
+                        <img id="color-filter-submit" src="../assets/icon/filter.png" />
+                    </div>
+                    <div id="color-filter-list" class="normal-text scroll-box">
+                    </div>
                 </div>
                 <div id="space-filter-container">
                     <input id="space-filter" class="normal-text" name="space-filter" type="text" placeholder="Visual Space Recognition" />
@@ -158,5 +164,7 @@
     <script async src="../js/handleRelevance.js" type="module"></script>
     <script async src="../../Src/handleRelevanceFeedback.js" type="module"></script>
     <script async src="../../Src/handleReranking.js" type="module"></script>
+    <script async src="../js/handleColorFeature.js" type="module"></script>
+    <script async src="../../Src/handleColorFeature.js" type="module"></script>
 </body>
 </html>

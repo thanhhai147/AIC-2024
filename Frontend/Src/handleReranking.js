@@ -12,7 +12,7 @@ submit.addEventListener("click", e => {
     .then(res => res.json())
     .then(data => {
         localStorage.setItem("syntheticId", data.syntheticId)
-        HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr)
+        HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature)
     })  
     .catch(err => {
         console.log(err)
