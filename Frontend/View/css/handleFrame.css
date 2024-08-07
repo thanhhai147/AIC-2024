@@ -17,8 +17,9 @@
     position: relative;
     cursor: pointer;
 }
-.frame {
+.canvas-frame {
     width: 15vw;
+    height: calc(15vw * 0.75);
     border: 2px solid var(--primary-color-2);
     border-radius: var(--light-border-radius);
 }

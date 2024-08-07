@@ -65,18 +65,23 @@ class HandleFrame {
 
             frameContainer.setAttribute("class", "frame-container")
 
-            let frame = document.createElement("img")
-            frame.setAttribute("class", "frame")
-            // frame.setAttribute("loading", "lazy")
-            // frame.setAttribute("decoding", "asynchronous")
-            frame.setAttribute("src", path)
+            let canvas = document.createElement('canvas')
+            canvas.setAttribute("class", "canvas-frame")
+            let ctx = canvas.getContext('2d')
+            let frame = new Image()
+            frame.className = "frame"
+            frame.src = path
+            frame.onload = () => {
+                ctx.drawImage(frame, 0, 0, 480, 360, 0, 0, 300, 150)
+            }
+            
             let paramPath = path.split("\\")
             let paramPathLength = paramPath.length
             let frameId = paramPath[paramPathLength - 1].split(".")[0]
             let videoId = paramPath[paramPathLength - 2]
             let folderId = paramPath[paramPathLength - 3]
 
-            frame.addEventListener("click", e => {
+            canvas.addEventListener("click", e => {
                 this.loadDetailFrame(folderId, videoId, frameId, objectDetection[idx], ocr[idx])
             })
 
@@ -91,7 +96,7 @@ class HandleFrame {
                 addRelevanceFrame(e, `${folderId}-${videoId}-${frameId}`)
             })
 
-            frameContainer.appendChild(frame)
+            frameContainer.appendChild(canvas)
             frameContainer.appendChild(info)
             frameContainer.appendChild(relevanceAdd)
             frameList.appendChild(frameContainer)
@@ -145,18 +150,23 @@ class HandleFrame {
 
             frameContainer.setAttribute("class", "frame-container")
 
-            let frame = document.createElement("img")
-            frame.setAttribute("class", "frame")
-            // frame.setAttribute("loading", "lazy")
-            // frame.setAttribute("decoding", "asynchronous")
-            frame.setAttribute("src", path)
+            let canvas = document.createElement('canvas')
+            canvas.setAttribute("class", "canvas-frame")
+            let ctx = canvas.getContext('2d')
+            let frame = new Image()
+            frame.className = "frame"
+            frame.src = path
+            frame.onload = () => {
+                ctx.drawImage(frame, 0, 0, 480, 360, 0, 0, 300, 150)
+            }
+
             let paramPath = path.split("\\")
             let paramPathLength = paramPath.length
             let frameId = paramPath[paramPathLength - 1].split(".")[0]
             let videoId = paramPath[paramPathLength - 2]
             let folderId = paramPath[paramPathLength - 3]
 
-            frame.addEventListener("click", e => {
+            canvas.addEventListener("click", e => {
                 this.loadRelevanceDetailFrame(folderId, videoId, frameId, objectDetection[idx], ocr[idx])
             })
 
@@ -171,7 +181,7 @@ class HandleFrame {
                 addRelevanceFrame(e, `${folderId}-${videoId}-${frameId}`)
             })
 
-            frameContainer.appendChild(frame)
+            frameContainer.appendChild(canvas)
             frameContainer.appendChild(info)
             frameContainer.appendChild(relevanceAdd)
             frameList.appendChild(frameContainer)
