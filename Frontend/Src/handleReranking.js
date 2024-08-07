@@ -1,13 +1,14 @@
 import HandleFrame from "../View/js/handleFrame.js"
 import QueryAPI from "../API/queryAPI.js"
 
-let textQuery = document.getElementById("text-query")
-let limitQuery = document.getElementById("limit-query")
-let submit = document.getElementById("submit-btn")
+let textRerankingQuery = document.getElementById("text-ranking-query")
+let limitQuery = document.getElementById("limit-ranking-query")
+let submit = document.getElementById("submit-ranking-btn")
 
 submit.addEventListener("click", e => {
-    if(!textQuery.value) return
-    QueryAPI.query(textQuery.value, limitQuery.value)
+    if(!textRerankingQuery.value) return 
+    let imageQuery = localStorage.getItem("syntheticId").split(",")
+    QueryAPI.queryReranking(imageQuery, textRerankingQuery.value, limitQuery.value)
     .then(res => res.json())
     .then(data => {
         localStorage.setItem("syntheticId", data.syntheticId)

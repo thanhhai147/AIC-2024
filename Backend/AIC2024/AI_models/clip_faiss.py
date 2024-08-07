@@ -43,13 +43,33 @@ class ClipFaiss:
         text_features /= text_features.norm(dim=-1, keepdim=True)
         text_features = text_features.cpu().detach().numpy().astype(np.float32)
 
-        # image_index = int(self.outputV2[image_query])
-        # image_features = self.index.reconstruct(image_index)
         image_features = np.sum([self.index.reconstruct(int(self.outputV2[img])) for img in image_query], axis=0) / len(image_query)
 
         combined_features = image_proportion * image_features + text_proportion * text_features
         print("--- %s seconds ---" % (time.time() - start_time))
         scores, idx_image = self.index.search(combined_features, k=int(limit))
         idx_image = idx_image.flatten()
+        print("--- %s seconds ---" % (time.time() - start_time))
+        return idx_image, scores
+
+    def search_textual_image_reranking_query(self, textual_query, image_query, limit):
+        start_time = time.time()
+        idx_dic = {}
+        feature_shape = 512
+        faiss_idx = faiss.IndexFlatIP(feature_shape)
+        faiss_idx_reconstruct = []
+        for i, idx in enumerate(image_query):
+            idx_dic[i] = int(self.outputV2[idx])
+            faiss_idx_reconstruct.append(self.index.reconstruct(int(self.outputV2[idx])))
+        faiss_idx.add(np.array(faiss_idx_reconstruct))
+        
+        text = self.clipv2_tokenizer(textual_query).to(self.device)
+        text_features = self.clipv2_model.encode_text(text)
+        text_features /= text_features.norm(dim=-1, keepdim=True)
+        text_features = text_features.cpu().detach().numpy().astype(np.float32)
+
+        scores, idx_image = faiss_idx.search(text_features, k=int(limit))
+        idx_image = idx_image.flatten()
+        idx_image = [idx_dic[idx] for idx in idx_image]
         print("--- %s seconds ---" % (time.time() - start_time))
         return idx_image, scores

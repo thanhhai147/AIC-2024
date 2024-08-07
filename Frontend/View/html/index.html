@@ -24,14 +24,20 @@
                 <div id="text-query-container">
                     <input id="text-query" class="normal-text" name="text-query" type="text" placeholder="Textual KIS Search" />
                 </div>
-                <div id="text-ranking-query-container">
-                    <input id="text-ranking-query" class="normal-text" name="text-ranking-query" type="text" placeholder="Textual Re-Ranking" />
-                </div>
                 <div id="limit-query-container">
                     <input id="limit-query" class="normal-text" name="limit-query" type="number" min=0 placeholder="Top K" />
                 </div>
                 <div id="submit-container">
                     <button id="submit-btn" class="submit-btn normal-text">Submit</button>
+                </div>
+                <div id="text-ranking-query-container">
+                    <input id="text-ranking-query" class="normal-text" name="text-ranking-query" type="text" placeholder="Textual Re-Ranking" />
+                </div>
+                <div id="limit-ranking-query-container">
+                    <input id="limit-ranking-query" class="normal-text" name="limit-query" type="number" min=0 placeholder="Top K" />
+                </div>
+                <div id="submit-ranking-container">
+                    <button id="submit-ranking-btn" class="submit-btn normal-text">Submit</button>
                 </div>
             </div>
             <div id="relevance-container">
@@ -151,5 +157,6 @@
     <script async src="../../Src/handleOCRFilter.js" type="module"></script>
     <script async src="../js/handleRelevance.js" type="module"></script>
     <script async src="../../Src/handleRelevanceFeedback.js" type="module"></script>
+    <script async src="../../Src/handleReranking.js" type="module"></script>
 </body>
 </html>
