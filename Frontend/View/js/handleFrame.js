@@ -45,14 +45,14 @@ class HandleFrame {
 
         let multipleResultContainer = document.getElementById("multiple-results")
         let toolbar = document.getElementById('tool-bar')
-        multipleResultContainer.style.filter = 'blur(8px)'
-        toolbar.style.filter = 'blur(8px)'
+        multipleResultContainer.style.filter = 'blur(4px)'
+        toolbar.style.filter = 'blur(4px)'
 
         let cancel = document.getElementById("single-result-cancel")
         cancel.addEventListener("click", e => {
             singleResultContainer.style.display = 'none'
             multipleResultContainer.style.filter = null
-            toolbar.style.filter = null
+        toolbar.style.filter = null
         })
 
         singleResultContainer.style.display = 'block'
@@ -110,47 +110,6 @@ class HandleFrame {
         })
     }
 
-    static loadRelevanceDetailFrame(folderId, videoId, frameId, objectDetection, ocr, colorFeature) {
-        let frameContainer = document.getElementById("relevance-single-frame-container")
-        let idContainer = document.getElementById("relevance-single-frame-id")
-        let ocrContainer = document.getElementById("relevance-single-frame-ocr")
-        let objContainer = document.getElementById("relevance-single-frame-obj")
-        let colorContainer = document.getElementById("relevance-single-frame-color")
-        let spaceContainer = document.getElementById("relevance-single-frame-space")
-
-        let frame = document.createElement("img")
-        frame.setAttribute("class", "single-frame")
-        frame.setAttribute("src", `/Dataset/2024/KeyFrame/${folderId}/${videoId}/${frameId}.jpg`)
-        if(frameContainer.firstChild) {
-            frameContainer.removeChild(frameContainer.firstChild)
-        }
-        frameContainer.appendChild(frame)
-
-        idContainer.innerHTML = `${folderId}-${videoId}-${frameId}`
-
-        while(objContainer.lastChild) objContainer.removeChild(objContainer.lastChild)
-        objectDetection.forEach(obj => {
-            let objectDisplay = document.createElement("span")
-            objectDisplay.setAttribute('class', 'single-frame-obj-item')
-            objectDisplay.innerHTML = `${obj['Label']} - ${obj['Quantity']} - ${Number(obj['Proportion'].toFixed(2))}`
-            objContainer.appendChild(objectDisplay)
-        })
-
-        while(ocrContainer.lastChild) ocrContainer.removeChild(ocrContainer.lastChild)
-        let ocrDisplay = document.createElement("span")
-        ocrDisplay.setAttribute('class', 'single-frame-ocr-item')
-        ocrDisplay.innerHTML = ocr
-        ocrContainer.appendChild(ocrDisplay)
-
-        while(colorContainer.lastChild) colorContainer.removeChild(colorContainer.lastChild)
-        colorFeature.forEach(color => {
-            let colorDisplay = document.createElement("span")
-            colorDisplay.setAttribute('class', 'single-frame-color-item')
-            colorDisplay.innerHTML = color.toString().toLowerCase().charAt(0).toUpperCase() + color.toString().toLowerCase().slice(1)
-            colorContainer.appendChild(colorDisplay)
-        })  
-    }
-
     static loadRelevanceFrame(imgPath, objectDetection, ocr, colorFeature) {
         let multipleResultContainer = document.getElementById("relevance-multiple-results-container")
         let frameList = document.getElementById("relevance-frame-list-container")
@@ -182,7 +141,7 @@ class HandleFrame {
             let folderId = paramPath[paramPathLength - 3]
 
             canvas.addEventListener("click", e => {
-                this.loadRelevanceDetailFrame(folderId, videoId, frameId, objectDetection[idx], ocr[idx], colorFeature[idx])
+                this.loadDetailFrame(folderId, videoId, frameId, objectDetection[idx], ocr[idx], colorFeature[idx])
             })
 
             let info = document.createElement("span")

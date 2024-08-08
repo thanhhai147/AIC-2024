@@ -73,7 +73,9 @@ html, body {
 #tool-bar {
     padding: 12px;
     position: sticky;
+    top: 0;
     z-index: 1;
+    background-color: var(--background-color-1);
 }
 
 #query-container {

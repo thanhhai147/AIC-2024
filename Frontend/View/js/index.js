@@ -9,6 +9,12 @@ document.getElementsByTagName("body")[0].addEventListener("load", e => {
     queryContainer.style.display = 'flex'
 })
 
+document.getElementById("multiple-results").addEventListener("wheel", e => {
+    queryVisibilityIcon.setAttribute("src", queryVisibilityIconPath[1])
+    queryContainer.style.display = 'none'
+    relevanceContainer.style.display = 'none'
+})
+
 queryVisibilityIcon.addEventListener("click", e => {
     if (queryVisibilityIcon.getAttribute('src') === queryVisibilityIconPath[0]) {
         queryVisibilityIcon.setAttribute("src", queryVisibilityIconPath[1])
@@ -31,6 +37,12 @@ document.getElementsByTagName("body")[0].addEventListener("load", e => {
     filterVisibilityIcon.setAttribute("src", filterVisibilityIconPath[0])
     filterContainer.style.display = 'flex'
     filterLabel.style.marginBottom = '8px'
+})
+
+document.getElementById("multiple-results").addEventListener("wheel", e => {
+    filterVisibilityIcon.setAttribute("src", filterVisibilityIconPath[1])
+    filterContainer.style.display = 'none'
+    filterLabel.style.marginBottom = 0
 })
 
 filterVisibilityIcon.addEventListener("click", e => {
