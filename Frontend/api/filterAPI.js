@@ -50,6 +50,23 @@ class FilterAPI {
         )
     }
 
+    static filterBySpaceRecognition(syntheticId, spaceRecognition) {
+        return fetch(
+            `http://localhost:8000/filter-by-space-recognition`, 
+            {
+                method: "POST",
+                mode: "cors",
+                headers: { 
+                    "Content-type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify({
+                    syntheticId: syntheticId,
+                    spaceRecognition: spaceRecognition
+                })
+            }
+        )
+    }
+
     static filterBySyntheticId(syntheticId) {
         return fetch(
             `http://localhost:8000/filter-by-synthetic-id`, 

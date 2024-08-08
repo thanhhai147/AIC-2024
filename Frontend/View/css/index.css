@@ -456,6 +456,37 @@ input::-webkit-inner-spin-button {
     background-color: var(--background-color-2);
 }
 
+#space-filter-clear {
+    width: 24px;
+    margin-left: 4px;
+    cursor: pointer;
+}
+
+#space-filter-submit {
+    width: 24px;
+    margin-left: 4px;
+    cursor: pointer;
+}
+
+#space-search-bar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.space-filter-check-icon {
+    width: calc(var(--normal-font-size) + 6px);
+    cursor: pointer;
+}
+
+.space-filter-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
 #submit-container {
     margin-left: 8px;
     display: flex;

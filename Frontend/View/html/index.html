@@ -97,7 +97,11 @@
                     </div>
                 </div>
                 <div id="space-filter-container">
-                    <input id="space-filter" class="normal-text" name="space-filter" type="text" placeholder="Visual Space Recognition" />
+                    <div id="space-search-bar-container">
+                        <input id="space-filter" class="normal-text" name="space-filter" type="text" placeholder="Visual Space Recognition" />
+                        <img id="space-filter-clear" src="../assets/icon/clear.png" />
+                        <img id="space-filter-submit" src="../assets/icon/filter.png" />
+                    </div>
                     <div id="space-filter-list" class="normal-text scroll-box"></div>
                 </div>
             </div>
@@ -172,5 +176,7 @@
     <script async src="../js/handleColorFeature.js" type="module"></script>
     <script async src="../../Src/handleColorFeature.js" type="module"></script>
     <script async src="../js/handleLoading.js" type="module"></script>
+    <script async src="../js/handleSpaceRecognition.js" type="module"></script>
+    <script async src="../../Src/handleSpaceRecognition.js" type="module"></script>
 </body>
 </html>

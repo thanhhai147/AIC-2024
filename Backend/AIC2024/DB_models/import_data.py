@@ -1,11 +1,11 @@
 import os
-import glob
 import json
 from frame_DAO import FrameDAO
 
 OBJECT_DETECTION_PATH = 'D:/AIC 2024/AIC-2024/Dataset/2024/Object Detection'
 OCR_PATH = 'D:/AIC 2024/AIC-2024/Dataset/2024/OCR'
 COLOR_PATH = 'D:/AIC 2024/AIC-2024/Dataset/2024/Color Features'
+SPACE_PATH = 'D:/AIC 2024/AIC-2024/Dataset/2024/Space Recognition'
 
 FD = FrameDAO()
 
@@ -71,8 +71,21 @@ for json_file in os.listdir(OCR_PATH):
                     import_data[synthetic_id]['OCR'] = " ".join(paragraphs)
     f.close()
 
+for json_file in os.listdir(SPACE_PATH):
+    f = open(os.path.join(SPACE_PATH, json_file))
+    data = json.load(f)
+    for folder in data:
+        videos = data[folder].keys()
+        for video in videos:
+            frames = data[folder][video].keys()
+            for frame in frames:
+                synthetic_id = f'{folder}_{video}_{frame}'
+
+                space_reg_list = data[folder][video][frame]
+                import_data[synthetic_id]['SpaceRecognition'] = list(space_reg_list)
+    f.close()
+
 for synthetic_id, data in import_data.items():
     data['SyntheticId'] = synthetic_id
-    data['SpaceRecognition'] = []
     print(synthetic_id)
     FD.insertSingleFrame(data)

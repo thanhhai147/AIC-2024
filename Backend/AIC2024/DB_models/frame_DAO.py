@@ -103,3 +103,21 @@ class FrameDAO:
             ]
         }
         return self.collection.find(query)
+    
+    def filterFrameBySpaceRecognition(self, synthetic_id_list, space_recognition):
+        print(space_recognition)
+        query = {
+            "$and": [
+                {
+                    "SyntheticId": {
+                        "$in": synthetic_id_list
+                    }
+                },
+                {
+                    "SpaceRecognition": {
+                        "$in": space_recognition
+                    }
+                }
+            ]
+        }
+        return self.collection.find(query)
