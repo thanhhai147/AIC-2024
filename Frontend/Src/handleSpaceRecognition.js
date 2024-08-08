@@ -11,7 +11,7 @@ spaceSubmit.addEventListener("click", e => {
         FilterAPI.filterBySpaceRecognition(syntheticId, Array.from(chosenSpaceList))
         .then(res => res.json())
         .then(data => {
-            if(data.success) HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature)
+            if(data.success) HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature, data.spaceRecognition)
         })
         .catch(err => console.log(err))
         .finally(() => closeLoading())
@@ -20,7 +20,7 @@ spaceSubmit.addEventListener("click", e => {
         FilterAPI.filterBySyntheticId(syntheticId)
         .then(res => res.json())
         .then(data => {
-            if(data.success) HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature)
+            if(data.success) HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature, data.spaceRecognition)
         })
         .catch(err => console.log(err))
         .finally(() => closeLoading())

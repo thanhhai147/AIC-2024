@@ -1,7 +1,7 @@
 import { addRelevanceFrame } from "./handleRelevance.js"
 
 class HandleFrame {
-    static loadDetailFrame(folderId, videoId, frameId, objectDetection, ocr, colorFeature) {
+    static loadDetailFrame(folderId, videoId, frameId, objectDetection, ocr, colorFeature, spaceRecognition) {
         let singleResultContainer = document.getElementById("single-result")
         
         let frameContainer = document.getElementById("single-frame-container")
@@ -41,7 +41,16 @@ class HandleFrame {
             colorDisplay.setAttribute('class', 'single-frame-color-item')
             colorDisplay.innerHTML = color.toString().toLowerCase().charAt(0).toUpperCase() + color.toString().toLowerCase().slice(1)
             colorContainer.appendChild(colorDisplay)
-        })        
+        })
+        
+        while(spaceContainer.lastChild) spaceContainer.removeChild(spaceContainer.lastChild)
+        spaceRecognition.forEach(space => {
+            let spaceDisplay = document.createElement("span")
+            spaceDisplay.setAttribute('class', 'single-frame-space-item')
+            let spaceReplace = space.replace("_", " ").split("/").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" / ")
+            spaceDisplay.innerHTML = spaceReplace
+            spaceContainer.appendChild(spaceDisplay)
+        }) 
 
         let multipleResultContainer = document.getElementById("multiple-results")
         let toolbar = document.getElementById('tool-bar')
@@ -58,7 +67,7 @@ class HandleFrame {
         singleResultContainer.style.display = 'block'
     }
 
-    static loadFrame(imgPath, objectDetection, ocr, colorFeature) {
+    static loadFrame(imgPath, objectDetection, ocr, colorFeature, spaceRecognition) {
         let multipleResultContainer = document.getElementById("multiple-results")
         let frameList = document.getElementById("frame-list-container")
         
@@ -89,7 +98,7 @@ class HandleFrame {
             let folderId = paramPath[paramPathLength - 3]
 
             canvas.addEventListener("click", e => {
-                this.loadDetailFrame(folderId, videoId, frameId, objectDetection[idx], ocr[idx], colorFeature[idx])
+                this.loadDetailFrame(folderId, videoId, frameId, objectDetection[idx], ocr[idx], colorFeature[idx], spaceRecognition[idx])
             })
 
             let info = document.createElement("span")
@@ -110,7 +119,7 @@ class HandleFrame {
         })
     }
 
-    static loadRelevanceFrame(imgPath, objectDetection, ocr, colorFeature) {
+    static loadRelevanceFrame(imgPath, objectDetection, ocr, colorFeature, spaceRecognition) {
         let multipleResultContainer = document.getElementById("relevance-multiple-results-container")
         let frameList = document.getElementById("relevance-frame-list-container")
         
@@ -141,7 +150,7 @@ class HandleFrame {
             let folderId = paramPath[paramPathLength - 3]
 
             canvas.addEventListener("click", e => {
-                this.loadDetailFrame(folderId, videoId, frameId, objectDetection[idx], ocr[idx], colorFeature[idx])
+                this.loadDetailFrame(folderId, videoId, frameId, objectDetection[idx], ocr[idx], colorFeature[idx], spaceRecognition[idx])
             })
 
             let info = document.createElement("span")

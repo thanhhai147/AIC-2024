@@ -51,3 +51,11 @@
 .single-frame-color-item {
     margin-bottom: 4px;
 }
+
+#single-frame-space {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.single-frame-space-item {
+    margin-bottom: 4px;
+}

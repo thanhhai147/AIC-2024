@@ -11,7 +11,7 @@ colorSubmit.addEventListener("click", e => {
         FilterAPI.filterByColorFeature(syntheticId, Array.from(chosenColorList))
         .then(res => res.json())
         .then(data => {
-            if(data.success) HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature)
+            if(data.success) HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature, data.spaceRecognition)
         })
         .catch(err => console.log(err))
         .finally(() => closeLoading())
@@ -20,7 +20,7 @@ colorSubmit.addEventListener("click", e => {
         FilterAPI.filterBySyntheticId(syntheticId)
         .then(res => res.json())
         .then(data => {
-            if(data.success) HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature)
+            if(data.success) HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature, data.spaceRecognition)
         })
         .catch(err => console.log(err))
         .finally(() => closeLoading())

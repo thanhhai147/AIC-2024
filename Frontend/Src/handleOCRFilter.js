@@ -13,7 +13,7 @@ ocrSubmit.addEventListener("click", e => {
         FilterAPI.filterByOCR(syntheticId, Array.from(chosenOCR).join(" "))
         .then(res => res.json())
         .then(data => {
-            if(data.success) HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature)
+            if(data.success) HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature, data.spaceRecognition)
         })
         .catch(err => console.log(err))
         .finally(() => closeLoading())
@@ -23,7 +23,7 @@ ocrSubmit.addEventListener("click", e => {
         FilterAPI.filterBySyntheticId(syntheticId)
         .then(res => res.json())
         .then(data => {
-            if(data.success) HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature)
+            if(data.success) HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature, data.spaceRecognition)
         })
         .catch(err => console.log(err))
         .finally(() => closeLoading())
