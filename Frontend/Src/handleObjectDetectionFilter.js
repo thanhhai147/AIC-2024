@@ -9,7 +9,7 @@ let objectDetectionRelevanceSubmit = document.getElementById("obj-relevance-filt
 objectDetectionSubmit.addEventListener("click", e => {
     let syntheticId = localStorage.getItem("syntheticId").split(",")
     let objectDetection = Object.values(chosenLables)
-
+   
     if (objectDetection && objectDetection.length > 0) {
         openLoading()
         FilterAPI.filterByObjectDetection(syntheticId, objectDetection)
