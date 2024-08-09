@@ -4,6 +4,7 @@ import HandleFrame from "../View/js/handleFrame.js"
 import { openLoading, closeLoading } from "../View/js/handleLoading.js"
 
 let ocrSubmit = document.getElementById("ocr-filter-submit")
+let ocrRelevanceSubmit = document.getElementById("ocr-relevance-filter-submit")
 
 ocrSubmit.addEventListener("click", e => {
     let syntheticId = localStorage.getItem("syntheticId").split(",")
@@ -24,6 +25,31 @@ ocrSubmit.addEventListener("click", e => {
         .then(res => res.json())
         .then(data => {
             if(data.success) HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature, data.spaceRecognition)
+        })
+        .catch(err => console.log(err))
+        .finally(() => closeLoading())
+    }
+})
+
+ocrRelevanceSubmit.addEventListener("click", e => {
+    let syntheticId = localStorage.getItem("syntheticId").split(",")
+   
+    if(chosenOCR && chosenOCR.size > 0) {
+        openLoading()
+        FilterAPI.filterByOCR(syntheticId, Array.from(chosenOCR).join(" "))
+        .then(res => res.json())
+        .then(data => {
+            if(data.success) HandleFrame.loadRelevanceFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature, data.spaceRecognition)
+        })
+        .catch(err => console.log(err))
+        .finally(() => closeLoading())
+    }
+    else {
+        openLoading()
+        FilterAPI.filterBySyntheticId(syntheticId)
+        .then(res => res.json())
+        .then(data => {
+            if(data.success) HandleFrame.loadRelevanceFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature, data.spaceRecognition)
         })
         .catch(err => console.log(err))
         .finally(() => closeLoading())

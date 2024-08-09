@@ -4,6 +4,8 @@ import HandleFrame from "../View/js/handleFrame.js"
 import { openLoading, closeLoading } from "../View/js/handleLoading.js"
 
 let spaceSubmit = document.getElementById("space-filter-submit")
+let spaceRelevanceSubmit = document.getElementById("space-relevance-filter-submit")
+
 spaceSubmit.addEventListener("click", e => {
     let syntheticId = localStorage.getItem("syntheticId").split(",")
     if (chosenSpaceList && chosenSpaceList.size > 0) {
@@ -21,6 +23,29 @@ spaceSubmit.addEventListener("click", e => {
         .then(res => res.json())
         .then(data => {
             if(data.success) HandleFrame.loadFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature, data.spaceRecognition)
+        })
+        .catch(err => console.log(err))
+        .finally(() => closeLoading())
+    }
+})
+
+spaceRelevanceSubmit.addEventListener("click", e => {
+    let syntheticId = localStorage.getItem("syntheticId").split(",")
+    if (chosenSpaceList && chosenSpaceList.size > 0) {
+        openLoading()
+        FilterAPI.filterBySpaceRecognition(syntheticId, Array.from(chosenSpaceList))
+        .then(res => res.json())
+        .then(data => {
+            if(data.success) HandleFrame.loadRelevanceFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature, data.spaceRecognition)
+        })
+        .catch(err => console.log(err))
+        .finally(() => closeLoading())
+    } else {
+        openLoading()
+        FilterAPI.filterBySyntheticId(syntheticId)
+        .then(res => res.json())
+        .then(data => {
+            if(data.success) HandleFrame.loadRelevanceFrame(data.imagePath, data.objectDetection, data.ocr, data.colorFeature, data.spaceRecognition)
         })
         .catch(err => console.log(err))
         .finally(() => closeLoading())

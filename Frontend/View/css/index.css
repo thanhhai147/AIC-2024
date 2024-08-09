@@ -319,6 +319,11 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: pointer;
 }
 
+#ocr-relevance-filter-submit {
+    width: 24px;
+    cursor: pointer;
+}
+
 #obj-filter {
     width: 100%;
     padding: var(--padding-normal);
@@ -349,6 +354,11 @@ input[type="range"]::-webkit-slider-thumb {
 #obj-filter-submit {
     width: 24px;
     margin-left: 4px;
+    cursor: pointer;
+}
+
+#obj-relevance-filter-submit {
+    width: 24px;
     cursor: pointer;
 }
 
@@ -430,6 +440,11 @@ input::-webkit-inner-spin-button {
     cursor: pointer;
 }
 
+#color-relevance-filter-submit {
+    width: 24px;
+    cursor: pointer;
+}
+
 #color-search-bar-container {
     display: flex;
     flex-direction: row;
@@ -465,6 +480,11 @@ input::-webkit-inner-spin-button {
 #space-filter-submit {
     width: 24px;
     margin-left: 4px;
+    cursor: pointer;
+}
+
+#space-relevance-filter-submit {
+    width: 24px;
     cursor: pointer;
 }
 
@@ -521,4 +541,14 @@ input::-webkit-inner-spin-button {
     width: var(--head1-font-size);
     margin-left: 12px;
     cursor: pointer;
+}
+
+.filter-badge {
+    padding: 2.5px 5px 2.5px 5px;
+    background-color: var(--background-color-2);
+    border-radius: 50%;
+    border: 1px solid var(--primary-color-1);
+    position: relative;
+    top: -10px;
+    left: -10px
 }

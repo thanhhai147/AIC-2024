@@ -14,11 +14,12 @@ import time
 class ClipFaiss:
     def __init__(self):
         os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-        self.index = faiss.read_index('D:/AIC 2024/AIC-2024/Backend/AIC2024/AI_models/faiss_clipv2_cosine_ViT-B-16.bin')
-        self.clipv2_tokenizer = open_clip.get_tokenizer('ViT-B-16')
+        self.index = faiss.read_index('D:/AIC 2024/AIC-2024/Backend/AIC2024/AI_models/faiss_clipv2_cosine_ViT-B-16-SigLIP-512.bin')
+        self.clipv2_tokenizer = open_clip.get_tokenizer('ViT-B-16-SigLIP-512')
         # device = "cuda" if torch.cuda.is_available() else "cpu"
         self.device = "cpu"
-        self.clipv2_model, _, _ = open_clip.create_model_and_transforms('ViT-B-16', device=self.device, pretrained='datacomp_xl_s13b_b90k')
+        self.feature_shape = 768
+        self.clipv2_model, _, _ = open_clip.create_model_and_transforms('ViT-B-16-SigLIP-512', device=self.device, pretrained='webli')
         with open("D:/AIC 2024/AIC-2024/Dataset/2024/outputV2.json") as f:
             data = json.load(f)
         self.outputV2 = data 
@@ -55,7 +56,7 @@ class ClipFaiss:
     def search_textual_image_reranking_query(self, textual_query, image_query, limit):
         start_time = time.time()
         idx_dic = {}
-        feature_shape = 512
+        feature_shape = self.feature_shape
         faiss_idx = faiss.IndexFlatIP(feature_shape)
         faiss_idx_reconstruct = []
         for i, idx in enumerate(image_query):

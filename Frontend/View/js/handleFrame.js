@@ -1,23 +1,80 @@
 import { addRelevanceFrame } from "./handleRelevance.js"
 
-class HandleFrame {
-    static loadDetailFrame(folderId, videoId, frameId, objectDetection, ocr, colorFeature, spaceRecognition) {
-        let singleResultContainer = document.getElementById("single-result")
-        
-        let frameContainer = document.getElementById("single-frame-container")
-        let idContainer = document.getElementById("single-frame-id")
-        let ocrContainer = document.getElementById("single-frame-ocr")
-        let objContainer = document.getElementById("single-frame-obj")
-        let colorContainer = document.getElementById("single-frame-color")
-        let spaceContainer = document.getElementById("single-frame-space")
+let playIconPath = ['/Frontend/View/assets/icon/pause.png', '/Frontend/View/assets/icon/play.png']
 
-        let frame = document.createElement("img")
-        frame.setAttribute("class", "single-frame")
-        frame.setAttribute("src", `/Dataset/2024/KeyFrame/${folderId}/${videoId}/${frameId}.jpg`)
-        if(frameContainer.firstChild) {
-            frameContainer.removeChild(frameContainer.firstChild)
+let singleResultContainer = document.getElementById("single-result")
+let idContainer = document.getElementById("single-frame-id")
+let ocrContainer = document.getElementById("single-frame-ocr")
+let objContainer = document.getElementById("single-frame-obj")
+let colorContainer = document.getElementById("single-frame-color")
+let spaceContainer = document.getElementById("single-frame-space")
+let video = document.getElementById("single-video")
+let rewind = document.getElementById('single-frame-rewind')
+let fastfoward = document.getElementById('single-frame-fastfoward')
+let play = document.getElementById("single-frame-play")
+let framePosition = document.getElementById("single-position")
+let cancel = document.getElementById("single-result-cancel")
+let multipleResultContainer = document.getElementById("multiple-results")
+let toolbar = document.getElementById('tool-bar')
+let multipleRelevanceResultContainer = document.getElementById("relevance-multiple-results-container")
+let frameList = document.getElementById("relevance-frame-list-container")
+
+let startTime = null
+let endTime = null
+let targetTime = null
+
+let fps = 25
+let intervalTime = 10
+
+class HandleFrame {
+    static handlePlay () {
+        if(play.getAttribute('src') === playIconPath[0]) {
+            play.setAttribute('src', playIconPath[1])
+            video.pause()
+        } else {
+            if (video.currentTime >= endTime) return
+            play.setAttribute('src', playIconPath[0])
+            video.play()
         }
-        frameContainer.appendChild(frame)
+    }
+
+    static handleRewind() {
+        let rewindTime = video.currentTime - 1
+        if (rewindTime <= startTime) return
+        video.currentTime = rewindTime
+        video.play()
+        play.setAttribute('src', playIconPath[0])
+    }
+
+    static handleFastforward() {
+        let fastfowardTime = video.currentTime + 1
+        if (fastfowardTime >= endTime) return
+        video.currentTime = fastfowardTime
+        video.play()
+        play.setAttribute('src', playIconPath[0])
+    }
+
+    static handleTimeUpdate() {
+        framePosition.innerText = Math.floor(video.currentTime * fps)
+        console.log(video.currentTime, endTime)
+        if(video.currentTime >= endTime) {
+            video.pause()
+            play.setAttribute('src', playIconPath[1])
+        }
+    }
+
+    static loadDetailFrame(folderId, videoId, frameId, objectDetection, ocr, colorFeature, spaceRecognition) {
+        video.setAttribute("src", `../../../Dataset/2024/Videos/${folderId}/${folderId}_${videoId}.mp4`)
+
+        targetTime = frameId / fps
+        video.currentTime = targetTime
+        startTime = video.currentTime - intervalTime / 2
+        endTime = video.currentTime + intervalTime / 2
+
+        play.addEventListener('click', this.handlePlay)
+        rewind.addEventListener("click", this.handleRewind)
+        fastfoward.addEventListener("click", this.handleFastforward)
+        video.addEventListener("timeupdate", this.handleTimeUpdate)
 
         idContainer.innerHTML = `${folderId}-${videoId}-${frameId}`
 
@@ -52,16 +109,21 @@ class HandleFrame {
             spaceContainer.appendChild(spaceDisplay)
         }) 
 
-        let multipleResultContainer = document.getElementById("multiple-results")
-        let toolbar = document.getElementById('tool-bar')
         multipleResultContainer.style.filter = 'blur(4px)'
         toolbar.style.filter = 'blur(4px)'
 
-        let cancel = document.getElementById("single-result-cancel")
         cancel.addEventListener("click", e => {
+            play.setAttribute('src', playIconPath[1])
+            video.pause()
+            video.removeAttribute("src")
+            video.load()
+            play.removeEventListener('click', this.handlePlay)
+            rewind.removeEventListener("click", this.handleRewind)
+            fastfoward.removeEventListener("click", this.handleFastforward)
+            video.removeEventListener("timeupdate", this.handleTimeUpdate)
             singleResultContainer.style.display = 'none'
             multipleResultContainer.style.filter = null
-        toolbar.style.filter = null
+            toolbar.style.filter = null
         })
 
         singleResultContainer.style.display = 'block'
@@ -119,14 +181,11 @@ class HandleFrame {
         })
     }
 
-    static loadRelevanceFrame(imgPath, objectDetection, ocr, colorFeature, spaceRecognition) {
-        let multipleResultContainer = document.getElementById("relevance-multiple-results-container")
-        let frameList = document.getElementById("relevance-frame-list-container")
-        
+    static loadRelevanceFrame(imgPath, objectDetection, ocr, colorFeature, spaceRecognition) {    
         frameList.remove()
         frameList = document.createElement("div")
         frameList.setAttribute("id", "relevance-frame-list-container")
-        multipleResultContainer.appendChild(frameList)
+        multipleRelevanceResultContainer.appendChild(frameList)
 
         imgPath.forEach((path, idx) => {
             let frameContainer = document.createElement("div")

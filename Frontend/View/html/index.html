@@ -75,6 +75,9 @@
                         <input id="ocr-filter" class="normal-text" name="ocr-filter" type="text" placeholder="Optical Character Recognition" />
                         <img id="ocr-filter-clear" src="../assets/icon/clear.png" />
                         <img id="ocr-filter-submit" src="../assets/icon/filter.png" />
+                        <span class="filter-badge normal-text">1</span>
+                        <img id="ocr-relevance-filter-submit" src="../assets/icon/filter.png" />
+                        <span class="filter-badge normal-text">2</span>
                     </div>
                     <div id="ocr-filter-list" class="normal-text scroll-box"></div>
                 </div>
@@ -84,6 +87,9 @@
                         <img id="obj-filter-only" src="../assets/icon/click.png" />
                         <img id="obj-filter-clear" src="../assets/icon/clear.png" />
                         <img id="obj-filter-submit" src="../assets/icon/filter.png" />
+                        <span class="filter-badge normal-text">1</span>
+                        <img id="obj-relevance-filter-submit" src="../assets/icon/filter.png" />
+                        <span class="filter-badge normal-text">2</span>
                     </div>
                     <div id="obj-filter-list" class="normal-text scroll-box"></div>
                 </div>
@@ -92,6 +98,9 @@
                         <input id="color-filter" class="normal-text" name="color-filter" type="text" placeholder="Color Feature" />
                         <img id="color-filter-clear" src="../assets/icon/clear.png" />
                         <img id="color-filter-submit" src="../assets/icon/filter.png" />
+                        <span class="filter-badge normal-text">1</span>
+                        <img id="color-relevance-filter-submit" src="../assets/icon/filter.png" />
+                        <span class="filter-badge normal-text">2</span>
                     </div>
                     <div id="color-filter-list" class="normal-text scroll-box">
                     </div>
@@ -101,6 +110,9 @@
                         <input id="space-filter" class="normal-text" name="space-filter" type="text" placeholder="Visual Space Recognition" />
                         <img id="space-filter-clear" src="../assets/icon/clear.png" />
                         <img id="space-filter-submit" src="../assets/icon/filter.png" />
+                        <span class="filter-badge normal-text">1</span>
+                        <img id="space-relevance-filter-submit" src="../assets/icon/filter.png" />
+                        <span class="filter-badge normal-text">2</span>
                     </div>
                     <div id="space-filter-list" class="normal-text scroll-box"></div>
                 </div>
@@ -110,41 +122,51 @@
             <div id="frame-list-container">
             </div>
         </div>
-        <div id="single-result" style="display: none;">
+        <div id="single-result" class="scroll-box" style="display: none;">
             <div id="single-result-icon-container">
                 <img id="single-result-cancel" src="../assets/icon/cancel.png" />
             </div>
-            <div id="single-frame-container"></div>
+            <div id="single-frame-container">
+                <div id="single-frame-wrapper">
+                    <video id="single-video"></video>
+                    <span id="single-position" class="single-position h3-text"></span>
+                </div>
+            </div>
+            <div id="single-frame-tool">
+                <img id="single-frame-rewind" src="../assets/icon/rewind.png" />
+                <img id="single-frame-play" src="../assets/icon/play.png" />
+                <img id="single-frame-fastfoward" src="../assets/icon/fastforward.png" />
+            </div>
             <div id="single-frame-info-container">
                 <div class="single-frame-info-sub-container">
                     <div class="label-container">
                         <p class="h1-text">Id</p>
                     </div>
-                    <div id="single-frame-id" class="h3-text"></div>
+                    <div id="single-frame-id" class="normal-text scroll-box"></div>
                 </div>
                 <div class="single-frame-info-sub-container">
                     <div class="label-container">
                         <p class="h1-text">OCR</p>
                     </div>
-                    <div id="single-frame-ocr" class="h3-text"></div>
+                    <div id="single-frame-ocr" class="normal-text scroll-box"></div>
                 </div>
                 <div class="single-frame-info-sub-container">
                     <div class="label-container">
                         <p class="h1-text">Object Detection</p>
                     </div>
-                    <div id="single-frame-obj" class="h3-text"></div>
+                    <div id="single-frame-obj" class="normal-text scroll-box"></div>
                 </div>
                 <div class="single-frame-info-sub-container">
                     <div class="label-container">
                         <p class="h1-text">Color Feature</p>
                     </div>
-                    <div id="single-frame-color" class="h3-text"></div>
+                    <div id="single-frame-color" class="normal-text scroll-box"></div>
                 </div>
                 <div class="single-frame-info-sub-container">
                     <div class="label-container">
                         <p class="h1-text">Visual Space Recognition</p>
                     </div>
-                    <div id="single-frame-space" class="h3-text"></div>
+                    <div id="single-frame-space" class="normal-text scroll-box"></div>
                 </div>
             </div>
         </div>
