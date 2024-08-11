@@ -67,6 +67,23 @@ class FilterAPI {
         )
     }
 
+    static filterBySummary(syntheticId, summaryTopic) {
+        return fetch(
+            `http://localhost:8000/filter-by-summary`, 
+            {
+                method: "POST",
+                mode: "cors",
+                headers: { 
+                    "Content-type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify({
+                    syntheticId: syntheticId,
+                    summaryTopic: summaryTopic
+                })
+            }
+        )
+    }
+
     static filterBySyntheticId(syntheticId) {
         return fetch(
             `http://localhost:8000/filter-by-synthetic-id`, 
@@ -78,6 +95,27 @@ class FilterAPI {
                 },
                 body: JSON.stringify({
                     syntheticId: syntheticId
+                })
+            }
+        )
+    }
+
+    static filterByAllModels(syntheticId, ocr, objectDetection, colorFeature, spaceRecognition, summaryTopic) {
+        return fetch(
+            `http://localhost:8000/filter-by-all-models`, 
+            {
+                method: "POST",
+                mode: "cors",
+                headers: { 
+                    "Content-type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify({
+                    syntheticId: syntheticId,
+                    ocr,
+                    objectDetection,
+                    colorFeature,
+                    spaceRecognition,
+                    summaryTopic
                 })
             }
         )

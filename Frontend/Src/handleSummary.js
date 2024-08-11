@@ -1,21 +1,21 @@
-import chosenOCR from "../View/js/handleOCR.js"
+import chosenTopicList from "../View/js/handleSummary.js"
 import FilterAPI from "../API/filterAPI.js"
 import HandleFrame from "../View/js/handleFrame.js"
 import { openLoading, closeLoading } from "../View/js/handleLoading.js"
 
-let ocrSubmit = document.getElementById("ocr-filter-submit")
-let ocrRelevanceSubmit = document.getElementById("ocr-relevance-filter-submit")
+let summarySubmit = document.getElementById("summary-filter-submit")
+let summaryRelevanceSubmit = document.getElementById("summary-relevance-filter-submit")
 let relevanceContainer = document.getElementById('relevance-result-container')
 
-ocrSubmit.addEventListener("click", e => {
+summarySubmit.addEventListener("click", e => {
     openLoading()
     let syntheticId = localStorage.getItem("syntheticId").split(",")
-    let ocr = Array.from(chosenOCR).join(" ")
-    localStorage.setItem("ocr", ocr)
+    let ocr = localStorage.getItem("ocr")
     let objectDetection = JSON.parse(localStorage.getItem("objectDetection"))
     let colorFeature = JSON.parse(localStorage.getItem("colorFeature"))
     let spaceRecognition = JSON.parse(localStorage.getItem("spaceRecognition"))
-    let summaryTopic = JSON.parse(localStorage.getItem("summaryTopic"))
+    let summaryTopic = Array.from(chosenTopicList)
+    localStorage.setItem("summaryTopic", JSON.stringify(summaryTopic))
     FilterAPI.filterByAllModels(syntheticId, ocr, objectDetection, colorFeature, spaceRecognition, summaryTopic)
     .then(res => res.json())
     .then(data => {
@@ -32,15 +32,15 @@ ocrSubmit.addEventListener("click", e => {
     .finally(() => closeLoading())
 })
 
-ocrRelevanceSubmit.addEventListener("click", e => {
+summaryRelevanceSubmit.addEventListener("click", e => {
     openLoading()
     let syntheticId = localStorage.getItem("relevanceSyntheticId").split(",")
-    let ocr = Array.from(chosenOCR).join(" ")
-    localStorage.setItem("relevanceOcr", ocr)
+    let ocr = localStorage.getItem("relevanceOcr")
     let objectDetection = JSON.parse(localStorage.getItem("relevanceObjectDetection"))
     let colorFeature = JSON.parse(localStorage.getItem("relevanceColorFeature"))
     let spaceRecognition = JSON.parse(localStorage.getItem("relevanceSpaceRecognition"))
-    let summaryTopic = JSON.parse(localStorage.getItem("relevanceSummaryTopic"))
+    let summaryTopic = Array.from(chosenTopicList)
+    localStorage.setItem("relevanceSummaryTopic", JSON.stringify(summaryTopic))
     FilterAPI.filterByAllModels(syntheticId, ocr, objectDetection, colorFeature, spaceRecognition, summaryTopic)
     .then(res => res.json())
     .then(data => {

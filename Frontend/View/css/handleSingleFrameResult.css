@@ -67,6 +67,15 @@
     margin-bottom: 4px;
 }
 
+#single-frame-summary {
+    display: grid;
+    grid-template-columns: auto auto;
+    max-height: 100px;
+}
+.single-frame-summary-item {
+    margin-bottom: 4px;
+}
+
 #single-frame-ocr {
     max-height: 100px;
 }
@@ -97,7 +106,18 @@
     cursor: pointer;
 }
 
-.single-position {
+#single-position {
+    background-color: var(--background-color-2);
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: var(--normal-border-radius);
+}
+
+#single-frame-id {
     background-color: var(--background-color-2);
     position: absolute;
     top: 8px;

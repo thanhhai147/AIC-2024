@@ -8,6 +8,7 @@ let ocrContainer = document.getElementById("single-frame-ocr")
 let objContainer = document.getElementById("single-frame-obj")
 let colorContainer = document.getElementById("single-frame-color")
 let spaceContainer = document.getElementById("single-frame-space")
+let summaryContainer = document.getElementById("single-frame-summary")
 let video = document.getElementById("single-video")
 let rewind = document.getElementById('single-frame-rewind')
 let fastfoward = document.getElementById('single-frame-fastfoward')
@@ -63,7 +64,7 @@ class HandleFrame {
         }
     }
 
-    static loadDetailFrame(folderId, videoId, frameId, objectDetection, ocr, colorFeature, spaceRecognition) {
+    static loadDetailFrame(folderId, videoId, frameId, objectDetection, ocr, colorFeature, spaceRecognition, summary) {
         video.setAttribute("src", `../../../Dataset/2024/Videos/${folderId}/${folderId}_${videoId}.mp4`)
 
         targetTime = frameId / fps
@@ -107,7 +108,15 @@ class HandleFrame {
             let spaceReplace = space.replace("_", " ").split("/").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" / ")
             spaceDisplay.innerHTML = spaceReplace
             spaceContainer.appendChild(spaceDisplay)
-        }) 
+        })
+        
+        // while(summaryContainer.lastChild) summaryContainer.removeChild(summaryContainer.lastChild)
+        // summary.forEach(topic => {
+        //     let topicDisplay = document.createElement("span")
+        //     topicDisplay.setAttribute('class', 'single-frame-summary-item')
+        //     topicDisplay.innerHTML = topic
+        //     summaryContainer.appendChild(topicDisplay)
+        // }) 
 
         multipleResultContainer.style.filter = 'blur(4px)'
         toolbar.style.filter = 'blur(4px)'
@@ -129,7 +138,7 @@ class HandleFrame {
         singleResultContainer.style.display = 'block'
     }
 
-    static loadFrame(imgPath, objectDetection, ocr, colorFeature, spaceRecognition) {
+    static loadFrame(imgPath, objectDetection, ocr, colorFeature, spaceRecognition, summary) {
         let multipleResultContainer = document.getElementById("multiple-results")
         let frameList = document.getElementById("frame-list-container")
         
@@ -160,7 +169,16 @@ class HandleFrame {
             let folderId = paramPath[paramPathLength - 3]
 
             canvas.addEventListener("click", e => {
-                this.loadDetailFrame(folderId, videoId, frameId, objectDetection[idx], ocr[idx], colorFeature[idx], spaceRecognition[idx])
+                this.loadDetailFrame(
+                    folderId, 
+                    videoId,
+                    frameId, 
+                    objectDetection[idx], 
+                    ocr[idx], 
+                    colorFeature[idx], 
+                    spaceRecognition[idx], 
+                    // summary[idx]
+                )
             })
 
             let info = document.createElement("span")
@@ -181,7 +199,7 @@ class HandleFrame {
         })
     }
 
-    static loadRelevanceFrame(imgPath, objectDetection, ocr, colorFeature, spaceRecognition) {    
+    static loadRelevanceFrame(imgPath, objectDetection, ocr, colorFeature, spaceRecognition, summary) {    
         frameList.remove()
         frameList = document.createElement("div")
         frameList.setAttribute("id", "relevance-frame-list-container")
@@ -209,7 +227,16 @@ class HandleFrame {
             let folderId = paramPath[paramPathLength - 3]
 
             canvas.addEventListener("click", e => {
-                this.loadDetailFrame(folderId, videoId, frameId, objectDetection[idx], ocr[idx], colorFeature[idx], spaceRecognition[idx])
+                this.loadDetailFrame(
+                    folderId, 
+                    videoId, 
+                    frameId, 
+                    objectDetection[idx], 
+                    ocr[idx], 
+                    colorFeature[idx], 
+                    spaceRecognition[idx],
+                    summary[idx]
+                )
             })
 
             let info = document.createElement("span")

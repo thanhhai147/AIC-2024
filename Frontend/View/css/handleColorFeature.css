@@ -3,16 +3,3 @@
     height: 16px;
     border-radius: 50%;
 }
-
-.color-filter-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-}
-
-.color-filter-check-icon {
-    width: calc(var(--normal-font-size) + 6px);
-    cursor: pointer;
-}

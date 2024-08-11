@@ -168,7 +168,7 @@ const showInput = (parentDocument, iconDocument, idx, label) => {
     parentDocument.appendChild(upperProportion)
 
     let checkIcon = document.createElement("img")
-    checkIcon.setAttribute("class", "object-filter-check-icon")
+    checkIcon.setAttribute("class", "filter-check-icon")
     checkIcon.setAttribute("src", checkIconPath[1])
     checkIcon.addEventListener('click', e => handleCheck(e, parentDocument, checkIcon, idx, label))
 
@@ -214,7 +214,7 @@ const showFilterItem = (labelList) => {
         objItem.innerHTML = engLabel + " (" + vietLabel + ")"
 
         let checkIcon = document.createElement("img")
-        checkIcon.setAttribute("class", "object-filter-check-icon")
+        checkIcon.setAttribute("class", "filter-check-icon")
         checkIcon.setAttribute("src", objIdx.toString() in chosenLabels ? checkIconPath[1] : checkIconPath[0])
         checkIcon.addEventListener('click', e => handleCheck(e, objItem, checkIcon, objIdx, engLabel))
 

@@ -364,7 +364,7 @@ let spaceContainer = document.getElementById('space-filter-list')
 let spaceInput = document.getElementById('space-filter')
 let spaceClear = document.getElementById('space-filter-clear')
 
-const handleCheckColor = (space, checkIcon) => {
+const handleCheckSpace = (space, checkIcon) => {
     if (checkIcon.getAttribute("src") === checkIconPath[0]) {
         chosenSpaceList.add(space)
         checkIcon.setAttribute("src", checkIconPath[1])
@@ -386,12 +386,12 @@ const showSpace = (spaceList) => {
         spaceText.innerHTML = spaceReplace
     
         let spaceWrapper = document.createElement("div")
-        spaceWrapper.className = 'space-filter-wrapper'
+        spaceWrapper.className = 'filter-wrapper'
     
         let checkIcon = document.createElement("img")
-        checkIcon.className = 'space-filter-check-icon'
+        checkIcon.className = 'filter-check-icon'
         checkIcon.src = chosenSpaceList.has(engSpace) ? checkIconPath[1] : checkIconPath[0]
-        checkIcon.addEventListener("click", e => handleCheckColor(engSpace, checkIcon))
+        checkIcon.addEventListener("click", e => handleCheckSpace(engSpace, checkIcon))
     
         spaceWrapper.appendChild(spaceText)
         spaceWrapper.appendChild(checkIcon)

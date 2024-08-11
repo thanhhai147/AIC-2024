@@ -12,7 +12,9 @@ class Utils:
         record_object_detection = []
         record_color_feature = []    
         record_space_recognition = []
+        record_summary = []
         for record in records:
+            if (isinstance(record, frozenset)): continue
             synthetic_id.append(record['SyntheticId'])
             image_path.append(os.path.join(self.KEYFRAME_OUTPUT_PATH, record['FrameInfo']['FolderId'], record['FrameInfo']['VideoId'], record['FrameInfo']['FrameId'] + '.webp'))
             record_frame_info.append(record["FrameInfo"])
@@ -20,4 +22,5 @@ class Utils:
             record_object_detection.append(record["ObjectDetection"])
             record_color_feature.append(record["ColorFeature"])
             record_space_recognition.append(record["SpaceRecognition"])
-        return synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition
+            # record_summary.append(record["Summary"])  
+        return synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary

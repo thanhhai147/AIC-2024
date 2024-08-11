@@ -48,10 +48,10 @@ const showColor = (colorList) => {
         colorShow.style.backgroundColor = hexCode
     
         let colorWrapper = document.createElement("div")
-        colorWrapper.className = 'color-filter-wrapper'
+        colorWrapper.className = 'filter-wrapper'
     
         let checkIcon = document.createElement("img")
-        checkIcon.className = 'color-filter-check-icon'
+        checkIcon.className = 'filter-check-icon'
         checkIcon.src = chosenColorList.has(color) ? checkIconPath[1] : checkIconPath[0]
         checkIcon.addEventListener("click", e => handleCheckColor(color, checkIcon))
     

@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="../css/handleRelevanceFeedback.css">
     <link rel="stylesheet" href="../css/handleColorFeature.css">
     <link rel="stylesheet" href="../css/loading.css">
+    <link rel="stylesheet" href="../css/handleQuery.css">
+    <link rel="stylesheet" href="../css/handleFilter.css">
 </head>
 <body>
     <div id="container">
@@ -24,30 +26,30 @@
             </div>
             <div id="query-container">
                 <div id="text-query-container">
-                    <input id="text-query" class="normal-text" name="text-query" type="text" placeholder="Textual KIS Search" />
+                    <input id="text-query" class="normal-text input-query" name="text-query" type="text" placeholder="Textual KIS Search" />
                 </div>
                 <div id="limit-query-container">
-                    <input id="limit-query" class="normal-text" name="limit-query" type="number" min=0 placeholder="Top K" />
+                    <input id="limit-query" class="normal-text input-query" name="limit-query" type="number" min=0 placeholder="Top K" />
                 </div>
-                <div id="submit-container">
+                <div id="submit-container" class="submit-container">
                     <button id="submit-btn" class="submit-btn normal-text">Submit</button>
                 </div>
                 <div id="text-ranking-query-container">
-                    <input id="text-ranking-query" class="normal-text" name="text-ranking-query" type="text" placeholder="Textual Re-Ranking" />
+                    <input id="text-ranking-query" class="normal-text input-query" name="text-ranking-query" type="text" placeholder="Textual Re-Ranking" />
                 </div>
                 <div id="limit-ranking-query-container">
-                    <input id="limit-ranking-query" class="normal-text" name="limit-query" type="number" min=0 placeholder="Top K" />
+                    <input id="limit-ranking-query" class="normal-text input-query" name="limit-query" type="number" min=0 placeholder="Top K" />
                 </div>
-                <div id="submit-ranking-container">
+                <div id="submit-ranking-container" class="submit-container">
                     <button id="submit-ranking-btn" class="submit-btn normal-text">Submit</button>
                 </div>
             </div>
             <div id="relevance-container">
                 <div id="text-relevance-container">
-                    <input id="text-relevance" class="normal-text" name="text-relevance" type="text" placeholder="Textual Relevance Feedback" />
+                    <input id="text-relevance" class="normal-text input-query" name="text-relevance" type="text" placeholder="Textual Relevance Feedback" />
                 </div>
                 <div id="image-relevance-container">
-                    <div id="image-relevance" class="normal-text">
+                    <div id="image-relevance" class="normal-text input-query">
                         <span id="image-relevance-placeholder">Image Relevance Feedback</span>
                     </div>
                 </div>
@@ -59,9 +61,9 @@
                     <span class="normal-text">Image</span>
                 </div>
                 <div id="limit-relevance-container">
-                    <input id="limit-relevance" class="normal-text" name="limit-relevance" type="number" min=0 placeholder="Top K" />
+                    <input id="limit-relevance" class="normal-text input-query" name="limit-relevance" type="number" min=0 placeholder="Top K" />
                 </div>
-                <div id="submit-container">
+                <div id="submit-container" class="submit-container">
                     <button id="relevance-submit-btn" class="submit-btn normal-text">Submit</button>
                 </div>
             </div>
@@ -71,50 +73,61 @@
             </div>
             <div id="filter-container">
                 <div id="ocr-filter-container">
-                    <div id="ocr-search-bar-container">
-                        <input id="ocr-filter" class="normal-text" name="ocr-filter" type="text" placeholder="Optical Character Recognition" />
-                        <img id="ocr-filter-clear" src="../assets/icon/clear.png" />
-                        <img id="ocr-filter-submit" src="../assets/icon/filter.png" />
+                    <div id="ocr-search-bar-container" class="search-bar-container">
+                        <input id="ocr-filter" class="normal-text input-query" name="ocr-filter" type="text" placeholder="OCR" />
+                        <img id="ocr-filter-clear" class="filter-submit" src="../assets/icon/clear.png" />
+                        <img id="ocr-filter-submit" class="filter-submit" src="../assets/icon/filter.png" />
                         <span class="filter-badge normal-text">1</span>
-                        <img id="ocr-relevance-filter-submit" src="../assets/icon/filter.png" />
+                        <img id="ocr-relevance-filter-submit" class="relevance-filter-submit" src="../assets/icon/filter.png" />
                         <span class="filter-badge normal-text">2</span>
                     </div>
-                    <div id="ocr-filter-list" class="normal-text scroll-box"></div>
+                    <div id="ocr-filter-list" class="normal-text filter-list scroll-box"></div>
                 </div>
                 <div id="obj-filter-container">
-                    <div id="obj-search-bar-container">
-                        <input id="obj-filter" class="normal-text" name="obj-filter" type="text" placeholder="Object Detection" />
-                        <img id="obj-filter-only" src="../assets/icon/click.png" />
-                        <img id="obj-filter-clear" src="../assets/icon/clear.png" />
-                        <img id="obj-filter-submit" src="../assets/icon/filter.png" />
+                    <div id="obj-search-bar-container" class="search-bar-container">
+                        <input id="obj-filter" class="normal-text input-query" name="obj-filter" type="text" placeholder="Object Detection" />
+                        <img id="obj-filter-only" class="filter-submit" src="../assets/icon/click.png" />
+                        <img id="obj-filter-clear" class="filter-submit" src="../assets/icon/clear.png" />
+                        <img id="obj-filter-submit" class="filter-submit" src="../assets/icon/filter.png" />
                         <span class="filter-badge normal-text">1</span>
-                        <img id="obj-relevance-filter-submit" src="../assets/icon/filter.png" />
+                        <img id="obj-relevance-filter-submit" class="relevance-filter-submit" src="../assets/icon/filter.png" />
                         <span class="filter-badge normal-text">2</span>
                     </div>
-                    <div id="obj-filter-list" class="normal-text scroll-box"></div>
+                    <div id="obj-filter-list" class="normal-text filter-list scroll-box"></div>
                 </div>
                 <div id="color-filter-container">
-                    <div id="color-search-bar-container">
-                        <input id="color-filter" class="normal-text" name="color-filter" type="text" placeholder="Color Feature" />
-                        <img id="color-filter-clear" src="../assets/icon/clear.png" />
-                        <img id="color-filter-submit" src="../assets/icon/filter.png" />
+                    <div id="color-search-bar-container" class="search-bar-container">
+                        <input id="color-filter" class="normal-text input-query" name="color-filter" type="text" placeholder="Color Feature" />
+                        <img id="color-filter-clear" class="filter-submit" src="../assets/icon/clear.png" />
+                        <img id="color-filter-submit" class="filter-submit" src="../assets/icon/filter.png" />
                         <span class="filter-badge normal-text">1</span>
-                        <img id="color-relevance-filter-submit" src="../assets/icon/filter.png" />
+                        <img id="color-relevance-filter-submit" class="relevance-filter-submit" src="../assets/icon/filter.png" />
                         <span class="filter-badge normal-text">2</span>
                     </div>
-                    <div id="color-filter-list" class="normal-text scroll-box">
+                    <div id="color-filter-list" class="normal-text filter-list scroll-box">
                     </div>
                 </div>
                 <div id="space-filter-container">
-                    <div id="space-search-bar-container">
-                        <input id="space-filter" class="normal-text" name="space-filter" type="text" placeholder="Visual Space Recognition" />
-                        <img id="space-filter-clear" src="../assets/icon/clear.png" />
-                        <img id="space-filter-submit" src="../assets/icon/filter.png" />
+                    <div id="space-search-bar-container" class="search-bar-container">
+                        <input id="space-filter" class="normal-text input-query" name="space-filter" type="text" placeholder="Visual Space Recognition" />
+                        <img id="space-filter-clear" class="filter-submit" src="../assets/icon/clear.png" />
+                        <img id="space-filter-submit" class="filter-submit" src="../assets/icon/filter.png" />
                         <span class="filter-badge normal-text">1</span>
-                        <img id="space-relevance-filter-submit" src="../assets/icon/filter.png" />
+                        <img id="space-relevance-filter-submit" class="relevance-filter-submit" src="../assets/icon/filter.png" />
                         <span class="filter-badge normal-text">2</span>
                     </div>
-                    <div id="space-filter-list" class="normal-text scroll-box"></div>
+                    <div id="space-filter-list" class="normal-text filter-list scroll-box"></div>
+                </div>
+                <div id="summary-filter-container">
+                    <div id="summary-search-bar-container" class="search-bar-container">
+                        <input id="summary-filter" class="normal-text input-query" name="summary-filter" type="text" placeholder="Summary" />
+                        <img id="summary-filter-clear" class="filter-submit" src="../assets/icon/clear.png" />
+                        <img id="summary-filter-submit" class="filter-submit" src="../assets/icon/filter.png" />
+                        <span class="filter-badge normal-text">1</span>
+                        <img id="summary-relevance-filter-submit" class="relevance-filter-submit" src="../assets/icon/filter.png" />
+                        <span class="filter-badge normal-text">2</span>
+                    </div>
+                    <div id="summary-filter-list" class="normal-text filter-list scroll-box"></div>
                 </div>
             </div>
         </div>
@@ -129,6 +142,7 @@
             <div id="single-frame-container">
                 <div id="single-frame-wrapper">
                     <video id="single-video"></video>
+                    <span id="single-frame-id" class="h3-text"></span>
                     <span id="single-position" class="single-position h3-text"></span>
                 </div>
             </div>
@@ -138,12 +152,6 @@
                 <img id="single-frame-fastfoward" src="../assets/icon/fastforward.png" />
             </div>
             <div id="single-frame-info-container">
-                <div class="single-frame-info-sub-container">
-                    <div class="label-container">
-                        <p class="h1-text">Id</p>
-                    </div>
-                    <div id="single-frame-id" class="normal-text scroll-box"></div>
-                </div>
                 <div class="single-frame-info-sub-container">
                     <div class="label-container">
                         <p class="h1-text">OCR</p>
@@ -167,6 +175,12 @@
                         <p class="h1-text">Visual Space Recognition</p>
                     </div>
                     <div id="single-frame-space" class="normal-text scroll-box"></div>
+                </div>
+                <div class="single-frame-info-sub-container">
+                    <div class="label-container">
+                        <p class="h1-text">Summary</p>
+                    </div>
+                    <div id="single-frame-summary" class="normal-text scroll-box"></div>
                 </div>
             </div>
         </div>
@@ -200,6 +214,7 @@
     <script async src="../js/handleLoading.js" type="module"></script>
     <script async src="../js/handleSpaceRecognition.js" type="module"></script>
     <script async src="../../Src/handleSpaceRecognition.js" type="module"></script>
-    <script async src="../js/constant.js" type="module"></script>
+    <script async src="../js/handleSummary.js" type="module"></script>
+    <script async src="../../Src/handleSummary.js" type="module"></script>
 </body>
 </html>

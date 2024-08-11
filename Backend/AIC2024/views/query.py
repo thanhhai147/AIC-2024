@@ -41,7 +41,7 @@ class QueryAPIView(GenericAPIView):
             synthetic_id_list.append(f'{folder_id}_{video_id}_{frame_id}')
         
         records = FD.filterFrameBySyntheticId(synthetic_id_list)
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition =  DB_utils.handleRecords(records)
+        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
         
         cache.clear()
         return Response(
@@ -53,7 +53,8 @@ class QueryAPIView(GenericAPIView):
                 "ocr": record_ocr,
                 "objectDetection": record_object_detection,
                 "colorFeature": record_color_feature,
-                "spaceRecognition": record_space_recognition
+                "spaceRecognition": record_space_recognition,
+                "summary": record_summary
             }, 
             status=status.HTTP_200_OK
         )
@@ -84,7 +85,7 @@ class QueryRelevanceAPIView(GenericAPIView):
             synthetic_id_list.append(f'{folder_id}_{video_id}_{frame_id}')
         
         records = FD.filterFrameBySyntheticId(synthetic_id_list)
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition =  DB_utils.handleRecords(records)
+        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
         
         cache.clear()
         return Response(
@@ -96,7 +97,8 @@ class QueryRelevanceAPIView(GenericAPIView):
                 "ocr": record_ocr,
                 "objectDetection": record_object_detection,
                 "colorFeature": record_color_feature,
-                "spaceRecognition": record_space_recognition
+                "spaceRecognition": record_space_recognition,
+                "summary": record_summary
             }, 
             status=status.HTTP_200_OK
         )
@@ -123,7 +125,7 @@ class QueryRerankingAPIView(GenericAPIView):
             synthetic_id_list.append(f'{folder_id}_{video_id}_{frame_id}')
         
         records = FD.filterFrameBySyntheticId(synthetic_id_list)
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition =  DB_utils.handleRecords(records)
+        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
         
         cache.clear()
         return Response(
@@ -135,7 +137,8 @@ class QueryRerankingAPIView(GenericAPIView):
                 "ocr": record_ocr,
                 "objectDetection": record_object_detection,
                 "colorFeature": record_color_feature,
-                "spaceRecognition": record_space_recognition
+                "spaceRecognition": record_space_recognition,
+                "summary": record_summary
             }, 
             status=status.HTTP_200_OK
         )

@@ -1,0 +1,131 @@
+#query-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+#text-query-container {
+    width: 45%;
+}
+
+#text-ranking-query-container {
+    width: 45%;
+    margin-left: 8px; 
+}
+
+#limit-query-container {
+    margin-left: 8px; 
+}
+
+#limit-ranking-query-container {
+    margin-left: 8px; 
+}
+
+.input-query {
+    width: 100%;
+    padding: var(--padding-normal);
+    border: none;
+    border: 1px solid var(--primary-color-1);
+    border-radius: var(--normal-border-radius);
+    background-color: var(--background-color-2);
+}
+
+#relevance-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    height: 32px;
+}
+
+#text-relevance-container {
+    width: 35%;
+    height: 100%;
+}
+
+#image-relevance-container {
+    width: 35%;
+    margin-left: 8px;
+    height: 100%;
+}
+
+#proportion-relevance-container {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--background-color-2);
+    padding: 8px;
+    border-radius: var(--normal-border-radius);
+    border: 1px solid var(--primary-color-1);
+    margin-left: 8px;
+}
+
+.submit-container {
+    margin-left: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit-btn {
+    padding: var(--padding-normal);
+    padding-left: 16px;
+    padding-right: 16px;
+    border: none;
+    border-radius: var(--normal-border-radius);
+    background-color: var(--primary-color-1);
+    font-weight: var(--head2-font-weight);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: var(--background-color-2);
+}
+
+.visibility-icon {
+    width: var(--head1-font-size);
+    margin-left: 12px;
+    cursor: pointer;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    background: var(--primary-color-1);
+    border-radius: var(--light-border-radius);
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 0.5rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    appearance: none;
+    margin-top: -4px;
+    background-color: var(--primary-color-2) !important;
+    height: 1rem;
+    width: 1rem;  
+    border-radius: 50%;
+    cursor: pointer; 
+ }
+
+#limit-relevance-container {
+    width: 100px; 
+    height: 100%;
+    margin-left: 8px; 
+}
+
+#image-relevance {
+    height: 100%;
+    color: gray;
+}
+
+.show-relevance-proportion::after {
+    content: "%";
+}
