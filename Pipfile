@@ -7,6 +7,8 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
+moviepy = "*"
+numpy = "<2"
 
 [dev-packages]
 

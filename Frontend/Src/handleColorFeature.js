@@ -2,6 +2,7 @@ import chosenColorList from "../View/js/handleColorFeature.js";
 import FilterAPI from "../API/filterAPI.js"
 import HandleFrame from "../View/js/handleFrame.js"
 import { openLoading, closeLoading } from "../View/js/handleLoading.js"
+import { loadImage, loadRelevanceImage } from "./handleImage.js";
 
 let colorSubmit = document.getElementById("color-filter-submit")
 let colorRelevanceSubmit = document.getElementById("color-relevance-filter-submit")
@@ -27,7 +28,9 @@ colorSubmit.addEventListener("click", e => {
             data.spaceRecognition,
             data.summary
         )
+        return data.syntheticId
     })
+    .then(syntheticIdList => Promise.all(syntheticIdList.map(syntheticId => loadImage(syntheticId))))
     .catch(err => console.log(err))
     .finally(() => closeLoading())
 })
@@ -53,7 +56,10 @@ colorRelevanceSubmit.addEventListener("click", e => {
             data.summary
         )
         relevanceContainer.style.display = "flex"
+        relevanceContainer.style.transform = 'translateX(0px)'
+        return data.syntheticId
     })
+    .then(syntheticIdList => Promise.all(syntheticIdList.map(syntheticId => loadRelevanceImage(syntheticId))))
     .catch(err => console.log(err))
     .finally(() => closeLoading())
 })

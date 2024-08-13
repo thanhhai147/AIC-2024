@@ -1,17 +1,89 @@
 import pymongo
-from django.conf import settings
+import gridfs
 
 connect_string = "mongodb://localhost:27017/"
 client = pymongo.MongoClient(connect_string)
 
 dbname = client['AIC2024']
+image_dbname = client['AIC2024-Image']
+video_dbname = client['AIC2024-Video']
 frame = dbname['Frame']
 
 class FrameDAO:
-    def __init__(self, client=client, db=dbname, collection=frame):
+    def __init__(self, client=client, db=dbname, image_db = image_dbname, video_db = video_dbname, collection=frame):
         self.client = client
         self.db = db
+        self.image_db = image_db
+        self.video_db = video_db
         self.collection = collection
+        self.image_fs = gridfs.GridFS(self.image_db)
+        self.video_fs = gridfs.GridFS(self.video_db)
+
+    def insertImageFrame(self, img_path):
+        with open(img_path, 'rb') as image_file:
+            path_split = img_path.split("\\")
+            folder_id = path_split[-3]
+            video_id = path_split[-2]
+            frame_split = path_split[-1].split(".")
+            frame_id = frame_split[0]
+            frame_extension = frame_split[1]
+            metadata = {
+                "SyntheticId": f'{folder_id}_{video_id}_{frame_id}',
+                "FrameInfo": {
+                    "FolderId": folder_id,
+                    "VideoId": video_id,
+                    "FrameId": frame_id
+                }
+            }
+            file_id = self.image_fs.put(image_file, filename=f'{folder_id}_{video_id}_{frame_id}.{frame_extension}', metadata=metadata, content_type=f"image/{frame_extension}")
+        return file_id
+    
+    def getImageFrame(self, synthetic_id_list):
+        query = {
+            "metadata.SyntheticId": {
+                "$in": synthetic_id_list
+            }
+        }
+        return self.image_fs.find(query)
+
+    def getSingleImageFrame(self, synthetic_id):
+        query = {
+            "metadata.SyntheticId": synthetic_id
+        }
+        data = self.image_fs.find_one(query)
+        return data
+    
+    def insertVideo(self, video_path):
+        with open(video_path, 'rb') as video_file:
+            path_split = video_path.split("\\")
+            folder_id = path_split[-2]
+            video_split = path_split[-1].split(".")
+            video_id = video_split[0].split("_")[-1]
+            video_extention = video_split[1]
+            metadata = {
+                "SyntheticId": f'{folder_id}_{video_id}',
+                "FrameInfo": {
+                    "FolderId": folder_id,
+                    "VideoId": video_id
+                }
+            }
+            file_id = self.video_fs.put(video_file, filename=f'{folder_id}_{video_id}.{video_extention}', metadata=metadata, content_type=f"video/{video_extention}")
+        return file_id
+
+    def getVideo(self, synthetic_id_list):
+        query = {
+            "metadata.SyntheticId": {
+                "$in": synthetic_id_list
+            }
+        }
+        return self.video_fs.find(query)
+    
+    def getSingleVideo(self, synthetic_id):
+        query = {
+            "metadata.SyntheticId": synthetic_id
+        }
+        data = self.video_fs.find_one(query)
+        return data
 
     def insertSingleFrame(self, frame):
         inserted_id = self.collection.insert_one(frame)

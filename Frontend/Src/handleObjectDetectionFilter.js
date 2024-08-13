@@ -2,6 +2,7 @@ import chosenLables from "../View/js/handleObjectDetection.js"
 import FilterAPI from "../API/filterAPI.js"
 import HandleFrame from "../View/js/handleFrame.js"
 import { openLoading, closeLoading } from "../View/js/handleLoading.js"
+import { loadImage, loadRelevanceImage } from "./handleImage.js"
 
 let objectDetectionSubmit = document.getElementById("obj-filter-submit")
 let objectDetectionRelevanceSubmit = document.getElementById("obj-relevance-filter-submit")
@@ -27,7 +28,9 @@ objectDetectionSubmit.addEventListener("click", e => {
             data.spaceRecognition,
             data.summary
         )
+        return data.syntheticId
     })
+    .then(syntheticIdList => Promise.all(syntheticIdList.map(syntheticId => loadImage(syntheticId))))
     .catch(err => console.log(err))
     .finally(() => closeLoading())
 })
@@ -53,7 +56,10 @@ objectDetectionRelevanceSubmit.addEventListener("click", e => {
             data.summary
         )
         relevanceContainer.style.display = "flex"
+        relevanceContainer.style.transform = 'translateX(0px)'
+        return data.syntheticId
     })
+    .then(syntheticIdList => Promise.all(syntheticIdList.map(syntheticId => loadRelevanceImage(syntheticId))))
     .catch(err => console.log(err))
     .finally(() => closeLoading())
 })

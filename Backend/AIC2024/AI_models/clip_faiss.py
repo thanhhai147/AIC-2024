@@ -20,7 +20,10 @@ class ClipFaiss:
         self.device = "cpu"
         self.feature_shape = 768
         self.clipv2_model, _, _ = open_clip.create_model_and_transforms('ViT-B-16-SigLIP-512', device=self.device, pretrained='webli')
-        with open("D:/AIC 2024/AIC-2024/Dataset/2024/outputV2.json") as f:
+        with open("D:/AIC 2024/AIC-2024/Backend/AIC2024/AI_models/output.json") as f:
+            data = json.load(f)
+        self.output = data
+        with open("D:/AIC 2024/AIC-2024/Backend/AIC2024/AI_models/outputV2.json") as f:
             data = json.load(f)
         self.outputV2 = data 
 
@@ -34,8 +37,9 @@ class ClipFaiss:
         start_time = time.time()
         scores, idx_image = self.index.search(text_features, k=int(limit))
         idx_image = idx_image.flatten()
+        idx_frame = [self.output[f"{idx}"] for idx in idx_image ]
         print("--- %s seconds ---" % (time.time() - start_time))
-        return idx_image, scores
+        return idx_frame, scores
 
     def search_textual_image_query(self, textual_query, image_query, text_proportion, image_proportion, limit):
         start_time = time.time()
@@ -50,8 +54,9 @@ class ClipFaiss:
         print("--- %s seconds ---" % (time.time() - start_time))
         scores, idx_image = self.index.search(combined_features, k=int(limit))
         idx_image = idx_image.flatten()
+        idx_frame = [self.output[f"{idx}"] for idx in idx_image ]
         print("--- %s seconds ---" % (time.time() - start_time))
-        return idx_image, scores
+        return idx_frame, scores
 
     def search_textual_image_reranking_query(self, textual_query, image_query, limit):
         start_time = time.time()
@@ -72,5 +77,6 @@ class ClipFaiss:
         scores, idx_image = faiss_idx.search(text_features, k=int(limit))
         idx_image = idx_image.flatten()
         idx_image = [idx_dic[idx] for idx in idx_image]
+        idx_frame = [self.output[f"{idx}"] for idx in idx_image ]
         print("--- %s seconds ---" % (time.time() - start_time))
-        return idx_image, scores
+        return idx_frame, scores

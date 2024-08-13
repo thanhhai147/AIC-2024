@@ -2,6 +2,7 @@ import HandleFrame from "../View/js/handleFrame.js"
 import QueryAPI from "../API/queryAPI.js"
 import { relevanceFeedbackData } from "../View/js/handleRelevance.js"
 import { openLoading, closeLoading } from "../View/js/handleLoading.js"
+import { loadRelevanceImage } from "./handleImage.js"
 
 let limitQuery = document.getElementById("limit-relevance")
 let submit = document.getElementById("relevance-submit-btn")
@@ -25,7 +26,14 @@ submit.addEventListener("click", e => {
             data.summary
         )
         relevanceContainer.style.display = 'flex'
+        relevanceContainer.style.transform = 'translateX(0px)'
+        return data.syntheticId
     })  
+    .then(syntheticIdList => {
+        console.log(document.getElementById("canvas-relevance-L27-V011-L27"))
+        return syntheticIdList
+    })
+    .then(syntheticIdList => Promise.all(syntheticIdList.map(syntheticId => loadRelevanceImage(syntheticId))))
     .catch(err => { 
         console.log(err)
     })

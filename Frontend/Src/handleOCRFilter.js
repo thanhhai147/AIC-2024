@@ -2,6 +2,7 @@ import chosenOCR from "../View/js/handleOCR.js"
 import FilterAPI from "../API/filterAPI.js"
 import HandleFrame from "../View/js/handleFrame.js"
 import { openLoading, closeLoading } from "../View/js/handleLoading.js"
+import { loadImage, loadRelevanceImage } from "./handleImage.js"
 
 let ocrSubmit = document.getElementById("ocr-filter-submit")
 let ocrRelevanceSubmit = document.getElementById("ocr-relevance-filter-submit")
@@ -27,7 +28,9 @@ ocrSubmit.addEventListener("click", e => {
             data.spaceRecognition,
             data.summary
         )
+        return data.syntheticId
     })
+    .then(syntheticIdList => Promise.all(syntheticIdList.map(syntheticId => loadImage(syntheticId))))
     .catch(err => console.log(err))
     .finally(() => closeLoading())
 })
@@ -53,7 +56,10 @@ ocrRelevanceSubmit.addEventListener("click", e => {
             data.summary
         )
         relevanceContainer.style.display = "flex"
+        relevanceContainer.style.transform = 'translateX(0px)'
+        return data.syntheticId
     })
+    .then(syntheticIdList => Promise.all(syntheticIdList.map(syntheticId => loadRelevanceImage(syntheticId))))
     .catch(err => console.log(err))
     .finally(() => closeLoading())
 })

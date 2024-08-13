@@ -14,9 +14,8 @@ class Utils:
         record_space_recognition = []
         record_summary = []
         for record in records:
-            if (isinstance(record, frozenset)): continue
             synthetic_id.append(record['SyntheticId'])
-            image_path.append(os.path.join(self.KEYFRAME_OUTPUT_PATH, record['FrameInfo']['FolderId'], record['FrameInfo']['VideoId'], record['FrameInfo']['FrameId'] + '.webp'))
+            image_path.append(os.path.join(record['FrameInfo']['FolderId'], record['FrameInfo']['VideoId'], record['FrameInfo']['FrameId'] + '.webp'))
             record_frame_info.append(record["FrameInfo"])
             record_ocr.append(record['OCR'])
             record_object_detection.append(record["ObjectDetection"])

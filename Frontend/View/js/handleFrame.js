@@ -1,4 +1,6 @@
 import { addRelevanceFrame } from "./handleRelevance.js"
+import loadVideo from "../../Src/handleVideo.js"
+import { openLoading, closeLoading } from "./handleLoading.js"
 
 let playIconPath = ['/Frontend/View/assets/icon/pause.png', '/Frontend/View/assets/icon/play.png']
 
@@ -25,7 +27,7 @@ let endTime = null
 let targetTime = null
 
 let fps = 25
-let intervalTime = 10
+let intervalTime = 20
 
 class HandleFrame {
     static handlePlay () {
@@ -57,15 +59,16 @@ class HandleFrame {
 
     static handleTimeUpdate() {
         framePosition.innerText = Math.floor(video.currentTime * fps)
-        console.log(video.currentTime, endTime)
         if(video.currentTime >= endTime) {
             video.pause()
             play.setAttribute('src', playIconPath[1])
         }
     }
 
-    static loadDetailFrame(folderId, videoId, frameId, objectDetection, ocr, colorFeature, spaceRecognition, summary) {
-        video.setAttribute("src", `../../../Dataset/2024/Videos/${folderId}/${folderId}_${videoId}.mp4`)
+    static async loadDetailFrame(folderId, videoId, frameId, objectDetection, ocr, colorFeature, spaceRecognition, summary) {
+        openLoading()
+    
+        const videoURL = await loadVideo(`${folderId}_${folderId}_${videoId}`)
 
         targetTime = frameId / fps
         video.currentTime = targetTime
@@ -116,15 +119,13 @@ class HandleFrame {
         //     topicDisplay.setAttribute('class', 'single-frame-summary-item')
         //     topicDisplay.innerHTML = topic
         //     summaryContainer.appendChild(topicDisplay)
-        // }) 
-
-        multipleResultContainer.style.filter = 'blur(4px)'
-        toolbar.style.filter = 'blur(4px)'
+        // })         
 
         cancel.addEventListener("click", e => {
             play.setAttribute('src', playIconPath[1])
             video.pause()
             video.removeAttribute("src")
+            URL.revokeObjectURL(videoURL)
             video.load()
             play.removeEventListener('click', this.handlePlay)
             rewind.removeEventListener("click", this.handleRewind)
@@ -135,10 +136,14 @@ class HandleFrame {
             toolbar.style.filter = null
         })
 
+        closeLoading()
+        multipleResultContainer.style.filter = 'blur(4px)'
+        toolbar.style.filter = 'blur(4px)'
         singleResultContainer.style.display = 'block'
     }
 
     static loadFrame(imgPath, objectDetection, ocr, colorFeature, spaceRecognition, summary) {
+        if (!imgPath) return
         let multipleResultContainer = document.getElementById("multiple-results")
         let frameList = document.getElementById("frame-list-container")
         
@@ -151,22 +156,16 @@ class HandleFrame {
             let frameContainer = document.createElement("div")
 
             frameContainer.setAttribute("class", "frame-container")
-
-            let canvas = document.createElement('canvas')
-            canvas.setAttribute("class", "canvas-frame")
-            let ctx = canvas.getContext('2d')
-            let frame = new Image()
-            frame.className = "frame"
-            frame.src = path
-            frame.onload = () => {
-                ctx.drawImage(frame, 0, 0, 480, 360, 0, 0, 300, 150)
-            }
             
             let paramPath = path.split("\\")
             let paramPathLength = paramPath.length
             let frameId = paramPath[paramPathLength - 1].split(".")[0]
             let videoId = paramPath[paramPathLength - 2]
             let folderId = paramPath[paramPathLength - 3]
+
+            let canvas = document.createElement('canvas')
+            canvas.id = `canvas-${folderId}-${videoId}-${frameId}`
+            canvas.setAttribute("class", "canvas-frame")
 
             canvas.addEventListener("click", e => {
                 this.loadDetailFrame(
@@ -210,21 +209,15 @@ class HandleFrame {
 
             frameContainer.setAttribute("class", "frame-container")
 
-            let canvas = document.createElement('canvas')
-            canvas.setAttribute("class", "canvas-frame")
-            let ctx = canvas.getContext('2d')
-            let frame = new Image()
-            frame.className = "frame"
-            frame.src = path
-            frame.onload = () => {
-                ctx.drawImage(frame, 0, 0, 480, 360, 0, 0, 300, 150)
-            }
-
             let paramPath = path.split("\\")
             let paramPathLength = paramPath.length
             let frameId = paramPath[paramPathLength - 1].split(".")[0]
             let videoId = paramPath[paramPathLength - 2]
             let folderId = paramPath[paramPathLength - 3]
+
+            let canvas = document.createElement('canvas')
+            canvas.id = `canvas-relevance-${folderId}-${videoId}-${frameId}`
+            canvas.setAttribute("class", "canvas-frame")
 
             canvas.addEventListener("click", e => {
                 this.loadDetailFrame(
@@ -235,7 +228,7 @@ class HandleFrame {
                     ocr[idx], 
                     colorFeature[idx], 
                     spaceRecognition[idx],
-                    summary[idx]
+                    // summary[idx]
                 )
             })
 

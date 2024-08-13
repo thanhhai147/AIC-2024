@@ -2,10 +2,10 @@ import os
 import json
 from frame_DAO import FrameDAO
 
-OBJECT_DETECTION_PATH = 'D:/AIC 2024/AIC-2024/Dataset/2024/Object Detection'
-OCR_PATH = 'D:/AIC 2024/AIC-2024/Dataset/2024/OCR'
-COLOR_PATH = 'D:/AIC 2024/AIC-2024/Dataset/2024/Color Features'
-SPACE_PATH = 'D:/AIC 2024/AIC-2024/Dataset/2024/Space Recognition'
+OBJECT_DETECTION_PATH = 'D:/Dataset AIC/2024/Object Detection'
+OCR_PATH = 'D:/Dataset AIC/2024/OCR'
+COLOR_PATH = 'D:/Dataset AIC/2024/Color Features'
+SPACE_PATH = 'D:/Dataset AIC/2024/Space Recognition'
 
 FD = FrameDAO()
 

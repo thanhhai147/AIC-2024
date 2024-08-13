@@ -1,11 +1,13 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.http import HttpResponse
 from rest_framework.generics import GenericAPIView
 from rest_framework import status
-from django.core.cache import cache
 import glob
 import os
 import json
+from PIL import Image
+import io
 
 from ..AI_models.clip_faiss import ClipFaiss
 from ..AI_models.query_processing import Translation
@@ -26,24 +28,19 @@ class QueryAPIView(GenericAPIView):
         query_search_text = params['text']
         limit = params['limit']
 
-        idx_image, scores = CF.search_textual_query(translate(query_search_text), limit)
-
-        with open('D:/AIC 2024/AIC-2024/Dataset/2024/output.json') as json_file:
-            output_json = json.load(json_file)
+        idx_frame, scores = CF.search_textual_query(translate(query_search_text), limit)
 
         synthetic_id_list = []
-        for idx in idx_image:
-            path = output_json[f"{idx}"]
-            path_split = path.split("\\")
-            folder_id = path_split[-3]
-            video_id = path_split[-2]
-            frame_id = path_split[-1].split(".")[0]
+        for idx in idx_frame:
+            idx_split = idx.split("_")
+            folder_id = idx_split[-3]
+            video_id = idx_split[-2]
+            frame_id = idx_split[-1]
             synthetic_id_list.append(f'{folder_id}_{video_id}_{frame_id}')
         
         records = FD.filterFrameBySyntheticId(synthetic_id_list)
         synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
-        
-        cache.clear()
+
         return Response(
             {
                 "success": True,
@@ -70,24 +67,19 @@ class QueryRelevanceAPIView(GenericAPIView):
         text_proportion = int(relevance_query['proportion']['text']) / 100
         image_proportion = int(relevance_query['proportion']['image']) / 100
 
-        idx_image, scores = CF.search_textual_image_query(translate(query_search_text), query_search_image, text_proportion, image_proportion, limit)
-
-        with open('D:/AIC 2024/AIC-2024/Dataset/2024/output.json') as json_file:
-            output_json = json.load(json_file)
+        idx_frame, scores = CF.search_textual_image_query(translate(query_search_text), query_search_image, text_proportion, image_proportion, limit)
 
         synthetic_id_list = []
-        for idx in idx_image:
-            path = output_json[f"{idx}"]
-            path_split = path.split("\\")
-            folder_id = path_split[-3]
-            video_id = path_split[-2]
-            frame_id = path_split[-1].split(".")[0]
+        for idx in idx_frame:
+            idx_split = idx.split("_")
+            folder_id = idx_split[-3]
+            video_id = idx_split[-2]
+            frame_id = idx_split[-1]
             synthetic_id_list.append(f'{folder_id}_{video_id}_{frame_id}')
         
         records = FD.filterFrameBySyntheticId(synthetic_id_list)
         synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
-        
-        cache.clear()
+
         return Response(
             {
                 "success": True,
@@ -110,24 +102,19 @@ class QueryRerankingAPIView(GenericAPIView):
         text_query = body['textQuery']
         limit = body['limit']
 
-        idx_image, scores = CF.search_textual_image_reranking_query(translate(text_query), image_query, limit)
-
-        with open('D:/AIC 2024/AIC-2024/Dataset/2024/output.json') as json_file:
-            output_json = json.load(json_file)
+        idx_frame, scores = CF.search_textual_image_reranking_query(translate(text_query), image_query, limit)
 
         synthetic_id_list = []
-        for idx in idx_image:
-            path = output_json[f"{idx}"]
-            path_split = path.split("\\")
-            folder_id = path_split[-3]
-            video_id = path_split[-2]
-            frame_id = path_split[-1].split(".")[0]
+        for idx in idx_frame:
+            idx_split = idx.split("_")
+            folder_id = idx_split[-3]
+            video_id = idx_split[-2]
+            frame_id = idx_split[-1]
             synthetic_id_list.append(f'{folder_id}_{video_id}_{frame_id}')
         
         records = FD.filterFrameBySyntheticId(synthetic_id_list)
         synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
-        
-        cache.clear()
+
         return Response(
             {
                 "success": True,
@@ -142,3 +129,29 @@ class QueryRerankingAPIView(GenericAPIView):
             }, 
             status=status.HTTP_200_OK
         )
+
+class QueryImageAPIView(GenericAPIView):
+    def get(self, request):
+        params = request.query_params
+        synthetic_id = params['synthetic-id']
+
+        image_record = FD.getSingleImageFrame(synthetic_id)
+ 
+        return HttpResponse(
+            image_record.read(),
+            status=status.HTTP_200_OK,
+            content_type=image_record.content_type
+        )
+
+class QueryVideoAPIView(GenericAPIView):
+    def get(self, request):
+        params = request.query_params
+        synthetic_id = params['synthetic-id']
+
+        video_record = FD.getSingleVideo(synthetic_id)
+ 
+        return HttpResponse(
+            video_record.read(),
+            status=status.HTTP_200_OK,
+            content_type='video/mp4'
+        ) 

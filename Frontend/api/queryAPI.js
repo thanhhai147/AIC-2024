@@ -9,6 +9,26 @@ class QueryAPI {
         )
     }
 
+    static queryImage(syntheticId) {
+        return fetch(
+            `http://localhost:8000/query-image?synthetic-id=${syntheticId}`, 
+            {
+                method: "GET",
+                mode: "cors"
+            }
+        )
+    }
+
+    static queryVideo(syntheticId) {
+        return fetch(
+            `http://localhost:8000/query-video?synthetic-id=${syntheticId}`, 
+            {
+                method: "GET",
+                mode: "cors"
+            }
+        )
+    }
+
     static queryRelevance(relevanceQuery, limitQuery) {
         return fetch(
             `http://localhost:8000/query-relevance`, 

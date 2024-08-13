@@ -38,6 +38,12 @@
     flex-direction: column;
 }
 
+#color-filter-list {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10px;
+}
+
 .ocr-filter-item {
     margin-bottom: 8px;
     display: flex;

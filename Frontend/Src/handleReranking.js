@@ -1,6 +1,7 @@
 import HandleFrame from "../View/js/handleFrame.js"
 import QueryAPI from "../API/queryAPI.js"
 import { openLoading, closeLoading } from "../View/js/handleLoading.js"
+import { loadImage } from "./handleImage.js"
 
 let textRerankingQuery = document.getElementById("text-ranking-query")
 let limitQuery = document.getElementById("limit-ranking-query")
@@ -22,7 +23,9 @@ submit.addEventListener("click", e => {
             data.spaceRecognition,
             data.summary
         )
+        return data.syntheticId
     })  
+    .then(syntheticIdList => Promise.all(syntheticIdList.map(syntheticId => loadImage(syntheticId))))
     .catch(err => {
         console.log(err)
     })

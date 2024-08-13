@@ -1,4 +1,5 @@
 import HandleFrame from "../View/js/handleFrame.js"
+import { loadImage } from "./handleImage.js"
 import QueryAPI from "../API/queryAPI.js"
 import { openLoading, closeLoading } from "../View/js/handleLoading.js"
 
@@ -21,7 +22,9 @@ submit.addEventListener("click", e => {
             data.spaceRecognition,
             data.summary
         )
-    })  
+        return data.syntheticId
+    })
+    .then(syntheticIdList => Promise.all(syntheticIdList.map(syntheticId => loadImage(syntheticId))))
     .catch(err => {
         console.log(err)
     })

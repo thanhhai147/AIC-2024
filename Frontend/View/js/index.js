@@ -37,6 +37,7 @@ document.getElementsByTagName("body")[0].addEventListener("load", e => {
     filterVisibilityIcon.setAttribute("src", filterVisibilityIconPath[0])
     filterContainer.style.display = 'flex'
     filterLabel.style.marginBottom = '8px'
+    localStorage.clear()
 })
 
 document.getElementById("multiple-results").addEventListener("wheel", e => {

@@ -2,6 +2,7 @@ import chosenTopicList from "../View/js/handleSummary.js"
 import FilterAPI from "../API/filterAPI.js"
 import HandleFrame from "../View/js/handleFrame.js"
 import { openLoading, closeLoading } from "../View/js/handleLoading.js"
+import { loadImage, loadRelevanceImage } from "./handleImage.js"
 
 let summarySubmit = document.getElementById("summary-filter-submit")
 let summaryRelevanceSubmit = document.getElementById("summary-relevance-filter-submit")
@@ -27,7 +28,9 @@ summarySubmit.addEventListener("click", e => {
             data.spaceRecognition,
             data.summary
         )
+        return data.syntheticId
     })
+    .then(syntheticIdList => Promise.all(syntheticIdList.map(syntheticId => loadImage(syntheticId))))
     .catch(err => console.log(err))
     .finally(() => closeLoading())
 })
@@ -53,7 +56,10 @@ summaryRelevanceSubmit.addEventListener("click", e => {
             data.summary
         )
         relevanceContainer.style.display = "flex"
+        relevanceContainer.style.transform = 'translateX(0px)'
+        return data.syntheticId
     })
+    .then(syntheticIdList => Promise.all(syntheticIdList.map(syntheticId => loadRelevanceImage(syntheticId))))
     .catch(err => console.log(err))
     .finally(() => closeLoading())
 })
