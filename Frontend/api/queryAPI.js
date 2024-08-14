@@ -1,7 +1,7 @@
 class QueryAPI {
-    static query(textQuery, limitQuery) {
+    static query(textQuery, limitQuery, bertProportion, clipProportion) {
         return fetch(
-            `http://localhost:8000/query?text=${textQuery}&limit=${limitQuery}`, 
+            `http://localhost:8000/query?text=${textQuery}&limit=${limitQuery}&bert=${bertProportion}&clip=${clipProportion}`, 
             {
                 method: "GET",
                 mode: "cors"
@@ -29,7 +29,7 @@ class QueryAPI {
         )
     }
 
-    static queryRelevance(relevanceQuery, limitQuery) {
+    static queryRelevance(relevanceQuery, limitQuery, bertProportion, clipProportion) {
         return fetch(
             `http://localhost:8000/query-relevance`, 
             {
@@ -40,13 +40,15 @@ class QueryAPI {
                 },
                 body: JSON.stringify({
                     relevanceQuery: relevanceQuery,
-                    limit: limitQuery
+                    limit: limitQuery,
+                    bertProportion: bertProportion,
+                    clipProportion: clipProportion
                 })
             }
         )
     }
 
-    static queryReranking(imageQuery, textQuery, limitQuery) {
+    static queryReranking(imageQuery, textQuery, limitQuery, bertProportion, clipProportion) {
         return fetch(
             `http://localhost:8000/query-reranking`, 
             {
@@ -58,7 +60,9 @@ class QueryAPI {
                 body: JSON.stringify({
                     imageQuery: imageQuery,
                     textQuery: textQuery,
-                    limit: limitQuery
+                    limit: limitQuery,
+                    bertProportion: bertProportion,
+                    clipProportion: clipProportion
                 })
             }
         )

@@ -10,7 +10,8 @@ let submit = document.getElementById("submit-btn")
 submit.addEventListener("click", e => {
     if(!textQuery.value) return
     openLoading()
-    QueryAPI.query(textQuery.value, limitQuery.value)
+    const queryProportion = JSON.parse(localStorage.getItem("queryProportion"))
+    QueryAPI.query(textQuery.value, limitQuery.value, queryProportion.bert, queryProportion.clip)
     .then(res => res.json())
     .then(data => {
         localStorage.setItem("syntheticId", data.syntheticId)

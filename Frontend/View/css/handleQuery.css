@@ -6,6 +6,19 @@
     margin-bottom: 12px;
 }
 
+#proportion-container {
+    width: 20%;
+    margin-left: 16px;
+    margin-right: 16px;
+    background-color: var(--background-color-2);
+    padding: var(--padding-normal);
+    border: 1px solid var(--primary-color-1);
+    border-radius: var(--normal-border-radius);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 #text-query-container {
     width: 45%;
 }
@@ -127,5 +140,9 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .show-relevance-proportion::after {
+    content: "%";
+}
+
+.show-proportion::after {
     content: "%";
 }

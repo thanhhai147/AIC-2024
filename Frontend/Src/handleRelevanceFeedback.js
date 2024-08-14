@@ -13,7 +13,8 @@ submit.addEventListener("click", e => {
     openLoading()
     let relevanceData = JSON.parse(JSON.stringify(relevanceFeedbackData))
     relevanceData.image = Object.keys(relevanceData.image)
-    QueryAPI.queryRelevance(relevanceData, limitQuery.value)
+    const queryProportion = JSON.parse(localStorage.getItem("queryProportion"))
+    QueryAPI.queryRelevance(relevanceData, limitQuery.value, queryProportion.bert, queryProportion.clip)
     .then(res => res.json())
     .then(data => { 
         localStorage.setItem("relevanceSyntheticId", data.syntheticId)

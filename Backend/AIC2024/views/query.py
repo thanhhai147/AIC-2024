@@ -27,8 +27,12 @@ class QueryAPIView(GenericAPIView):
         params = request.query_params
         query_search_text = params['text']
         limit = params['limit']
+        bert_proportion = params['bert']
+        clip_proportion = params['clip']
+        bert_proportion = int(bert_proportion) / 100
+        clip_proportion = int(clip_proportion) / 100
 
-        idx_frame, scores = CF.search_textual_query(translate(query_search_text), limit)
+        idx_frame, scores = CF.search_textual_query(translate(query_search_text), limit, bert_proportion, clip_proportion)
 
         synthetic_id_list = []
         for idx in idx_frame:
@@ -61,13 +65,17 @@ class QueryRelevanceAPIView(GenericAPIView):
         body = request.data
         relevance_query = body['relevanceQuery']
         limit = body['limit']
+        bert_proportion = body['bertProportion']
+        clip_proportion = body['clipProportion']
 
         query_search_text = relevance_query['textual']
         query_search_image = relevance_query['image']
         text_proportion = int(relevance_query['proportion']['text']) / 100
         image_proportion = int(relevance_query['proportion']['image']) / 100
+        bert_proportion = int(bert_proportion) / 100
+        clip_proportion = int(clip_proportion) / 100
 
-        idx_frame, scores = CF.search_textual_image_query(translate(query_search_text), query_search_image, text_proportion, image_proportion, limit)
+        idx_frame, scores = CF.search_textual_image_query(translate(query_search_text), query_search_image, text_proportion, image_proportion, limit, bert_proportion, clip_proportion)
 
         synthetic_id_list = []
         for idx in idx_frame:
@@ -101,8 +109,12 @@ class QueryRerankingAPIView(GenericAPIView):
         image_query = body['imageQuery']
         text_query = body['textQuery']
         limit = body['limit']
+        bert_proportion = body['bertProportion']
+        clip_proportion = body['clipProportion']
+        bert_proportion = int(bert_proportion) / 100
+        clip_proportion = int(clip_proportion) / 100
 
-        idx_frame, scores = CF.search_textual_image_reranking_query(translate(text_query), image_query, limit)
+        idx_frame, scores = CF.search_textual_image_reranking_query(translate(text_query), image_query, limit, bert_proportion, clip_proportion)
 
         synthetic_id_list = []
         for idx in idx_frame:

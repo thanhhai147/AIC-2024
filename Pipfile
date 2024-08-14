@@ -9,6 +9,8 @@ djangorestframework = "*"
 django-cors-headers = "*"
 moviepy = "*"
 numpy = "<2"
+transformers = "*"
+django-compression-middleware = "*"
 
 [dev-packages]
 

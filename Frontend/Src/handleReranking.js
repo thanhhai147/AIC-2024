@@ -11,7 +11,8 @@ submit.addEventListener("click", e => {
     if(!textRerankingQuery.value) return 
     openLoading()
     let imageQuery = localStorage.getItem("syntheticId").split(",")
-    QueryAPI.queryReranking(imageQuery, textRerankingQuery.value, limitQuery.value)
+    const queryProportion = JSON.parse(localStorage.getItem("queryProportion"))
+    QueryAPI.queryReranking(imageQuery, textRerankingQuery.value, limitQuery.value, queryProportion.bert, queryProportion.clip)
     .then(res => res.json())
     .then(data => {
         localStorage.setItem("syntheticId", data.syntheticId)
