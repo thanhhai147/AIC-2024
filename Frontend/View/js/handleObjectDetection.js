@@ -1,4 +1,4 @@
-let objectLabels = [
+const objectLabels = [
     "person_person_con người_con người_0",
     "traffic_bicycle_giao thông_xe đạp_1",
     "traffic_car_giao thông_ô tô_2",
@@ -81,6 +81,24 @@ let objectLabels = [
     "personal care_toothbrush_chăm sóc cá nhân_bàn chải đánh răng_79",
 ]
 
+const colorList = [
+    "red_rgb(255, 0, 0)_rgba(255, 0, 0, 0.5)",
+    "orange_rgb(255, 165, 0)_rgba(255, 165, 0, 0.5)",
+    "yellow_rgb(255, 255, 0)_rgba(255, 255, 0, 0.5)",
+    "chartreuse green_rgb(223, 255, 0)_rgba(223, 255, 0, 0.5)",
+    "green_rgb(0, 255, 0)_rgba(0, 255, 0, 0.5)",
+    "spring green_rgb(0, 255, 127)_rgba(0, 255, 127, 0.5)",
+    "CYAN_rgb(0, 255, 255)_rgba(0, 255, 255, 0.5)",
+    "Azure_rgb(0, 127, 255)_rgba(0, 127, 255, 0.5)",
+    "blue_rgb(0, 0, 255)_rgba(0, 0, 255, 0.5)",
+    "violet_rgb(127, 0, 255)_rgba(127, 0, 255, 0.5)",
+    "magenta_rgb(255, 0, 255)_rgba(255, 0, 255, 0.5)",
+    "rose_rgb(255, 0, 127)_rgba(255, 0, 127, 0.5)",
+    "black_rgb(0, 0, 0)_rgba(0, 0, 0, 0.3)",
+    "white_rgb(255, 255, 255)_rgba(255, 255, 255, 0.5)",
+    "gray_rgb(128, 128, 128)_rgba(128, 128, 128, 0.5)"
+]
+
 let filterObjectLabels = objectLabels
 let chosenLabels = {}
 
@@ -88,6 +106,17 @@ let checkIconPath = ['../assets/icon/unchecked.png', '../assets/icon/check.png']
 
 let objFilter = document.getElementById('obj-filter')
 let objFilterList = document.getElementById('obj-filter-list')
+let objFilterColor = document.getElementById('obj-filter-color')
+let objFilterColorCancel = document.getElementById('obj-filter-color-cancel-icon')
+let colorWrapper = document.getElementById("obj-filter-color-wrapper")
+let multipleResultContainer = document.getElementById("multiple-results")
+let toolbar = document.getElementById('tool-bar')
+
+objFilterColorCancel.addEventListener("click", e => {
+    objFilterColor.style.display = "none"
+    while(colorWrapper.firstChild) colorWrapper.removeChild(colorWrapper.firstChild)
+    multipleResultContainer.style.filter = 'none'
+})
 
 const handleInputChange = (e, type, idx) => {
     if(type === 'LQ') {
@@ -107,6 +136,33 @@ const handleInputChange = (e, type, idx) => {
     }
 }
 
+const showColorInput = (colorShowDocument, idx) => {
+    if (colorShowDocument.style.display === "none") colorShowDocument.style.display = "block"
+    multipleResultContainer.style.filter = 'blur(4px)'
+
+    colorList.forEach(colorItem => {
+        const [colorLabel, colorRGB, colorRGBA] = colorItem.split("_")
+        const colorItemDocument = document.createElement('div')
+        colorItemDocument.id = `color-item-${colorLabel.toLowerCase().replace(/ /g, "_")}`
+        colorItemDocument.className = "color-item"
+        colorItemDocument.style.backgroundColor = chosenLabels[idx].color.has(colorLabel) ? colorRGBA : colorRGB
+        colorItemDocument.style.border = chosenLabels[idx].color.has(colorLabel) ? "2px solid var(--primary-color-2)" : "none"
+        colorItemDocument.addEventListener("click", e => {
+            if(colorItemDocument.style.backgroundColor == colorRGB) {
+                colorItemDocument.style.backgroundColor = colorRGBA
+                colorItemDocument.style.border = "2px solid var(--primary-color-2)"
+                chosenLabels[idx].color.add(colorLabel)
+            } else {
+                colorItemDocument.style.backgroundColor = colorRGB
+                colorItemDocument.style.border = "none"
+                chosenLabels[idx].color.delete(colorLabel)
+            }
+        })
+        colorWrapper.appendChild(colorItemDocument)
+   })
+
+}
+
 const showInput = (parentDocument, iconDocument, idx, label) => {
     parentDocument.removeChild(iconDocument)
 
@@ -120,7 +176,8 @@ const showInput = (parentDocument, iconDocument, idx, label) => {
             "proportion": {
                 "lower": null,
                 "upper": null
-            }
+            },
+            "color": new Set()
         }
     }
     
@@ -162,10 +219,19 @@ const showInput = (parentDocument, iconDocument, idx, label) => {
     upperProportion.value = chosenLabels[idx]['proportion']['upper']
     upperProportion.addEventListener('change', e => handleInputChange(e, 'UP', idx))
 
+    let color = document.createElement("div")
+    color.setAttribute("type", "color")
+    color.setAttribute("id", `obj-filter-color-${idx}`)
+    color.setAttribute("class", "filter-item-input filter-item-input-color")
+    color.innerHTML = "Color"
+    color.addEventListener('change', e => handleInputChange(e, 'color', idx))
+    color.addEventListener('click', e => showColorInput(objFilterColor, idx))
+
     parentDocument.appendChild(lowerQuantity)
     parentDocument.appendChild(upperQuantity)
     parentDocument.appendChild(lowerProportion)
     parentDocument.appendChild(upperProportion)
+    parentDocument.appendChild(color)
 
     let checkIcon = document.createElement("img")
     checkIcon.setAttribute("class", "filter-check-icon")
@@ -183,6 +249,7 @@ const handleCheck = (e, parentDocument, iconDocument, idx, label) => {
         parentDocument.removeChild(document.getElementById(`obj-filter-UQ-${idx}`))
         parentDocument.removeChild(document.getElementById(`obj-filter-LP-${idx}`))
         parentDocument.removeChild(document.getElementById(`obj-filter-UP-${idx}`))
+        parentDocument.removeChild(document.getElementById(`obj-filter-color-${idx}`))
 
         iconDocument.setAttribute("src", checkIconPath[0])
     } else {

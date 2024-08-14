@@ -1,5 +1,48 @@
 .color-filter-show {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
+    cursor: pointer;
+}
+
+.filter-item-input-color {
+    cursor: pointer;
+    position: relative;
+}
+
+#obj-filter-color {
+    position: fixed;
+    background-color: var(--background-color-1);
+    border-radius: var(--normal-border-radius);
+    padding: 24px;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 199;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#obj-filter-color-cancel {
+    display: flex;
+}
+
+#obj-filter-color-cancel-icon {
+    width: 16px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+#obj-filter-color-wrapper {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    row-gap: 8px;
+    column-gap: 8px;
+    margin-top: 20px;
+}
+
+.color-item {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
 }

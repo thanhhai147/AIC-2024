@@ -1,64 +1,51 @@
 const colorList = [
-    "red_#FF0000",
-    "orange_#FFA500",
-    "yellow_#FFFF00",
-    "charteruse green_#DFFF00",
-    "green_#00FF00",
-    "spring green_#00FF7F",
-    "CYAN_#00FFFF",
-    "Azure_#007FFF",
-    "blue_#0000FF",
-    "violet_#7F00FF",
-    "magenta_#FF00FF",
-    "rose_#FF007F",
-    "black_#000000",
-    "white_#FFFFFF",
-    "gray_#808080"
+    "red_rgb(255, 0, 0)_rgba(255, 0, 0, 0.5)",
+    "orange_rgb(255, 165, 0)_rgba(255, 165, 0, 0.5)",
+    "yellow_rgb(255, 255, 0)_rgba(255, 255, 0, 0.5)",
+    "chartreuse green_rgb(223, 255, 0)_rgba(223, 255, 0, 0.5)",
+    "green_rgb(0, 255, 0)_rgba(0, 255, 0, 0.5)",
+    "spring green_rgb(0, 255, 127)_rgba(0, 255, 127, 0.5)",
+    "CYAN_rgb(0, 255, 255)_rgba(0, 255, 255, 0.5)",
+    "Azure_rgb(0, 127, 255)_rgba(0, 127, 255, 0.5)",
+    "blue_rgb(0, 0, 255)_rgba(0, 0, 255, 0.5)",
+    "violet_rgb(127, 0, 255)_rgba(127, 0, 255, 0.5)",
+    "magenta_rgb(255, 0, 255)_rgba(255, 0, 255, 0.5)",
+    "rose_rgb(255, 0, 127)_rgba(255, 0, 127, 0.5)",
+    "black_rgb(0, 0, 0)_rgba(0, 0, 0, 0.3)",
+    "white_rgb(255, 255, 255)_rgba(255, 255, 255, 0.5)",
+    "gray_rgb(128, 128, 128)_rgba(128, 128, 128, 0.5)"
 ]
 let filterColorList = colorList
 
-const checkIconPath = ['../assets/icon/unchecked.png', '../assets/icon/check.png'] 
 let chosenColorList = new Set()
 let colorContainer = document.getElementById('color-filter-list')
 let colorInput = document.getElementById('color-filter')
 let colorClear = document.getElementById('color-filter-clear')
-
-const handleCheckColor = (color, checkIcon) => {
-    if (checkIcon.getAttribute("src") === checkIconPath[0]) {
-        chosenColorList.add(color)
-        checkIcon.setAttribute("src", checkIconPath[1])
-    } else {
-        chosenColorList.delete(color)
-        checkIcon.setAttribute("src", checkIconPath[0])
-    }
-}
 
 const showColor = (colorList) => {
 
     while(colorContainer.lastChild) colorContainer.removeChild(colorContainer.lastChild)
     
     colorList.forEach(colorInfo => {
-        let [color, hexCode] = colorInfo.split("_")
-        let colorText = document.createElement("span")
-        colorText.className = 'color-filter-label normal-text'
-        colorText.innerHTML = color.toString().toLowerCase().charAt(0).toUpperCase() + color.toString().toLowerCase().slice(1)
+        let [colorLabel, colorRGB, colorRGBA] = colorInfo.split("_")
         
         let colorShow = document.createElement("div")
         colorShow.className = 'color-filter-show'
-        colorShow.style.backgroundColor = hexCode
+        colorShow.style.backgroundColor = chosenColorList.has(colorLabel) ? colorRGBA : colorRGB
+        colorShow.style.border = chosenColorList.has(colorLabel) ? "2px solid var(--primary-color-2)" : "none"
+        colorShow.addEventListener("click", e => {
+            if(colorShow.style.backgroundColor == colorRGB) {
+                colorShow.style.backgroundColor = colorRGBA
+                colorShow.style.border = "2px solid var(--primary-color-2)"
+                chosenColorList.add(colorLabel)
+            } else {
+                colorShow.style.backgroundColor = colorRGB
+                colorShow.style.border = "none"
+                chosenColorList.delete(colorLabel)
+            }
+        })
     
-        let colorWrapper = document.createElement("div")
-        colorWrapper.className = 'filter-wrapper'
-    
-        let checkIcon = document.createElement("img")
-        checkIcon.className = 'filter-check-icon'
-        checkIcon.src = chosenColorList.has(color) ? checkIconPath[1] : checkIconPath[0]
-        checkIcon.addEventListener("click", e => handleCheckColor(color, checkIcon))
-    
-        colorWrapper.appendChild(colorShow)
-        colorWrapper.appendChild(colorText)
-        colorWrapper.appendChild(checkIcon)
-        colorContainer.appendChild(colorWrapper)
+        colorContainer.appendChild(colorShow)
     })
 }
 

@@ -15,7 +15,7 @@ document.getElementById("multiple-results").addEventListener("wheel", e => {
     relevanceContainer.style.display = 'none'
 })
 
-queryVisibilityIcon.addEventListener("click", e => {
+const handleQueryVisibilityIcon = () => {
     if (queryVisibilityIcon.getAttribute('src') === queryVisibilityIconPath[0]) {
         queryVisibilityIcon.setAttribute("src", queryVisibilityIconPath[1])
         queryContainer.style.display = 'none'
@@ -25,6 +25,12 @@ queryVisibilityIcon.addEventListener("click", e => {
         queryContainer.style.display = 'flex'
         relevanceContainer.style.display = 'flex'
     }
+}
+
+queryVisibilityIcon.addEventListener("click", e => handleQueryVisibilityIcon())
+
+document.addEventListener("keydown", e => {
+    if(e.shiftKey && e.key === 'Q') handleQueryVisibilityIcon()
 })
 
 // Filter Visibility
@@ -46,7 +52,7 @@ document.getElementById("multiple-results").addEventListener("wheel", e => {
     filterLabel.style.marginBottom = 0
 })
 
-filterVisibilityIcon.addEventListener("click", e => {
+const handleFilterVisibilityIcon = () => {
     if (filterVisibilityIcon.getAttribute('src') === filterVisibilityIconPath[0]) {
         filterVisibilityIcon.setAttribute("src", filterVisibilityIconPath[1])
         filterContainer.style.display = 'none'
@@ -56,5 +62,11 @@ filterVisibilityIcon.addEventListener("click", e => {
         filterContainer.style.display = 'flex'
         filterLabel.style.marginBottom = '8px'
     }
+}
+
+filterVisibilityIcon.addEventListener("click", e => handleFilterVisibilityIcon())
+
+document.addEventListener("keydown", e => {
+    if(e.shiftKey && e.key === 'F') handleFilterVisibilityIcon()
 })
 

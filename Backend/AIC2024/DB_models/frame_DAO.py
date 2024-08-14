@@ -236,7 +236,8 @@ class FrameDAO:
                         "$elemMatch": {
                             "Label": object["label"],
                             "Quantity": {},
-                            "Proportion": {}
+                            "Proportion": {},
+                            "Color": {}
                         }
                     }
                 }
@@ -245,9 +246,11 @@ class FrameDAO:
                 if object["quantity"]["upper"]: object_query["ObjectDetection"]["$elemMatch"]["Quantity"]["$lte"] = int(object["quantity"]["upper"])
                 if object["proportion"]["lower"]: object_query["ObjectDetection"]["$elemMatch"]["Proportion"]["$gte"] = float(object["proportion"]["lower"])
                 if object["proportion"]["upper"]: object_query["ObjectDetection"]["$elemMatch"]["Proportion"]["$lte"] = float(object["proportion"]["upper"])
+                if object["color"]: object_query["ObjectDetection"]["$elemMatch"]["Color"]["$in"] = list(object["color"])
 
                 if not object_query["ObjectDetection"]["$elemMatch"]["Quantity"]: object_query["ObjectDetection"]["$elemMatch"].pop("Quantity")
                 if not object_query["ObjectDetection"]["$elemMatch"]["Proportion"]: object_query["ObjectDetection"]["$elemMatch"].pop("Proportion")
+                if not object_query["ObjectDetection"]["$elemMatch"]["Color"]: object_query["ObjectDetection"]["$elemMatch"].pop("Color")
                 
                 object_detection_query.append(object_query) 
             and_query_list.append({
