@@ -8,6 +8,7 @@ import os
 import json
 from PIL import Image
 import io
+import gzip
 
 from ..AI_models.clip_faiss import ClipFaiss
 from ..AI_models.query_processing import Translation
@@ -124,12 +125,20 @@ class QueryImageAPIView(GenericAPIView):
         synthetic_id = params['synthetic-id']
 
         image_record = FD.getSingleImageFrame(synthetic_id)
+
+        compressed_buffer = io.BytesIO()
+        with gzip.GzipFile(fileobj=compressed_buffer, mode='wb') as gzip_file:
+            gzip_file.write(image_record.read())
+
+        compressed_data = compressed_buffer.getvalue()
  
-        return HttpResponse(
-            image_record.read(),
+        response = HttpResponse(
+            compressed_data,
             status=status.HTTP_200_OK,
-            content_type=image_record.content_type
+            content_type=image_record.content_type, 
         )
+        response['Content-Encoding'] = 'gzip'
+        return response
 
 class QueryVideoAPIView(GenericAPIView):
     def get(self, request):
@@ -139,9 +148,17 @@ class QueryVideoAPIView(GenericAPIView):
         end_time = params['end-time']
 
         video_record = FD.getSingleVideo(synthetic_id)
+
+        compressed_buffer = io.BytesIO()
+        with gzip.GzipFile(fileobj=compressed_buffer, mode='wb') as gzip_file:
+            gzip_file.write(video_record.read())
+
+        compressed_data = compressed_buffer.getvalue()
  
-        return HttpResponse(
-            video_record.read(),
+        response = HttpResponse(
+            compressed_data,
             status=status.HTTP_200_OK,
             content_type='video/mp4'
-        ) 
+        )
+        response['Content-Encoding'] = 'gzip'
+        return response 

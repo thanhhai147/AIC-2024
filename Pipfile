@@ -11,6 +11,7 @@ moviepy = "*"
 numpy = "<2"
 transformers = "*"
 django-compression-middleware = "*"
+channels = "*"
 
 [dev-packages]
 
