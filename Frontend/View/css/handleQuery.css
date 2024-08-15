@@ -8,8 +8,8 @@
 
 #proportion-container {
     width: 20%;
-    margin-left: 16px;
-    margin-right: 16px;
+    margin-left: 12px;
+    margin-right: 12px;
     background-color: var(--background-color-2);
     padding: var(--padding-normal);
     border: 1px solid var(--primary-color-1);
@@ -105,6 +105,10 @@
     width: var(--head1-font-size);
     margin-left: 12px;
     cursor: pointer;
+}
+
+#query-visibility-icon {
+    margin-left: 0;
 }
 
 input[type="range"] {

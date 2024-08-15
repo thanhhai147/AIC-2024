@@ -34,15 +34,7 @@ class QueryAPIView(GenericAPIView):
 
         idx_frame, scores = CF.search_textual_query(translate(query_search_text), limit, bert_proportion, clip_proportion)
 
-        synthetic_id_list = []
-        for idx in idx_frame:
-            idx_split = idx.split("_")
-            folder_id = idx_split[-3]
-            video_id = idx_split[-2]
-            frame_id = idx_split[-1]
-            synthetic_id_list.append(f'{folder_id}_{video_id}_{frame_id}')
-        
-        records = FD.filterFrameBySyntheticId(synthetic_id_list)
+        records = FD.filterFrameBySyntheticId(idx_frame)
         synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
 
         return Response(
@@ -76,16 +68,8 @@ class QueryRelevanceAPIView(GenericAPIView):
         clip_proportion = int(clip_proportion) / 100
 
         idx_frame, scores = CF.search_textual_image_query(translate(query_search_text), query_search_image, text_proportion, image_proportion, limit, bert_proportion, clip_proportion)
-
-        synthetic_id_list = []
-        for idx in idx_frame:
-            idx_split = idx.split("_")
-            folder_id = idx_split[-3]
-            video_id = idx_split[-2]
-            frame_id = idx_split[-1]
-            synthetic_id_list.append(f'{folder_id}_{video_id}_{frame_id}')
         
-        records = FD.filterFrameBySyntheticId(synthetic_id_list)
+        records = FD.filterFrameBySyntheticId(idx_frame)
         synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
 
         return Response(
@@ -115,16 +99,8 @@ class QueryRerankingAPIView(GenericAPIView):
         clip_proportion = int(clip_proportion) / 100
 
         idx_frame, scores = CF.search_textual_image_reranking_query(translate(text_query), image_query, limit, bert_proportion, clip_proportion)
-
-        synthetic_id_list = []
-        for idx in idx_frame:
-            idx_split = idx.split("_")
-            folder_id = idx_split[-3]
-            video_id = idx_split[-2]
-            frame_id = idx_split[-1]
-            synthetic_id_list.append(f'{folder_id}_{video_id}_{frame_id}')
         
-        records = FD.filterFrameBySyntheticId(synthetic_id_list)
+        records = FD.filterFrameBySyntheticId(idx_frame)
         synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
 
         return Response(
@@ -159,6 +135,8 @@ class QueryVideoAPIView(GenericAPIView):
     def get(self, request):
         params = request.query_params
         synthetic_id = params['synthetic-id']
+        start_time = params['start-time']
+        end_time = params['end-time']
 
         video_record = FD.getSingleVideo(synthetic_id)
  

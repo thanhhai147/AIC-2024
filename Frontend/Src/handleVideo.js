@@ -1,7 +1,7 @@
 import QueryAPI from "../API/queryAPI.js";
 
-export default async function loadVideo(syntheticId) {
-    return QueryAPI.queryVideo(syntheticId)
+export default async function loadVideo(syntheticId, startTime, endTime) {
+    return QueryAPI.queryVideo(syntheticId, startTime, endTime)
     .then(res => res.blob())
     .then(blob => URL.createObjectURL(blob))
     .then(videoURL => {

@@ -1,3 +1,11 @@
+window.addEventListener("load", () => {
+    localStorage.clear()
+    localStorage.setItem("queryProportion", JSON.stringify({
+        "bert": 0,
+        "clip": 100
+    }))
+})
+
 // Query Visibility
 let queryVisibilityIcon = document.getElementById("query-visibility-icon")
 let queryVisibilityIconPath = ['../assets/icon/down.png', '../assets/icon/up.png']
@@ -43,7 +51,6 @@ document.getElementsByTagName("body")[0].addEventListener("load", e => {
     filterVisibilityIcon.setAttribute("src", filterVisibilityIconPath[0])
     filterContainer.style.display = 'flex'
     filterLabel.style.marginBottom = '8px'
-    localStorage.clear()
 })
 
 document.getElementById("multiple-results").addEventListener("wheel", e => {

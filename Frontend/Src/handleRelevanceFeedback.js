@@ -31,7 +31,6 @@ submit.addEventListener("click", e => {
         return data.syntheticId
     })  
     .then(syntheticIdList => {
-        console.log(document.getElementById("canvas-relevance-L27-V011-L27"))
         return syntheticIdList
     })
     .then(syntheticIdList => Promise.all(syntheticIdList.map(syntheticId => loadRelevanceImage(syntheticId))))

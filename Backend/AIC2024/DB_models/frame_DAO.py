@@ -76,7 +76,9 @@ class FrameDAO:
                 "$in": synthetic_id_list
             }
         }
-        return self.video_fs.find(query)
+        results = list(self.video_fs.find(query))
+        results_sorted = sorted(results, key=lambda doc: synthetic_id_list.index(doc['SyntheticId']))
+        return results_sorted
     
     def getSingleVideo(self, synthetic_id):
         query = {
@@ -132,7 +134,9 @@ class FrameDAO:
                 }
             ]
         }
-        return self.collection.find(query)
+        results = list(self.collection.find(query))
+        results_sorted = sorted(results, key=lambda doc: synthetic_id_list.index(doc['SyntheticId']))
+        return results_sorted
     
     def filterFrameBySyntheticId(self, synthetic_id_list):
         query = {
@@ -140,7 +144,9 @@ class FrameDAO:
                 "$in": synthetic_id_list
             }
         }
-        return self.collection.find(query)
+        results = list(self.collection.find(query))
+        results_sorted = sorted(results, key=lambda doc: synthetic_id_list.index(doc['SyntheticId']))
+        return results_sorted
     
     def filterFrameByOCR(self, synthetic_id_list, ocr):
         query = {
@@ -157,7 +163,9 @@ class FrameDAO:
                 }
             ]
         }
-        return self.collection.find(query).sort( { "score": { "$meta": "textScore" } } )
+        results = list(self.collection.find(query).sort( { "score": { "$meta": "textScore" } } ))
+        results_sorted = sorted(results, key=lambda doc: synthetic_id_list.index(doc['SyntheticId']))
+        return results_sorted
     
     def filterFrameByColorFeature(self, synthetic_id_list, color_feature):
         query = {
@@ -174,7 +182,9 @@ class FrameDAO:
                 }
             ]
         }
-        return self.collection.find(query)
+        results = list(self.collection.find(query))
+        results_sorted = sorted(results, key=lambda doc: synthetic_id_list.index(doc['SyntheticId']))
+        return results_sorted
     
     def filterFrameBySpaceRecognition(self, synthetic_id_list, space_recognition):
         query = {
@@ -191,7 +201,9 @@ class FrameDAO:
                 }
             ]
         }
-        return self.collection.find(query)
+        results = list(self.collection.find(query))
+        results_sorted = sorted(results, key=lambda doc: synthetic_id_list.index(doc['SyntheticId']))
+        return results_sorted
     
     def filterFrameBySummary(self, synthetic_id_list, summary_topic):
         query = {
@@ -208,7 +220,9 @@ class FrameDAO:
                 }
             ]
         }
-        return self.collection.find(query)
+        results = list(self.collection.find(query))
+        results_sorted = sorted(results, key=lambda doc: synthetic_id_list.index(doc['SyntheticId']))
+        return results_sorted
     
     def filterFrameByAllModels(self, synthetic_id_list, ocr, object_detection, color_feature, space_recognition, summary_topic):
 
@@ -284,4 +298,6 @@ class FrameDAO:
 
         query_records = self.collection.find(query)
         if (ocr and ocr != ""): query_records.sort( { "score": { "$meta": "textScore" } } )
-        return query_records
+        results = list(query_records)
+        results_sorted = sorted(results, key=lambda doc: synthetic_id_list.index(doc['SyntheticId']))
+        return results_sorted

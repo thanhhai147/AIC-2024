@@ -67,13 +67,13 @@ class HandleFrame {
 
     static async loadDetailFrame(folderId, videoId, frameId, objectDetection, ocr, colorFeature, spaceRecognition, summary) {
         openLoading()
-    
-        const videoURL = await loadVideo(`${folderId}_${folderId}_${videoId}`)
 
         targetTime = frameId / fps
         video.currentTime = targetTime
         startTime = video.currentTime - intervalTime / 2
         endTime = video.currentTime + intervalTime / 2
+
+        const videoURL = await loadVideo(`${folderId}_${folderId}_${videoId}`, startTime, endTime)
 
         play.addEventListener('click', this.handlePlay)
         rewind.addEventListener("click", this.handleRewind)
@@ -196,6 +196,11 @@ class HandleFrame {
             frameContainer.appendChild(relevanceAdd)
             frameList.appendChild(frameContainer)
         })
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
 
     static loadRelevanceFrame(imgPath, objectDetection, ocr, colorFeature, spaceRecognition, summary) {    

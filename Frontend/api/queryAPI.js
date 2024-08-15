@@ -19,9 +19,9 @@ class QueryAPI {
         )
     }
 
-    static queryVideo(syntheticId) {
+    static queryVideo(syntheticId, startTime, endTime) {
         return fetch(
-            `http://localhost:8000/query-video?synthetic-id=${syntheticId}`, 
+            `http://localhost:8000/query-video?synthetic-id=${syntheticId}&start-time=${startTime}&end-time=${endTime}`, 
             {
                 method: "GET",
                 mode: "cors"
