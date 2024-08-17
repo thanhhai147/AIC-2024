@@ -1,12 +1,8 @@
-from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from rest_framework.generics import GenericAPIView
 from rest_framework import status
-import glob
 import os
-import json
-from PIL import Image
 import io
 import gzip
 
@@ -16,7 +12,8 @@ from ..AI_models.query_processing import Translation
 from ..DB_models.frame_DAO import FrameDAO
 from ..DB_models.utils import Utils
 
-FULL_PATH_DATASET = 'D:/AIC 2024/AIC-2024'
+FULL_PATH_FRAME_DATASET = 'D:\\Dataset AIC\\2024\\KeyFrame(360p)'
+FULL_PATH_VIDEO_DATASET = 'D:\\Dataset AIC\\2024\\Videos'
 translate = Translation()
 
 FD = FrameDAO()
@@ -123,22 +120,9 @@ class QueryImageAPIView(GenericAPIView):
     def get(self, request):
         params = request.query_params
         synthetic_id = params['synthetic-id']
-
-        image_record = FD.getSingleImageFrame(synthetic_id)
-
-        compressed_buffer = io.BytesIO()
-        with gzip.GzipFile(fileobj=compressed_buffer, mode='wb') as gzip_file:
-            gzip_file.write(image_record.read())
-
-        compressed_data = compressed_buffer.getvalue()
- 
-        response = HttpResponse(
-            compressed_data,
-            status=status.HTTP_200_OK,
-            content_type=image_record.content_type, 
-        )
-        response['Content-Encoding'] = 'gzip'
-        return response
+        folder_id, video_id, frame_id = synthetic_id.split("_")
+        img_path = os.path.join(FULL_PATH_FRAME_DATASET, folder_id, video_id, f'{frame_id}.webp')
+        return FileResponse(open(img_path, 'rb'), content_type='image/webp')
 
 class QueryVideoAPIView(GenericAPIView):
     def get(self, request):
@@ -146,19 +130,6 @@ class QueryVideoAPIView(GenericAPIView):
         synthetic_id = params['synthetic-id']
         start_time = params['start-time']
         end_time = params['end-time']
-
-        video_record = FD.getSingleVideo(synthetic_id)
-
-        compressed_buffer = io.BytesIO()
-        with gzip.GzipFile(fileobj=compressed_buffer, mode='wb') as gzip_file:
-            gzip_file.write(video_record.read())
-
-        compressed_data = compressed_buffer.getvalue()
- 
-        response = HttpResponse(
-            compressed_data,
-            status=status.HTTP_200_OK,
-            content_type='video/mp4'
-        )
-        response['Content-Encoding'] = 'gzip'
-        return response 
+        folder_id, _, video_id = synthetic_id.split("_")
+        img_path = os.path.join(FULL_PATH_VIDEO_DATASET, folder_id, f'{folder_id}_{video_id}.mp4')
+        return FileResponse(open(img_path, 'rb'), content_type='video/mp4')
