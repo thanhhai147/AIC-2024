@@ -119,9 +119,9 @@ class HandleFrame {
         //     topicDisplay.setAttribute('class', 'single-frame-summary-item')
         //     topicDisplay.innerHTML = topic
         //     summaryContainer.appendChild(topicDisplay)
-        // })         
-
-        cancel.addEventListener("click", e => {
+        // }) 
+        
+        const cancelDetailFrame = () => {
             play.setAttribute('src', playIconPath[1])
             video.pause()
             video.removeAttribute("src")
@@ -134,6 +134,11 @@ class HandleFrame {
             singleResultContainer.style.display = 'none'
             multipleResultContainer.style.filter = null
             toolbar.style.filter = null
+        }
+
+        cancel.addEventListener("click", e => cancelDetailFrame())
+        document.addEventListener("keydown", e => {
+            if(e.key === 'Escape' || e.key === 'Esc') cancelDetailFrame()
         })
 
         closeLoading()
