@@ -74,12 +74,20 @@
 
 .filter-submit {
     width: 24px;
+    height: 24px;
     margin-left: 4px;
     cursor: pointer;
 }
 
 .relevance-filter-submit {
     width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.all-filter-submit {
+    width: 24px;
+    height: 24px;
     cursor: pointer;
 }
 

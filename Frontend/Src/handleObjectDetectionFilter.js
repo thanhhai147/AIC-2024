@@ -6,6 +6,7 @@ import { loadImage, loadRelevanceImage } from "./handleImage.js"
 
 let objectDetectionSubmit = document.getElementById("obj-filter-submit")
 let objectDetectionRelevanceSubmit = document.getElementById("obj-relevance-filter-submit")
+let objectDetectionAllSubmit = document.getElementById("obj-all-filter-submit")
 let relevanceContainer = document.getElementById('relevance-result-container')
 
 objectDetectionSubmit.addEventListener("click", e => {
@@ -18,6 +19,32 @@ objectDetectionSubmit.addEventListener("click", e => {
     let spaceRecognition = JSON.parse(localStorage.getItem("spaceRecognition"))
     let summaryTopic = JSON.parse(localStorage.getItem("summaryTopic"))
     FilterAPI.filterByAllModels(syntheticId, ocr, objectDetection, colorFeature, spaceRecognition, summaryTopic)
+    .then(res => res.json())
+    .then(data => {
+        if(data.success) HandleFrame.loadFrame(
+            data.imagePath, 
+            data.objectDetection, 
+            data.ocr, 
+            data.colorFeature, 
+            data.spaceRecognition,
+            data.summary
+        )
+        return data.syntheticId
+    })
+    .then(syntheticIdList => Promise.all(syntheticIdList.map(syntheticId => loadImage(syntheticId))))
+    .catch(err => console.log(err))
+    .finally(() => closeLoading())
+})
+
+objectDetectionAllSubmit.addEventListener("click", e => {
+    openLoading()
+    let ocr = localStorage.getItem("ocr")
+    let objectDetection = Object.values(chosenLables)
+    localStorage.setItem("objectDetection", JSON.stringify(objectDetection))
+    let colorFeature = JSON.parse(localStorage.getItem("colorFeature"))
+    let spaceRecognition = JSON.parse(localStorage.getItem("spaceRecognition"))
+    let summaryTopic = JSON.parse(localStorage.getItem("summaryTopic"))
+    FilterAPI.filterAllByAllModels(ocr, objectDetection, colorFeature, spaceRecognition, summaryTopic)
     .then(res => res.json())
     .then(data => {
         if(data.success) HandleFrame.loadFrame(

@@ -301,3 +301,74 @@ class FrameDAO:
         results = list(query_records)
         results_sorted = sorted(results, key=lambda doc: synthetic_id_list.index(doc['SyntheticId']))
         return results_sorted
+    
+    def filterAllFrameByAllModels(self, ocr, object_detection, color_feature, space_recognition, summary_topic):
+
+        and_query_list = []
+
+        if (ocr and ocr != ""):
+            and_query_list.append({
+                "$text": {
+                    "$search": ocr
+                }
+            })
+
+        if (object_detection and len(object_detection) > 0):
+            object_detection_query = []
+            for object in object_detection:
+
+                object_query = {
+                    "ObjectDetection": {
+                        "$elemMatch": {
+                            "Label": object["label"],
+                            "Quantity": {},
+                            "Proportion": {},
+                            "Color": {}
+                        }
+                    }
+                }
+
+                if object["quantity"]["lower"]: object_query["ObjectDetection"]["$elemMatch"]["Quantity"]["$gte"] = int(object["quantity"]["lower"])
+                if object["quantity"]["upper"]: object_query["ObjectDetection"]["$elemMatch"]["Quantity"]["$lte"] = int(object["quantity"]["upper"])
+                if object["proportion"]["lower"]: object_query["ObjectDetection"]["$elemMatch"]["Proportion"]["$gte"] = float(object["proportion"]["lower"])
+                if object["proportion"]["upper"]: object_query["ObjectDetection"]["$elemMatch"]["Proportion"]["$lte"] = float(object["proportion"]["upper"])
+                if object["color"]: object_query["ObjectDetection"]["$elemMatch"]["Color"]["$in"] = list(object["color"])
+
+                if not object_query["ObjectDetection"]["$elemMatch"]["Quantity"]: object_query["ObjectDetection"]["$elemMatch"].pop("Quantity")
+                if not object_query["ObjectDetection"]["$elemMatch"]["Proportion"]: object_query["ObjectDetection"]["$elemMatch"].pop("Proportion")
+                if not object_query["ObjectDetection"]["$elemMatch"]["Color"]: object_query["ObjectDetection"]["$elemMatch"].pop("Color")
+                
+                object_detection_query.append(object_query) 
+            and_query_list.append({
+                "$and": object_detection_query
+            })
+        
+        if (color_feature and len(color_feature) > 0):
+            and_query_list.append({
+                "ColorFeature": {
+                    "$all": color_feature
+                }
+            })
+        
+        if (space_recognition and len(space_recognition) > 0):
+            and_query_list.append({
+                "SpaceRecognition": {
+                    "$all": space_recognition
+                }
+            })
+        
+        if (summary_topic and len(summary_topic) > 0):
+            and_query_list.append({
+                "Summary": {
+                    "$all": summary_topic
+                }
+            })
+
+        query = {
+            "$and": and_query_list
+        }
+
+        query_records = self.collection.find(query)
+        if (ocr and ocr != ""): query_records.sort( { "score": { "$meta": "textScore" } } )
+        results = list(query_records)
+        return results

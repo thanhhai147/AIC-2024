@@ -120,6 +120,26 @@ class FilterAPI {
             }
         )
     }
+
+    static filterAllByAllModels(ocr, objectDetection, colorFeature, spaceRecognition, summaryTopic) {
+        return fetch(
+            `http://localhost:8000/filter-all-by-all-models`, 
+            {
+                method: "POST",
+                mode: "cors",
+                headers: { 
+                    "Content-type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify({
+                    ocr,
+                    objectDetection,
+                    colorFeature,
+                    spaceRecognition,
+                    summaryTopic
+                })
+            }
+        )
+    }
 }
 
 export default FilterAPI

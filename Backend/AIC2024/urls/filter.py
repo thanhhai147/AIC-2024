@@ -1,6 +1,6 @@
 from django.urls import path
 
-from ..views.filter import FilterByObjectDetectionAPIView, FilterByOCRAPIView, FilterByIdAPIView, FilterByColorFeatureAPIView, FilterBySpaceRecognitionAPIView, FilterBySummaryAPIView, FilterByAllModelsAPIView
+from ..views.filter import FilterByObjectDetectionAPIView, FilterByOCRAPIView, FilterByIdAPIView, FilterByColorFeatureAPIView, FilterBySpaceRecognitionAPIView, FilterBySummaryAPIView, FilterByAllModelsAPIView, FilterAllByAllModelsAPIView
 
 urlpatterns = [
     path('filter-by-object-detection', FilterByObjectDetectionAPIView.as_view(), name='filter-object-detection'),
@@ -10,4 +10,5 @@ urlpatterns = [
     path('filter-by-space-recognition', FilterBySpaceRecognitionAPIView.as_view(), name='filter-space-recognition'),
     path('filter-by-summary', FilterBySummaryAPIView.as_view(), name='filter-summary'),
     path('filter-by-all-models', FilterByAllModelsAPIView.as_view(), name='filter-all-models'),
+    path('filter-all-by-all-models', FilterAllByAllModelsAPIView.as_view(), name='filter-all-all-models'),
 ]

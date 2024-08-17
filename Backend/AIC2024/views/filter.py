@@ -249,3 +249,31 @@ class FilterByAllModelsAPIView(GenericAPIView):
             status=status.HTTP_200_OK,
             content_type="application/json"
         )
+    
+class FilterAllByAllModelsAPIView(GenericAPIView):
+    def post(self, request):
+        body = request.data
+        ocr = body['ocr']
+        object_detection = body['objectDetection']
+        color_feature = body['colorFeature']
+        space_recognition = body['spaceRecognition']
+        summary_topic = body['summaryTopic']
+        
+        records = FD.filterAllFrameByAllModels(ocr, object_detection, color_feature, space_recognition, summary_topic)
+        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+
+        return Response(
+            {
+                "success": True,
+                "syntheticId": synthetic_id,
+                "imagePath": image_path,
+                "frameInfo": record_frame_info,
+                "ocr": record_ocr,
+                "objectDetection": record_object_detection,
+                "colorFeature": record_color_feature,
+                "spaceRecognition": record_space_recognition,
+                "summary": record_summary
+            }, 
+            status=status.HTTP_200_OK,
+            content_type="application/json"
+        )
