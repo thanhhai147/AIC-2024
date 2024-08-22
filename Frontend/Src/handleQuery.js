@@ -16,7 +16,7 @@ submit.addEventListener("click", e => {
     .then(data => {
         localStorage.setItem("syntheticId", data.syntheticId)
         if(data.success) HandleFrame.loadFrame(
-            data.imagePath, 
+            data.syntheticId, 
             data.objectDetection, 
             data.ocr, 
             data.colorFeature, 
@@ -25,7 +25,10 @@ submit.addEventListener("click", e => {
         )
         return data.syntheticId
     })
-    .then(syntheticIdList => Promise.all(syntheticIdList.map(syntheticId => loadImage(syntheticId))))
+    .then(syntheticIdList => {
+        return Promise.all(syntheticIdList.map(syntheticId => loadImage(syntheticId)));
+    })
+    .then(() => console.log("finish"))
     .catch(err => {
         console.log(err)
     })

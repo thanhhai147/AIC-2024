@@ -17,7 +17,7 @@ submit.addEventListener("click", e => {
     .then(data => {
         localStorage.setItem("syntheticId", data.syntheticId)
         if(data.success) HandleFrame.loadFrame(
-            data.imagePath, 
+            data.syntheticId, 
             data.objectDetection, 
             data.ocr, 
             data.colorFeature, 

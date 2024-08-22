@@ -147,8 +147,8 @@ class HandleFrame {
         singleResultContainer.style.display = 'block'
     }
 
-    static loadFrame(imgPath, objectDetection, ocr, colorFeature, spaceRecognition, summary) {
-        if (!imgPath) return
+    static loadFrame(syntheticId, objectDetection, ocr, colorFeature, spaceRecognition, summary) {
+        if (!syntheticId) return
         let multipleResultContainer = document.getElementById("multiple-results")
         let frameList = document.getElementById("frame-list-container")
         
@@ -157,16 +157,15 @@ class HandleFrame {
         frameList.setAttribute("id", "frame-list-container")
         multipleResultContainer.appendChild(frameList)
 
-        imgPath.forEach((path, idx) => {
+        syntheticId.forEach((singleSyntheticId, idx) => {
             let frameContainer = document.createElement("div")
 
             frameContainer.setAttribute("class", "frame-container")
             
-            let paramPath = path.split("\\")
-            let paramPathLength = paramPath.length
-            let frameId = paramPath[paramPathLength - 1].split(".")[0]
-            let videoId = paramPath[paramPathLength - 2]
-            let folderId = paramPath[paramPathLength - 3]
+            let syntheticIdSplit = singleSyntheticId.split("_")
+            let frameId = syntheticIdSplit[2]
+            let videoId = syntheticIdSplit[1]
+            let folderId = syntheticIdSplit[0]
 
             let canvas = document.createElement('canvas')
             canvas.id = `canvas-${folderId}-${videoId}-${frameId}`
@@ -208,22 +207,21 @@ class HandleFrame {
         });
     }
 
-    static loadRelevanceFrame(imgPath, objectDetection, ocr, colorFeature, spaceRecognition, summary) {    
+    static loadRelevanceFrame(syntheticId, objectDetection, ocr, colorFeature, spaceRecognition, summary) {    
         frameList.remove()
         frameList = document.createElement("div")
         frameList.setAttribute("id", "relevance-frame-list-container")
         multipleRelevanceResultContainer.appendChild(frameList)
 
-        imgPath.forEach((path, idx) => {
+        syntheticId.forEach((singleSyntheticId, idx) => {
             let frameContainer = document.createElement("div")
 
             frameContainer.setAttribute("class", "frame-container")
 
-            let paramPath = path.split("\\")
-            let paramPathLength = paramPath.length
-            let frameId = paramPath[paramPathLength - 1].split(".")[0]
-            let videoId = paramPath[paramPathLength - 2]
-            let folderId = paramPath[paramPathLength - 3]
+            let syntheticIdSplit = singleSyntheticId.split("_")
+            let frameId = syntheticIdSplit[2]
+            let videoId = syntheticIdSplit[1]
+            let folderId = syntheticIdSplit[0]
 
             let canvas = document.createElement('canvas')
             canvas.id = `canvas-relevance-${folderId}-${videoId}-${frameId}`

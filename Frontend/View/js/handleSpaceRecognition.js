@@ -360,16 +360,21 @@ let filterSpaceList = spaceList
 
 const checkIconPath = ['../assets/icon/unchecked.png', '../assets/icon/check.png'] 
 let chosenSpaceList = new Set()
+let chosenFilterSpaceList = new Set()
 let spaceContainer = document.getElementById('space-filter-list')
 let spaceInput = document.getElementById('space-filter')
 let spaceClear = document.getElementById('space-filter-clear')
+let spaceOnly = document.getElementById("space-filter-only")
+let checkOnly = false
 
-const handleCheckSpace = (space, checkIcon) => {
+const handleCheckSpace = (fullSpace, engSpace, checkIcon) => {
     if (checkIcon.getAttribute("src") === checkIconPath[0]) {
-        chosenSpaceList.add(space)
+        chosenFilterSpaceList.add(fullSpace)
+        chosenSpaceList.add(engSpace)
         checkIcon.setAttribute("src", checkIconPath[1])
     } else {
-        chosenSpaceList.delete(space)
+        chosenFilterSpaceList.delete(fullSpace)
+        chosenSpaceList.delete(engSpace)
         checkIcon.setAttribute("src", checkIconPath[0])
     }
 }
@@ -391,7 +396,7 @@ const showSpace = (spaceList) => {
         let checkIcon = document.createElement("img")
         checkIcon.className = 'filter-check-icon'
         checkIcon.src = chosenSpaceList.has(engSpace) ? checkIconPath[1] : checkIconPath[0]
-        checkIcon.addEventListener("click", e => handleCheckSpace(engSpace, checkIcon))
+        checkIcon.addEventListener("click", e => handleCheckSpace(space, engSpace, checkIcon))
     
         spaceWrapper.appendChild(spaceText)
         spaceWrapper.appendChild(checkIcon)
@@ -415,6 +420,12 @@ spaceInput.addEventListener("input", e => {
 spaceClear.addEventListener("click", e => {
     chosenSpaceList.clear()
     showSpace(filterSpaceList)
+})
+
+spaceOnly.addEventListener("click", e => {
+    if (!checkOnly) showSpace(chosenFilterSpaceList)
+    else showSpace(filterSpaceList)
+    checkOnly = !checkOnly
 })
 
 export default chosenSpaceList

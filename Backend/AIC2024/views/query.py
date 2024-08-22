@@ -12,8 +12,8 @@ from ..AI_models.query_processing import Translation
 from ..DB_models.frame_DAO import FrameDAO
 from ..DB_models.utils import Utils
 
-FULL_PATH_FRAME_DATASET = 'D:\\Dataset AIC\\2024\\KeyFrame(360p)'
-FULL_PATH_VIDEO_DATASET = 'D:\\Dataset AIC\\2024\\Videos'
+FULL_PATH_FRAME_DATASET = 'D:\\Dataset AIC\\2024 - Round 1\\KeyFrame(360p)'
+FULL_PATH_VIDEO_DATASET = 'D:\\Dataset AIC\\2024 - Round 1\\Videos'
 translate = Translation()
 
 FD = FrameDAO()
@@ -31,21 +31,35 @@ class QueryAPIView(GenericAPIView):
         clip_proportion = int(clip_proportion) / 100
 
         idx_frame, scores = CF.search_textual_query(translate(query_search_text), limit, bert_proportion, clip_proportion)
+        
+        # records = FD.filterFrameBySyntheticId(idx_frame)
+        # synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
 
-        records = FD.filterFrameBySyntheticId(idx_frame)
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+        # return Response(
+        #     {
+        #         "success": True,
+        #         "syntheticId": synthetic_id,
+        #         "imagePath": image_path,
+        #         "frameInfo": record_frame_info,
+        #         "ocr": record_ocr,
+        #         "objectDetection": record_object_detection,
+        #         "colorFeature": record_color_feature,
+        #         "spaceRecognition": record_space_recognition,
+        #         "summary": record_summary
+        #     }, 
+        #     status=status.HTTP_200_OK
+        # )
 
         return Response(
             {
                 "success": True,
-                "syntheticId": synthetic_id,
-                "imagePath": image_path,
-                "frameInfo": record_frame_info,
-                "ocr": record_ocr,
-                "objectDetection": record_object_detection,
-                "colorFeature": record_color_feature,
-                "spaceRecognition": record_space_recognition,
-                "summary": record_summary
+                "syntheticId": idx_frame,
+                "frameInfo": [],
+                "ocr": [],
+                "objectDetection": [],
+                "colorFeature": [],
+                "spaceRecognition": [],
+                "summary": []
             }, 
             status=status.HTTP_200_OK
         )
@@ -121,7 +135,7 @@ class QueryImageAPIView(GenericAPIView):
         params = request.query_params
         synthetic_id = params['synthetic-id']
         folder_id, video_id, frame_id = synthetic_id.split("_")
-        img_path = os.path.join(FULL_PATH_FRAME_DATASET, folder_id, video_id, f'{frame_id}.webp')
+        img_path = os.path.join(FULL_PATH_FRAME_DATASET, folder_id, f'{folder_id}_{video_id}', f'{frame_id}.webp')
         return FileResponse(open(img_path, 'rb'), content_type='image/webp')
 
 class QueryVideoAPIView(GenericAPIView):
@@ -131,5 +145,5 @@ class QueryVideoAPIView(GenericAPIView):
         start_time = params['start-time']
         end_time = params['end-time']
         folder_id, _, video_id = synthetic_id.split("_")
-        img_path = os.path.join(FULL_PATH_VIDEO_DATASET, folder_id, f'{folder_id}_{video_id}.mp4')
-        return FileResponse(open(img_path, 'rb'), content_type='video/mp4')
+        video_path = os.path.join(FULL_PATH_VIDEO_DATASET, folder_id, f'{folder_id}_{video_id}.mp4')
+        return FileResponse(open(video_path, 'rb'), content_type='video/mp4')

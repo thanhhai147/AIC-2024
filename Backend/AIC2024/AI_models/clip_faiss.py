@@ -27,7 +27,7 @@ class ExtendedBert(nn.Module):
 class ClipFaiss:
     def __init__(self):
         os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-        self.index = faiss.read_index('D:/AIC 2024/AIC-2024/Backend/AIC2024/AI_models/faiss_clipv2_cosine_ViT-B-16-SigLIP-512.bin')
+        self.index = faiss.read_index('D:/AIC 2024/AIC-2024/Backend/AIC2024/AI_models/faiss_clipv2_cosine.bin')
         self.clipv2_tokenizer = open_clip.get_tokenizer('ViT-B-16-SigLIP-512')
         # device = "cuda" if torch.cuda.is_available() else "cpu"
         self.device = "cpu"

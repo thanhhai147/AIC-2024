@@ -17,16 +17,21 @@ let filterTopicList = topicList
 
 const checkIconPath = ['../assets/icon/unchecked.png', '../assets/icon/check.png'] 
 let chosenTopicList = new Set()
+let chosenFilterTopicList = new Set()
 let summaryContainer = document.getElementById('summary-filter-list')
 let summaryInput = document.getElementById('summary-filter')
 let summaryClear = document.getElementById('summary-filter-clear')
+let summaryOnly = document.getElementById("summary-filter-only")
+let checkOnly = false
 
-const handleCheckTopic = (topic, checkIcon) => {
+const handleCheckTopic = (fullTopic, engTopic, checkIcon) => {
     if (checkIcon.getAttribute("src") === checkIconPath[0]) {
-        chosenTopicList.add(topic)
+        chosenFilterTopicList.add(fullTopic)
+        chosenTopicList.add(engTopic)
         checkIcon.setAttribute("src", checkIconPath[1])
     } else {
-        chosenTopicList.delete(topic)
+        chosenFilterTopicList.delete(fullTopic)
+        chosenTopicList.delete(engTopic)
         checkIcon.setAttribute("src", checkIconPath[0])
     }
 }
@@ -48,7 +53,7 @@ const showTopic = (topicList) => {
         let checkIcon = document.createElement("img")
         checkIcon.className = 'filter-check-icon'
         checkIcon.src = chosenTopicList.has(engTopic) ? checkIconPath[1] : checkIconPath[0]
-        checkIcon.addEventListener("click", e => handleCheckTopic(engTopic, checkIcon))
+        checkIcon.addEventListener("click", e => handleCheckTopic(topic, engTopic, checkIcon))
     
         summaryWrapper.appendChild(topicText)
         summaryWrapper.appendChild(checkIcon)
@@ -72,6 +77,12 @@ summaryInput.addEventListener("input", e => {
 summaryClear.addEventListener("click", e => {
     chosenTopicList.clear()
     showTopic(filterTopicList)
+})
+
+summaryOnly.addEventListener("click", e => {
+    if (!checkOnly) showTopic(chosenFilterTopicList)
+    else showTopic(filterTopicList)
+    checkOnly = !checkOnly
 })
 
 export default chosenTopicList

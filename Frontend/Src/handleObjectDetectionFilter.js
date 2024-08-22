@@ -22,7 +22,7 @@ objectDetectionSubmit.addEventListener("click", e => {
     .then(res => res.json())
     .then(data => {
         if(data.success) HandleFrame.loadFrame(
-            data.imagePath, 
+            data.syntheticId, 
             data.objectDetection, 
             data.ocr, 
             data.colorFeature, 
@@ -48,7 +48,7 @@ objectDetectionAllSubmit.addEventListener("click", e => {
     .then(res => res.json())
     .then(data => {
         if(data.success) HandleFrame.loadFrame(
-            data.imagePath, 
+            data.syntheticId, 
             data.objectDetection, 
             data.ocr, 
             data.colorFeature, 
@@ -75,7 +75,7 @@ objectDetectionRelevanceSubmit.addEventListener("click", e => {
     .then(res => res.json())
     .then(data => {
         if(data.success) HandleFrame.loadRelevanceFrame(
-            data.imagePath, 
+            data.syntheticId, 
             data.objectDetection, 
             data.ocr, 
             data.colorFeature, 
