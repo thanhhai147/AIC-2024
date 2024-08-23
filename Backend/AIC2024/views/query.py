@@ -81,20 +81,34 @@ class QueryRelevanceAPIView(GenericAPIView):
 
         idx_frame, scores = CF.search_textual_image_query(translate(query_search_text), query_search_image, text_proportion, image_proportion, limit, bert_proportion, clip_proportion)
         
-        records = FD.filterFrameBySyntheticId(idx_frame)
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+        # records = FD.filterFrameBySyntheticId(idx_frame)
+        # synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+
+        # return Response(
+        #     {
+        #         "success": True,
+        #         "syntheticId": synthetic_id,
+        #         "imagePath": image_path,
+        #         "frameInfo": record_frame_info,
+        #         "ocr": record_ocr,
+        #         "objectDetection": record_object_detection,
+        #         "colorFeature": record_color_feature,
+        #         "spaceRecognition": record_space_recognition,
+        #         "summary": record_summary
+        #     }, 
+        #     status=status.HTTP_200_OK
+        # )
 
         return Response(
             {
                 "success": True,
-                "syntheticId": synthetic_id,
-                "imagePath": image_path,
-                "frameInfo": record_frame_info,
-                "ocr": record_ocr,
-                "objectDetection": record_object_detection,
-                "colorFeature": record_color_feature,
-                "spaceRecognition": record_space_recognition,
-                "summary": record_summary
+                "syntheticId": idx_frame,
+                "frameInfo": [],
+                "ocr": [],
+                "objectDetection": [],
+                "colorFeature": [],
+                "spaceRecognition": [],
+                "summary": []
             }, 
             status=status.HTTP_200_OK
         )
@@ -112,20 +126,33 @@ class QueryRerankingAPIView(GenericAPIView):
 
         idx_frame, scores = CF.search_textual_image_reranking_query(translate(text_query), image_query, limit, bert_proportion, clip_proportion)
         
-        records = FD.filterFrameBySyntheticId(idx_frame)
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+        # records = FD.filterFrameBySyntheticId(idx_frame)
+        # synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
 
+        # return Response(
+        #     {
+        #         "success": True,
+        #         "syntheticId": synthetic_id,
+        #         "imagePath": image_path,
+        #         "frameInfo": record_frame_info,
+        #         "ocr": record_ocr,
+        #         "objectDetection": record_object_detection,
+        #         "colorFeature": record_color_feature,
+        #         "spaceRecognition": record_space_recognition,
+        #         "summary": record_summary
+        #     }, 
+        #     status=status.HTTP_200_OK
+        # )
         return Response(
             {
                 "success": True,
-                "syntheticId": synthetic_id,
-                "imagePath": image_path,
-                "frameInfo": record_frame_info,
-                "ocr": record_ocr,
-                "objectDetection": record_object_detection,
-                "colorFeature": record_color_feature,
-                "spaceRecognition": record_space_recognition,
-                "summary": record_summary
+                "syntheticId": idx_frame,
+                "frameInfo": [],
+                "ocr": [],
+                "objectDetection": [],
+                "colorFeature": [],
+                "spaceRecognition": [],
+                "summary": []
             }, 
             status=status.HTTP_200_OK
         )

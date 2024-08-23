@@ -28,7 +28,6 @@ submit.addEventListener("click", e => {
     .then(syntheticIdList => {
         return Promise.all(syntheticIdList.map(syntheticId => loadImage(syntheticId)));
     })
-    .then(() => console.log("finish"))
     .catch(err => {
         console.log(err)
     })
