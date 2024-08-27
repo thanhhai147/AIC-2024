@@ -1,17 +1,15 @@
 import os
-import glob
 import faiss
 import numpy as np
-from tqdm import tqdm
 import open_clip
-import torch
 import torch.nn as nn
 from transformers import BertModel, BertTokenizer
 import json
-import cv2 
-import matplotlib.pyplot as plt
-from PIL import Image 
 import time
+import warnings
+
+# Suppress all warnings
+warnings.filterwarnings("ignore")
 
 class ExtendedBert(nn.Module):
     def __init__(self, bert_model_name='bert-base-uncased'):
