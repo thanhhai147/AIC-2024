@@ -1,20 +1,16 @@
 from rest_framework.response import Response
-from django.http import HttpResponse, FileResponse
+from django.http import FileResponse
 from rest_framework.generics import GenericAPIView
 from rest_framework import status
 import os
-import io
-import gzip
 
 from ..AI_models.clip_faiss import ClipFaiss
-from ..AI_models.query_processing import Translation
 
 from ..DB_models.frame_DAO import FrameDAO
 from ..DB_models.utils import Utils
 
 FULL_PATH_FRAME_DATASET = 'D:\\Dataset AIC\\2024 - Round 1\\KeyFrame(360p)'
 FULL_PATH_VIDEO_DATASET = 'D:\\Dataset AIC\\2024 - Round 1\\Videos'
-translate = Translation()
 
 FD = FrameDAO()
 DB_utils = Utils()
@@ -30,7 +26,7 @@ class QueryAPIView(GenericAPIView):
         bert_proportion = int(bert_proportion) / 100
         clip_proportion = int(clip_proportion) / 100
 
-        idx_frame, scores = CF.search_textual_query(translate(query_search_text), limit, bert_proportion, clip_proportion)
+        idx_frame, scores = CF.search_textual_query(query_search_text, limit, bert_proportion, clip_proportion)
         
         # records = FD.filterFrameBySyntheticId(idx_frame)
         # synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
