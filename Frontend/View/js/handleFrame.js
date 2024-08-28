@@ -2,7 +2,7 @@ import { addRelevanceFrame } from "./handleRelevance.js"
 import loadVideo from "../../Src/handleVideo.js"
 import { openLoading, closeLoading } from "./handleLoading.js"
 
-let playIconPath = ['/Frontend/View/assets/icon/pause.png', '/Frontend/View/assets/icon/play.png']
+let playIconPath = ['../assets/icon/pause.png', '../assets/icon/play.png']
 
 let singleResultContainer = document.getElementById("single-result")
 let idContainer = document.getElementById("single-frame-id")
@@ -119,7 +119,7 @@ class HandleFrame {
         //     topicDisplay.setAttribute('class', 'single-frame-summary-item')
         //     topicDisplay.innerHTML = topic
         //     summaryContainer.appendChild(topicDisplay)
-        // }) 
+        // })
         
         const cancelDetailFrame = () => {
             play.setAttribute('src', playIconPath[1])
@@ -142,6 +142,7 @@ class HandleFrame {
         })
 
         closeLoading()
+
         multipleResultContainer.style.filter = 'blur(4px)'
         toolbar.style.filter = 'blur(4px)'
         singleResultContainer.style.display = 'block'

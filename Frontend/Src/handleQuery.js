@@ -14,7 +14,7 @@ submit.addEventListener("click", e => {
     QueryAPI.query(textQuery.value, limitQuery.value, queryProportion.bert, queryProportion.clip)
     .then(res => res.json())
     .then(data => {
-        localStorage.setItem("syntheticId", data.syntheticId)
+        localStorage.setItem("syntheticId", data.syntheticId) 
         if(data.success) HandleFrame.loadFrame(
             data.syntheticId, 
             data.objectDetection, 
