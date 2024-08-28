@@ -32,11 +32,9 @@ function loadRelevanceImage(syntheticId) {
         frame.src = imageURL
         frame.onload = () => {
             ctx.drawImage(frame, 0, 0, 480, 360, 0, 0, 300, 150)
+            URL.revokeObjectURL(imageURL)
         }
         return imageURL
-    })
-    .then(imageURL => {
-        URL.revokeObjectURL(imageURL)
     })
     .catch(err => {
         console.log(err)
