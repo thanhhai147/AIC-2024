@@ -73,7 +73,7 @@ summaryAllSubmit.addEventListener("click", e => {
     let spaceRecognition = JSON.parse(localStorage.getItem("spaceRecognition"))
     let summaryTopic = Array.from(chosenTopicList)
     localStorage.setItem("summaryTopic", JSON.stringify(summaryTopic))
-    FilterAPI.filterByAllModels(ocr, objectDetection, colorFeature, spaceRecognition, summaryTopic)
+    FilterAPI.filterAllByAllModels(ocr, objectDetection, colorFeature, spaceRecognition, summaryTopic)
     .then(res => res.json())
     .then(data => {
         if(data.success) HandleFrame.loadFrame(

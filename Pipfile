@@ -70,6 +70,7 @@ winkerberos = "*"
 daphne = "*"
 channels = "*"
 transformers = "*"
+pymilvus = "*"
 
 [dev-packages]
 

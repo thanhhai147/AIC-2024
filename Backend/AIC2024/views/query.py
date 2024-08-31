@@ -128,4 +128,4 @@ class QueryVideoAPIView(GenericAPIView):
         end_time = params['end-time']
         folder_id, _, video_id = synthetic_id.split("_")
         video_path = os.path.join(FULL_PATH_VIDEO_DATASET, folder_id, f'{folder_id}_{video_id}.mp4')
-        return FileResponse(open(video_path, 'rb'), content_type='video/mp4')
+        return FileResponse(open(video_path, 'rb'), content_type='video/mkv')
