@@ -3,10 +3,10 @@ import json
 from tqdm import tqdm
 from frame_DAO import FrameDAO
 
-OBJECT_DETECTION_PATH = 'D:/Dataset AIC/2024 - Round 1/Object Detection'
-OCR_PATH = 'D:/Dataset AIC/2024 - Round 1/OCR'
-COLOR_PATH = 'D:/Dataset AIC/2024 - Round 1/Color Feature'
-SPACE_PATH = 'D:/Dataset AIC/2024 - Round 1/Semantic Concept'
+OBJECT_DETECTION_PATH = "D:/AIC2024/Dataset AIC/2024 - round 1/Object Detection"
+OCR_PATH = "D:/AIC2024/Dataset AIC/2024 - round 1/OCR"
+COLOR_PATH = "D:/AIC2024/Dataset AIC/2024 - round 1/Color Feature"
+SPACE_PATH = "D:/AIC2024/Dataset AIC/2024 - round 1/Semantic Concept"
 
 FD = FrameDAO()
 
