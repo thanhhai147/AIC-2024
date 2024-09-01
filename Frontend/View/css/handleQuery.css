@@ -143,10 +143,9 @@ input[type="range"]::-webkit-slider-thumb {
     color: gray;
 }
 
-.show-relevance-proportion::after {
-    content: "%";
-}
-
-.show-proportion::after {
-    content: "%";
+.show-relevance-proportion, .show-proportion {
+    border: none;
+    width: 15%;
+    background-color: var(--background-color-2);
+    text-align: center;
 }

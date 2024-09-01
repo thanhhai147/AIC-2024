@@ -2,8 +2,8 @@ let relevanceFeedbackData = {
     textual: null,
     image: {},
     proportion: {
-        text: 0.5,
-        image: 0.5
+        text: 55,
+        image: 45
     }
 }
 
@@ -13,8 +13,18 @@ let imageProportion = document.getElementById("image-relevance-proportion")
 let textRelevance = document.getElementById("text-relevance")
 
 proportionInput.addEventListener("input", e => {
-    textProportion.innerHTML = e.target.value
-    imageProportion.innerHTML = 100 - e.target.value
+    textProportion.value = e.target.value
+    imageProportion.value = 100 - e.target.value
+})
+
+textProportion.addEventListener("input", e => {
+    imageProportion.value = 100 - e.target.value
+    proportionInput.value = e.target.value
+})
+
+imageProportion.addEventListener("input", e => {
+    textProportion.value = 100 - e.target.value
+    proportionInput.value = 100 - e.target.value
 })
 
 const addRelevanceFrame = (e, frameInfo) => {

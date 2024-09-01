@@ -24,9 +24,9 @@
                 <p class="h1-text">Query</p>
                 <div id="proportion-container">
                     <span class="normal-text">Bert</span>
-                    <span id="bert-proportion" class="show-proportion normal-text">0</span>
+                    <input id="bert-proportion" class="show-proportion normal-text" type="number" min="0" max="100" step="1" value="0" />
                     <input id="proportion" class="normal-text" name="proportion" type="range" value="0" />
-                    <span id="clip-proportion" class="show-proportion normal-text">100</span>
+                    <input id="clip-proportion" class="show-proportion normal-text" type="number" min="0" max="100" step="1" value="100" />
                     <span class="normal-text">Clip</span>
                 </div>
                 <img id="query-visibility-icon" class="visibility-icon" src="../assets/icon/down.png" />
@@ -62,9 +62,9 @@
                 </div>
                 <div id="proportion-relevance-container">
                     <span class="normal-text">Text</span>
-                    <span id="text-relevance-proportion" class="show-relevance-proportion normal-text">50</span>
-                    <input id="proportion-relevance" class="normal-text" name="proportion-relevance" type="range" />
-                    <span id="image-relevance-proportion" class="show-relevance-proportion normal-text">50</span>
+                    <input id="text-relevance-proportion" class="show-relevance-proportion normal-text" type="number" min="0" max="100" step="1" value="55" />
+                    <input id="proportion-relevance" class="normal-text" name="proportion-relevance" type="range" value="55" />
+                    <input id="image-relevance-proportion" class="show-relevance-proportion normal-text" type="number" min="0" max="100" step="1" value="45" />
                     <span class="normal-text">Image</span>
                 </div>
                 <div id="limit-relevance-container">

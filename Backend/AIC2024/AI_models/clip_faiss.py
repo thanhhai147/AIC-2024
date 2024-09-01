@@ -34,7 +34,7 @@ class ClipFaiss:
         with open("D:/AIC2024/Dataset AIC/2024 - round 1/Faiss/output.json") as f:
             data = json.load(f)
         self.output = data
-        with open("D:/AIC2024/Dataset AIC/2024 - round 1/Faiss/output.json") as f:
+        with open("D:/AIC2024/Dataset AIC/2024 - round 1/Faiss/outputV2.json") as f:
             data = json.load(f)
         self.outputV2 = data 
         self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')

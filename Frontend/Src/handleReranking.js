@@ -16,6 +16,7 @@ submit.addEventListener("click", e => {
     .then(res => res.json())
     .then(data => {
         localStorage.setItem("syntheticId", data.syntheticId)
+        console.log(data.syntheticId)
         if(data.success) HandleFrame.loadFrame(
             data.syntheticId, 
             data.objectDetection, 

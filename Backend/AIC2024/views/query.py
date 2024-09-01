@@ -9,8 +9,8 @@ from ..AI_models.clip_faiss import ClipFaiss
 from ..DB_models.frame_DAO import FrameDAO
 from ..DB_models.utils import Utils
 
-FULL_PATH_FRAME_DATASET = 'D:\\Dataset AIC\\2024 - Round 1\\KeyFrame(360p)'
-FULL_PATH_VIDEO_DATASET = 'D:\\Dataset AIC\\2024 - Round 1\\Compressed with audio'
+FULL_PATH_FRAME_DATASET = "D:/AIC2024/Dataset AIC/2024 - round 1/Frames"
+FULL_PATH_VIDEO_DATASET = "D:/AIC2024/Dataset AIC/2024 - round 1/Videos"
 
 FD = FrameDAO()
 DB_utils = Utils()
@@ -60,6 +60,8 @@ class QueryRelevanceAPIView(GenericAPIView):
         image_proportion = int(relevance_query['proportion']['image']) / 100
         bert_proportion = int(bert_proportion) / 100
         clip_proportion = int(clip_proportion) / 100
+        
+        print(text_proportion, image_proportion, bert_proportion, clip_proportion)
 
         idx_frame, scores = CF.search_textual_image_query(query_search_text, query_search_image, text_proportion, image_proportion, limit, bert_proportion, clip_proportion)
         
