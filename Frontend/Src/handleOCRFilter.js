@@ -18,11 +18,12 @@ ocrSubmit.addEventListener("click", e => {
     let colorFeature = JSON.parse(localStorage.getItem("colorFeature"))
     let spaceRecognition = JSON.parse(localStorage.getItem("spaceRecognition"))
     let summaryTopic = JSON.parse(localStorage.getItem("summaryTopic"))
+    console.log(ocr)
     FilterAPI.filterByAllModels(syntheticId, ocr, objectDetection, colorFeature, spaceRecognition, summaryTopic)
     .then(res => res.json())
     .then(data => {
         if(data.success) HandleFrame.loadFrame(
-            data.imagePath, 
+            data.syntheticId, 
             data.objectDetection, 
             data.ocr, 
             data.colorFeature, 

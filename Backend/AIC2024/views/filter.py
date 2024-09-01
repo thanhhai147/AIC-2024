@@ -201,7 +201,7 @@ class FilterBySummaryAPIView(GenericAPIView):
                 content_type="application/json"
             )
 
-        records = FD.filterFrameBySpaceRecognition(synthetic_id_list, summary_topic)
+        records = FD.filterFrameBySummary(synthetic_id_list, summary_topic)
         
         synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
         

@@ -10,7 +10,7 @@ from ..DB_models.frame_DAO import FrameDAO
 from ..DB_models.utils import Utils
 
 FULL_PATH_FRAME_DATASET = 'D:\\Dataset AIC\\2024 - Round 1\\KeyFrame(360p)'
-FULL_PATH_VIDEO_DATASET = 'D:\\Dataset AIC\\2024 - Round 1\\Videos'
+FULL_PATH_VIDEO_DATASET = 'D:\\Dataset AIC\\2024 - Round 1\\Compressed with audio'
 
 FD = FrameDAO()
 DB_utils = Utils()
@@ -127,5 +127,5 @@ class QueryVideoAPIView(GenericAPIView):
         start_time = params['start-time']
         end_time = params['end-time']
         folder_id, _, video_id = synthetic_id.split("_")
-        video_path = os.path.join(FULL_PATH_VIDEO_DATASET, folder_id, f'{folder_id}_{video_id}.mp4')
-        return FileResponse(open(video_path, 'rb'), content_type='video/mp4')
+        video_path = os.path.join(FULL_PATH_VIDEO_DATASET, folder_id, f'{folder_id}_{video_id}.mkv')
+        return FileResponse(open(video_path, 'rb'), content_type='video/mkv')

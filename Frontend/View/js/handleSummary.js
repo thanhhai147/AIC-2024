@@ -1,16 +1,16 @@
 const topicList = [
-    "Science & Technology_Khoa học & Công nghệ",
-    "Social & Culture_Xã hội & Văn hóa",
-    "Politics_Chính trị",
-    "Economics_Kinh tế",
-    "Sport_Thể thao",
-    "Education_Giáo dục",
-    "Healthcare_Y tế",
-    "Environment_Môi trường",
-    "Accident & Disaster_Tai nạn & Thiên tai",
-    "Law & Security_Luật & An ninh",
-    "Travel & Food_Du lịch & Ẩm thực",
-    "Entertainment & Art_Giải trí & Nghệ thuật",
+    "science & technology_Khoa học & Công nghệ",
+    "social & culture_Xã hội & Văn hóa",
+    "politics_Chính trị",
+    "economy_Kinh tế",
+    "sport_Thể thao",
+    "education_Giáo dục",
+    "healthcare_Y tế",
+    "environment_Môi trường",
+    "accidents & disasters_Tai nạn & Thiên tai",
+    "law & security_Luật & An ninh",
+    "travel & food_Du lịch & Ẩm thực",
+    "entertainment & art_Giải trí & Nghệ thuật",
 ]
 
 let filterTopicList = topicList
