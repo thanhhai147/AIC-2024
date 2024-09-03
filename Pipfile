@@ -87,12 +87,9 @@ pyopenssl = "*"
 service-identity = "*"
 tokenizers = "*"
 tomli = "*"
-torch = "*"
-torchvision = "*"
-twisted = {extras = ["tls"], version = "*"}
+twisted = {extras = ["tls"] }
 txaio = "*"
 zope-interface = "*"
-torchaudio = "*"
 setuptools = "*"
 
 [dev-packages]
