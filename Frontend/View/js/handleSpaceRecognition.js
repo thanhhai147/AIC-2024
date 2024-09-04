@@ -418,6 +418,7 @@ spaceInput.addEventListener("input", e => {
 })
 
 spaceClear.addEventListener("click", e => {
+    spaceInput.value = null
     chosenSpaceList.clear()
     showSpace(filterSpaceList)
 })

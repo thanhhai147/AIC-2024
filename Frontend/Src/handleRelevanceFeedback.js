@@ -3,6 +3,7 @@ import QueryAPI from "../API/queryAPI.js"
 import { relevanceFeedbackData } from "../View/js/handleRelevance.js"
 import { openLoading, closeLoading } from "../View/js/handleLoading.js"
 import { loadRelevanceImage } from "./handleImage.js"
+import clearFilter from "./handleClearFilter.js"
 
 let limitQuery = document.getElementById("limit-relevance")
 let submit = document.getElementById("relevance-submit-btn")
@@ -14,6 +15,7 @@ submit.addEventListener("click", e => {
     let relevanceData = JSON.parse(JSON.stringify(relevanceFeedbackData))
     relevanceData.image = Object.keys(relevanceData.image)
     const queryProportion = JSON.parse(localStorage.getItem("queryProportion"))
+    clearFilter()
     QueryAPI.queryRelevance(relevanceData, limitQuery.value, queryProportion.bert, queryProportion.clip)
     .then(res => res.json())
     .then(data => { 

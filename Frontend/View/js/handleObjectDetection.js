@@ -826,6 +826,7 @@ ObjFilterOnly.addEventListener("click", e => {
 
 let ObjFilterClear = document.getElementById("obj-filter-clear")
 ObjFilterClear.addEventListener("click", e => {
+    objFilter.value = null
     for (let item in chosenLabels) delete chosenLabels[item]
     showFilterItem(filterObjectLabels)
 })

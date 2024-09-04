@@ -37,6 +37,7 @@ OCRInput.addEventListener("keypress", e => {
 
 let OCRClear = document.getElementById("ocr-filter-clear")
 OCRClear.addEventListener('click', e => {
+    OCRInput.value = null
     chosenOCR.clear()
     while (OCRList.lastChild) {
         OCRList.removeChild(OCRList.lastChild)

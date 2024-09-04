@@ -2,6 +2,7 @@ import HandleFrame from "../View/js/handleFrame.js"
 import { loadImage } from "./handleImage.js"
 import QueryAPI from "../API/queryAPI.js"
 import { openLoading, closeLoading } from "../View/js/handleLoading.js"
+import clearFilter from "./handleClearFilter.js"
 
 let textQuery = document.getElementById("text-query")
 let limitQuery = document.getElementById("limit-query")
@@ -11,6 +12,7 @@ submit.addEventListener("click", e => {
     if(!textQuery.value) return
     openLoading()
     const queryProportion = JSON.parse(localStorage.getItem("queryProportion"))
+    clearFilter()
     QueryAPI.query(textQuery.value, limitQuery.value, queryProportion.bert, queryProportion.clip)
     .then(res => res.json())
     .then(data => {

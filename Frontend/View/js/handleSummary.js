@@ -75,6 +75,7 @@ summaryInput.addEventListener("input", e => {
 })
 
 summaryClear.addEventListener("click", e => {
+    summaryInput.value = null
     chosenTopicList.clear()
     showTopic(filterTopicList)
 })
