@@ -7,6 +7,7 @@ from transformers import BertModel, BertTokenizer
 import json
 import time
 import warnings
+import torch
 
 # Suppress all warnings
 warnings.filterwarnings("ignore")
@@ -15,7 +16,7 @@ class ExtendedBert(nn.Module):
     def __init__(self, bert_model_name='bert-base-uncased'):
         super(ExtendedBert, self).__init__()
         self.bert = BertModel.from_pretrained(bert_model_name)
-        self.linear = nn.Linear(self.bert.config.hidden_size, 768)  # Adjust output size as needed
+        self.linear = nn.Linear(self.bert.config.hidden_size, 1152)  # Adjust output size as needed
 
     def forward(self, input_ids, attention_mask):
         last_hidden_state = self.bert(input_ids=input_ids, attention_mask=attention_mask).last_hidden_state
@@ -25,16 +26,16 @@ class ExtendedBert(nn.Module):
 class ClipFaiss:
     def __init__(self):
         os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-        self.index = faiss.read_index("D:/AIC2024/Dataset AIC/2024 - round 1/Faiss/faiss_clipv2_cosine.bin")
-        self.clipv2_tokenizer = open_clip.get_tokenizer('ViT-B-16-SigLIP-512')
-        # device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.device = "cpu"
-        self.feature_shape = 768
-        self.clipv2_model, _, _ = open_clip.create_model_and_transforms('ViT-B-16-SigLIP-512', device=self.device, pretrained='webli')
-        with open("D:/AIC2024/Dataset AIC/2024 - round 1/Faiss/output.json") as f:
+        self.index = faiss.read_index("E:/AIC2024/Dataset AIC/2024 - round 1/Faiss/faiss_clipv2_cosine_ViT-SO400M-14-SigLIP-384.bin")
+        self.clipv2_tokenizer = open_clip.get_tokenizer('ViT-SO400M-14-SigLIP-384')
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        print(self.device)
+        self.feature_shape = 1152
+        self.clipv2_model, _, _ = open_clip.create_model_and_transforms('ViT-SO400M-14-SigLIP-384', device=self.device, pretrained='webli')
+        with open("E:/AIC2024/Dataset AIC/2024 - round 1/Faiss/output.json") as f:
             data = json.load(f)
         self.output = data
-        with open("D:/AIC2024/Dataset AIC/2024 - round 1/Faiss/outputV2.json") as f:
+        with open("E:/AIC2024/Dataset AIC/2024 - round 1/Faiss/outputV2.json") as f:
             data = json.load(f)
         self.outputV2 = data 
         self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
