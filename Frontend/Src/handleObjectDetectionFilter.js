@@ -14,6 +14,7 @@ objectDetectionSubmit.addEventListener("click", e => {
     let syntheticId = localStorage.getItem("syntheticId").split(",")
     let ocr = localStorage.getItem("ocr")
     let objectDetection = Object.values(chosenLables)
+    objectDetection = objectDetection.map(object => ({...object, "color": Array.from(object.color)}))
     localStorage.setItem("objectDetection", JSON.stringify(objectDetection))
     let colorFeature = JSON.parse(localStorage.getItem("colorFeature"))
     let spaceRecognition = JSON.parse(localStorage.getItem("spaceRecognition"))

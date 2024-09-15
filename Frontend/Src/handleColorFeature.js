@@ -22,7 +22,7 @@ colorSubmit.addEventListener("click", e => {
     .then(res => res.json())
     .then(data => {
         if(data.success) HandleFrame.loadFrame(
-            data.imagePath, 
+            data.syntheticId, 
             data.objectDetection, 
             data.ocr, 
             data.colorFeature, 

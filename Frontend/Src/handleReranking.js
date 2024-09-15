@@ -2,6 +2,7 @@ import HandleFrame from "../View/js/handleFrame.js"
 import QueryAPI from "../API/queryAPI.js"
 import { openLoading, closeLoading } from "../View/js/handleLoading.js"
 import { loadImage } from "./handleImage.js"
+import clearFilter from "./handleClearFilter.js"
 
 let textRerankingQuery = document.getElementById("text-ranking-query")
 let limitQuery = document.getElementById("limit-ranking-query")
@@ -12,11 +13,11 @@ submit.addEventListener("click", e => {
     openLoading()
     let imageQuery = localStorage.getItem("syntheticId").split(",")
     const queryProportion = JSON.parse(localStorage.getItem("queryProportion"))
+    clearFilter()
     QueryAPI.queryReranking(imageQuery, textRerankingQuery.value, limitQuery.value, queryProportion.bert, queryProportion.clip)
     .then(res => res.json())
     .then(data => {
         localStorage.setItem("syntheticId", data.syntheticId)
-        console.log(data.syntheticId)
         if(data.success) HandleFrame.loadFrame(
             data.syntheticId, 
             data.objectDetection, 

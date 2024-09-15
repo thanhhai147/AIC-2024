@@ -270,7 +270,7 @@ class FrameDAO:
             and_query_list.append({
                 "$and": object_detection_query
             })
-        
+
         if (color_feature and len(color_feature) > 0):
             and_query_list.append({
                 "ColorFeature": {

@@ -63,6 +63,7 @@ colorInput.addEventListener("input", e => {
 })
 
 colorClear.addEventListener("click", e => {
+    colorInput.value = null
     chosenColorList.clear()
     showColor(filterColorList)
 })

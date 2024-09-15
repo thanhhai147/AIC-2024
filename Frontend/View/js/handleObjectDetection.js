@@ -602,6 +602,24 @@ const objectLabels = [
     "helmet_mũ bảo hiểm_600"
 ]
 
+const colorList = [
+    "red_rgb(255, 0, 0)_rgba(255, 0, 0, 0.5)",
+    "orange_rgb(255, 165, 0)_rgba(255, 165, 0, 0.5)",
+    "yellow_rgb(255, 255, 0)_rgba(255, 255, 0, 0.5)",
+    "chartreuse green_rgb(223, 255, 0)_rgba(223, 255, 0, 0.5)",
+    "green_rgb(0, 255, 0)_rgba(0, 255, 0, 0.5)",
+    "spring green_rgb(0, 255, 127)_rgba(0, 255, 127, 0.5)",
+    "CYAN_rgb(0, 255, 255)_rgba(0, 255, 255, 0.5)",
+    "Azure_rgb(0, 127, 255)_rgba(0, 127, 255, 0.5)",
+    "blue_rgb(0, 0, 255)_rgba(0, 0, 255, 0.5)",
+    "violet_rgb(127, 0, 255)_rgba(127, 0, 255, 0.5)",
+    "magenta_rgb(255, 0, 255)_rgba(255, 0, 255, 0.5)",
+    "rose_rgb(255, 0, 127)_rgba(255, 0, 127, 0.5)",
+    "black_rgb(0, 0, 0)_rgba(0, 0, 0, 0.3)",
+    "white_rgb(255, 255, 255)_rgba(255, 255, 255, 0.5)",
+    "gray_rgb(128, 128, 128)_rgba(128, 128, 128, 0.5)"
+]
+
 let filterObjectLabels = objectLabels
 let chosenLabels = {}
 
@@ -808,6 +826,7 @@ ObjFilterOnly.addEventListener("click", e => {
 
 let ObjFilterClear = document.getElementById("obj-filter-clear")
 ObjFilterClear.addEventListener("click", e => {
+    objFilter.value = null
     for (let item in chosenLabels) delete chosenLabels[item]
     showFilterItem(filterObjectLabels)
 })

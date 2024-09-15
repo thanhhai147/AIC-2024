@@ -15,16 +15,25 @@ let textRelevance = document.getElementById("text-relevance")
 proportionInput.addEventListener("input", e => {
     textProportion.value = e.target.value
     imageProportion.value = 100 - e.target.value
+
+    relevanceFeedbackData.proportion.text = textProportion.value
+    relevanceFeedbackData.proportion.image = imageProportion.value
 })
 
 textProportion.addEventListener("input", e => {
     imageProportion.value = 100 - e.target.value
     proportionInput.value = e.target.value
+
+    relevanceFeedbackData.proportion.text = textProportion.value
+    relevanceFeedbackData.proportion.image = imageProportion.value
 })
 
 imageProportion.addEventListener("input", e => {
     textProportion.value = 100 - e.target.value
     proportionInput.value = 100 - e.target.value
+
+    relevanceFeedbackData.proportion.text = textProportion.value
+    relevanceFeedbackData.proportion.image = imageProportion.value
 })
 
 const addRelevanceFrame = (e, frameInfo) => {
@@ -57,11 +66,6 @@ const removeRelevanceFrame = (e) => {
 
 textRelevance.addEventListener("input", e => {
     relevanceFeedbackData.textual = e.target.value
-})
-
-proportionInput.addEventListener("input", e => {
-    relevanceFeedbackData.proportion.text = textProportion.innerHTML
-    relevanceFeedbackData.proportion.image = imageProportion.innerHTML
 })
 
 let icon_path = ['../assets/icon/right arrow.png', '../assets/icon/left arrow.png']

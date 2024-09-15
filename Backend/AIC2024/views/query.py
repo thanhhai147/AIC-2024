@@ -60,8 +60,6 @@ class QueryRelevanceAPIView(GenericAPIView):
         image_proportion = int(relevance_query['proportion']['image']) / 100
         bert_proportion = int(bert_proportion) / 100
         clip_proportion = int(clip_proportion) / 100
-        
-        print(text_proportion, image_proportion, bert_proportion, clip_proportion)
 
         idx_frame, scores = CF.search_textual_image_query(query_search_text, query_search_image, text_proportion, image_proportion, limit, bert_proportion, clip_proportion)
         
