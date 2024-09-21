@@ -26,16 +26,16 @@ class ExtendedBert(nn.Module):
 class ClipFaiss:
     def __init__(self):
         os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-        self.index = faiss.read_index("E:/AIC2024/Dataset AIC/2024 - round 1/Faiss/faiss_clipv2_cosine_ViT-SO400M-14-SigLIP-384.bin")
+        self.index = faiss.read_index("D:/AIC2024/Dataset AIC/2024 - round 1/Faiss/faiss_clipv2_cosine.bin")
         self.clipv2_tokenizer = open_clip.get_tokenizer('ViT-SO400M-14-SigLIP-384')
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         print(self.device)
         self.feature_shape = 1152
         self.clipv2_model, _, _ = open_clip.create_model_and_transforms('ViT-SO400M-14-SigLIP-384', device=self.device, pretrained='webli')
-        with open("E:/AIC2024/Dataset AIC/2024 - round 1/Faiss/output.json") as f:
+        with open("D:/AIC2024/Dataset AIC/2024 - round 1/Faiss/output.json") as f:
             data = json.load(f)
         self.output = data
-        with open("E:/AIC2024/Dataset AIC/2024 - round 1/Faiss/outputV2.json") as f:
+        with open("D:/AIC2024/Dataset AIC/2024 - round 1/Faiss/outputV2.json") as f:
             data = json.load(f)
         self.outputV2 = data 
         self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')

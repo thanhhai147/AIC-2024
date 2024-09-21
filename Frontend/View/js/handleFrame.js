@@ -27,7 +27,7 @@ let endTime = null
 let targetTime = null
 
 let fps = 25
-let intervalTime = 20
+let intervalTime = 40
 
 class HandleFrame {
     static handlePlay () {
@@ -42,7 +42,7 @@ class HandleFrame {
     }
 
     static handleRewind() {
-        let rewindTime = video.currentTime - 1
+        let rewindTime = video.currentTime - 5
         if (rewindTime <= startTime) return
         video.currentTime = rewindTime
         video.play()
@@ -50,7 +50,7 @@ class HandleFrame {
     }
 
     static handleFastforward() {
-        let fastfowardTime = video.currentTime + 1
+        let fastfowardTime = video.currentTime + 5
         if (fastfowardTime >= endTime) return
         video.currentTime = fastfowardTime
         video.play()
