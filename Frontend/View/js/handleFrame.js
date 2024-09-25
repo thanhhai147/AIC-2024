@@ -65,7 +65,7 @@ class HandleFrame {
         }
     }
 
-    static async loadDetailFrame(folderId, videoId, frameId, objectDetection, ocr, colorFeature, spaceRecognition, summary) {
+    static async loadDetailFrame(folderId, videoId, frameId, fps, objectDetection, ocr, colorFeature, spaceRecognition, summary) {
         openLoading()
 
         targetTime = frameId / fps
@@ -148,7 +148,7 @@ class HandleFrame {
         singleResultContainer.style.display = 'block'
     }
 
-    static loadFrame(syntheticId, objectDetection, ocr, colorFeature, spaceRecognition, summary) {
+    static loadFrame(syntheticId, fps, objectDetection, ocr, colorFeature, spaceRecognition, summary) {
         if (!syntheticId) return
         let multipleResultContainer = document.getElementById("multiple-results")
         let frameList = document.getElementById("frame-list-container")
@@ -177,6 +177,7 @@ class HandleFrame {
                     folderId, 
                     videoId,
                     frameId, 
+                    fps[idx],
                     objectDetection[idx], 
                     ocr[idx], 
                     colorFeature[idx], 
@@ -208,7 +209,7 @@ class HandleFrame {
         });
     }
 
-    static loadRelevanceFrame(syntheticId, objectDetection, ocr, colorFeature, spaceRecognition, summary) {    
+    static loadRelevanceFrame(syntheticId, fps, objectDetection, ocr, colorFeature, spaceRecognition, summary) {    
         frameList.remove()
         frameList = document.createElement("div")
         frameList.setAttribute("id", "relevance-frame-list-container")
@@ -233,6 +234,7 @@ class HandleFrame {
                     folderId, 
                     videoId, 
                     frameId, 
+                    fps[idx],
                     objectDetection[idx], 
                     ocr[idx], 
                     colorFeature[idx], 

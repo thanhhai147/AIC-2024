@@ -29,12 +29,13 @@ class QueryAPIView(GenericAPIView):
         idx_frame, scores = CF.search_textual_query(query_search_text, limit, bert_proportion, clip_proportion)
         
         records = FD.filterFrameBySyntheticId(idx_frame)
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+        synthetic_id, fps, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
 
         return Response(
             {
                 "success": True,
                 "syntheticId": synthetic_id,
+                "fps": fps,
                 "imagePath": image_path,
                 "frameInfo": record_frame_info,
                 "ocr": record_ocr,
@@ -64,12 +65,13 @@ class QueryRelevanceAPIView(GenericAPIView):
         idx_frame, scores = CF.search_textual_image_query(query_search_text, query_search_image, text_proportion, image_proportion, limit, bert_proportion, clip_proportion)
         
         records = FD.filterFrameBySyntheticId(idx_frame)
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+        synthetic_id, fps, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
 
         return Response(
             {
                 "success": True,
                 "syntheticId": synthetic_id,
+                "fps": fps,
                 "imagePath": image_path,
                 "frameInfo": record_frame_info,
                 "ocr": record_ocr,
@@ -95,12 +97,13 @@ class QueryRerankingAPIView(GenericAPIView):
         idx_frame, scores = CF.search_textual_image_reranking_query(text_query, image_query, limit, bert_proportion, clip_proportion)
         
         records = FD.filterFrameBySyntheticId(idx_frame)
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+        synthetic_id, fps, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
 
         return Response(
             {
                 "success": True,
                 "syntheticId": synthetic_id,
+                "fps": fps,
                 "imagePath": image_path,
                 "frameInfo": record_frame_info,
                 "ocr": record_ocr,
