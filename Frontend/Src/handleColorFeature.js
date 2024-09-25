@@ -23,6 +23,7 @@ colorSubmit.addEventListener("click", e => {
     .then(data => {
         if(data.success) HandleFrame.loadFrame(
             data.syntheticId, 
+            data.fps,
             data.objectDetection, 
             data.ocr, 
             data.colorFeature, 
@@ -78,6 +79,7 @@ colorAllSubmit.addEventListener("click", e => {
     .then(data => {
         if(data.success) HandleFrame.loadFrame(
             data.syntheticId, 
+            data.fps,
             data.objectDetection, 
             data.ocr, 
             data.colorFeature, 

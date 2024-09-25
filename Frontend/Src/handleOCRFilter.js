@@ -24,6 +24,7 @@ ocrSubmit.addEventListener("click", e => {
     .then(data => {
         if(data.success) HandleFrame.loadFrame(
             data.syntheticId, 
+            data.fps,
             data.objectDetection, 
             data.ocr, 
             data.colorFeature, 
@@ -79,6 +80,7 @@ ocrAllSubmit.addEventListener("click", e => {
     .then(data => {
         if(data.success) HandleFrame.loadFrame(
             data.syntheticId, 
+            data.fps,
             data.objectDetection, 
             data.ocr, 
             data.colorFeature, 

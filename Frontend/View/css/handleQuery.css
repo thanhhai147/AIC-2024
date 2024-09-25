@@ -43,6 +43,7 @@
     border: 1px solid var(--primary-color-1);
     border-radius: var(--normal-border-radius);
     background-color: var(--background-color-2);
+    white-space: pre-wrap;
 }
 
 #relevance-container {
