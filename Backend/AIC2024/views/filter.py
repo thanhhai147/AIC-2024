@@ -29,12 +29,13 @@ class FilterByObjectDetectionAPIView(GenericAPIView):
 
         records = FD.filterFrameByObjectDetection(synthetic_id_list, object_detection)
          
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+        synthetic_id, fps, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
         
         return Response(
             {
                 "success": True,
                 "syntheticId": synthetic_id,
+                "fps": fps,
                 "imagePath": image_path,
                 "frameInfo": record_frame_info,
                 "ocr": record_ocr,
@@ -64,12 +65,13 @@ class FilterByOCRAPIView(GenericAPIView):
 
         records = FD.filterFrameByOCR(synthetic_id_list, ocr)
 
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+        synthetic_id, fps, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
         
         return Response(
             {
                 "success": True,
                 "syntheticId": synthetic_id,
+                "fps": fps,
                 "imagePath": image_path,
                 "frameInfo": record_frame_info,
                 "ocr": record_ocr,
@@ -98,12 +100,13 @@ class FilterByIdAPIView(GenericAPIView):
 
         records = FD.filterFrameBySyntheticId(synthetic_id_list)
 
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+        synthetic_id, fps, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
         
         return Response(
             {
                 "success": True,
                 "syntheticId": synthetic_id,
+                "fps": fps,
                 "imagePath": image_path,
                 "frameInfo": record_frame_info,
                 "ocr": record_ocr,
@@ -133,12 +136,13 @@ class FilterByColorFeatureAPIView(GenericAPIView):
 
         records = FD.filterFrameByColorFeature(synthetic_id_list, color_feature)
   
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+        synthetic_id, fps, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
         
         return Response(
             {
                 "success": True,
                 "syntheticId": synthetic_id,
+                "fps": fps,
                 "imagePath": image_path,
                 "frameInfo": record_frame_info,
                 "ocr": record_ocr,
@@ -168,12 +172,13 @@ class FilterBySpaceRecognitionAPIView(GenericAPIView):
 
         records = FD.filterFrameBySpaceRecognition(synthetic_id_list, space_recognition)
 
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+        synthetic_id, fps, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
         
         return Response(
             {
                 "success": True,
                 "syntheticId": synthetic_id,
+                "fps": fps,
                 "imagePath": image_path,
                 "frameInfo": record_frame_info,
                 "ocr": record_ocr,
@@ -203,12 +208,13 @@ class FilterBySummaryAPIView(GenericAPIView):
 
         records = FD.filterFrameBySummary(synthetic_id_list, summary_topic)
         
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+        synthetic_id, fps, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
         
         return Response(
             {
                 "success": True,
                 "syntheticId": synthetic_id,
+                "fps": fps,
                 "imagePath": image_path,
                 "frameInfo": record_frame_info,
                 "ocr": record_ocr,
@@ -232,12 +238,13 @@ class FilterByAllModelsAPIView(GenericAPIView):
         summary_topic = body['summaryTopic']
         
         records = FD.filterFrameByAllModels(synthetic_id_list, ocr,object_detection, color_feature, space_recognition, summary_topic)
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+        synthetic_id, fps, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
 
         return Response(
             {
                 "success": True,
                 "syntheticId": synthetic_id,
+                "fps": fps,
                 "imagePath": image_path,
                 "frameInfo": record_frame_info,
                 "ocr": record_ocr,
@@ -260,12 +267,13 @@ class FilterAllByAllModelsAPIView(GenericAPIView):
         summary_topic = body['summaryTopic']
         
         records = FD.filterAllFrameByAllModels(ocr, object_detection, color_feature, space_recognition, summary_topic)
-        synthetic_id, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
+        synthetic_id, fps, image_path, record_frame_info, record_ocr, record_object_detection, record_color_feature, record_space_recognition, record_summary =  DB_utils.handleRecords(records)
 
         return Response(
             {
                 "success": True,
                 "syntheticId": synthetic_id,
+                "fps": fps,
                 "imagePath": image_path,
                 "frameInfo": record_frame_info,
                 "ocr": record_ocr,
